@@ -1,0 +1,15 @@
+android {
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+}
+
+dependencies {
+	compile 'com.auth0.android:lock:1.9.+'
+	compile 'com.auth0.android:lock-facebook:2.0.+'
+	compile 'com.auth0.android:lock-googleplus:2.0.+'	
+}
