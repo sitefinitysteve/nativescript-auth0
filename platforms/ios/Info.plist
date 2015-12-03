@@ -15,7 +15,7 @@
 			<string>auth0</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>a0URLSCHEME-GOES-HERE</string>
+				<string>a0CLIENTID-GOES-HERE</string>
 			</array>
 		</dict>
 	</array>
