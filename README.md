@@ -29,3 +29,6 @@ This won't work yet until {N} can support impliments on the application
 [Auth0 Sample](https://auth0.com/docs/quickstart/native-mobile/android/aspnet-webapi#3-initialize-lock)
 
 [Git Issue #283](https://github.com/NativeScript/android-runtime/issues/283)
+
+## TODO
+- Only googleauth seems to showup
