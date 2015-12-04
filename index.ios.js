@@ -42,41 +42,60 @@ exports.show = function() {
 }
 
 //https://auth0.com/docs/libraries/lock-ios/customization
-exports.themePrimaryButton = function(normalColor, highlightColor, textColor){
+exports.themePrimaryButton = function(normalColor, highlightColor, textColor, font){
 	registerThemeColor(normalColor, "A0ThemePrimaryButtonNormalColor");
 	registerThemeColor(highlightColor, "A0ThemePrimaryButtonHighlightedColor");
 	registerThemeColor(textColor, "A0ThemePrimaryButtonTextColor");
+	
+	registerFont(font, "A0ThemePrimaryButtonFont");
 }
 
-exports.themeSecondaryButton = function(backgroundColor, textColor){
+exports.themeSecondaryButton = function(backgroundColor, textColor, font, normalImage, highlightedImage){
 	registerThemeColor(backgroundColor, "A0ThemeSecondaryButtonBackgroundColor");
 	registerThemeColor(textColor, "A0ThemeSecondaryButtonTextColor");
+	
+	registerFont(font, "A0ThemeSecondaryButtonFont");
+	
+	registerImage(normalImage, "A0ThemeSecondaryButtonNormalImageName");
+	registerImage(highlightedImage, "A0ThemeSecondaryButtonHighlightedImageName");
 }
 
-exports.themeTextField = function(textColor, placeholderTextColor, iconColor){
+exports.themeTextField = function(textColor, placeholderTextColor, iconColor, font){
 	registerThemeColor(textColor, "A0ThemeTextFieldTextColor");
 	registerThemeColor(placeholderTextColor, "A0ThemeTextFieldPlaceholderTextColor");
 	registerThemeColor(iconColor, "A0ThemeTextFieldIconColor");
+	
+	registerFont(font, "A0ThemeTextFieldFont");
 }
 
-exports.themeTitle = function(textColor){
+exports.themeTitle = function(textColor, font){
 	registerThemeColor(textColor, "A0ThemeTitleTextColor");
+	
+	registerFont(font, "A0ThemeTitleFont");
 }
 
-exports.themeIcon = function(backgroundColor){
+exports.themeIcon = function(backgroundColor, imageName){
 	registerThemeColor(backgroundColor, "A0ThemeIconBackgroundColor");
+	
+	registerThemeColor(imageName, "A0ThemeIconImageName");
 }
 
-exports.themeBackground = function(backgroundColor){
+exports.themeBackground = function(backgroundColor, imageName){
 	registerThemeColor(backgroundColor, "A0ThemeScreenBackgroundColor");
+	
+	registerThemeColor(imageName, "A0ThemeScreenBackgroundImageName");
 }
 
-exports.themeDescription = function(textColor){
+exports.themeDescription = function(textColor, font){
 	registerThemeColor(textColor, "A0ThemeDescriptionTextColor");
+	
+	registerFont(font, "A0ThemeDescriptionFont");
 }
 
-exports.themeSeperator = function(textColor){
+exports.themeSeperator = function(textColor, font){
 	registerThemeColor(textColor, "A0ThemeSeparatorTextColor");
+	
+	registerFont(font, "A0ThemeSeparatorTextFont");
 }
 
 exports.themeCredentialBox = function(borderColor, separatorColor, backgroundColor){
@@ -90,11 +109,33 @@ exports.themeCloseButton = function(tintColor){
 }
 
 function registerThemeColor(color, key){
-	if(theme === null){
-		theme = new A0Theme();
+	if(color != "undefined"){
+		if(theme === null){
+			theme = new A0Theme();
+		}
+		
+		theme.registerColorForKey(new colorModule.Color(color).ios, key);
 	}
-	
-	theme.registerColorForKey(new colorModule.Color(color).ios, key);
+}
+
+function registerImage(name, key){
+	if(name != "undefined"){
+		if(theme === null){
+			theme = new A0Theme();
+		}
+		
+		theme.registerImageWithName(name, key);
+	}
+}
+
+function registerFont(font, key){
+	if(font != "undefined"){
+		if(theme === null){
+			theme = new A0Theme();
+		}
+		
+		theme.registerFont(font, key);
+	}
 }
 
 function saveProfile(profile){
