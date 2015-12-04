@@ -1,4 +1,4 @@
-# Auth0 Social Plugin for the NativeScript framework (POC)
+# Auth0 Social Plugin for the NativeScript framework
 
 ## Setup
 - Login to your auth0 account, get your domain\clientid info
