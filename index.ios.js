@@ -34,6 +34,10 @@ exports.show = function() {
 	});
 }
 
+exports.theme = function(){
+	
+}
+
 function saveProfile(profile){
 	var userData = {
 		name: profile.name,
