@@ -1,5 +1,7 @@
 var appSettings = require("application-settings");
 var frameModule = require("ui/frame");
+var colorModule = require("color");
+var theme = null;
 
 exports.show = function() {
 	return new Promise(function (resolve, reject) {
@@ -7,8 +9,13 @@ exports.show = function() {
 			try
 			{
 				var page = frameModule.topmost().ios.controller;
-				var controller = global.a0lock.newLockViewController();
+				debugger;
 				
+				if(theme !== null){
+					A0Theme.sharedInstance().registerTheme(theme);
+				}
+				
+				var controller = global.a0lock.newLockViewController();
 				controller.onAuthenticationBlock = function(profile, token){
 					//Save profile
 					var profileData = saveProfile(profile);
@@ -34,8 +41,60 @@ exports.show = function() {
 	});
 }
 
-exports.theme = function(){
+//https://auth0.com/docs/libraries/lock-ios/customization
+exports.themePrimaryButton = function(normalColor, highlightColor, textColor){
+	registerThemeColor(normalColor, "A0ThemePrimaryButtonNormalColor");
+	registerThemeColor(highlightColor, "A0ThemePrimaryButtonHighlightedColor");
+	registerThemeColor(textColor, "A0ThemePrimaryButtonTextColor");
+}
+
+exports.themeSecondaryButton = function(backgroundColor, textColor){
+	registerThemeColor(backgroundColor, "A0ThemeSecondaryButtonBackgroundColor");
+	registerThemeColor(textColor, "A0ThemeSecondaryButtonTextColor");
+}
+
+exports.themeTextField = function(textColor, placeholderTextColor, iconColor){
+	registerThemeColor(textColor, "A0ThemeTextFieldTextColor");
+	registerThemeColor(placeholderTextColor, "A0ThemeTextFieldPlaceholderTextColor");
+	registerThemeColor(iconColor, "A0ThemeTextFieldIconColor");
+}
+
+exports.themeTitle = function(textColor){
+	registerThemeColor(textColor, "A0ThemeTitleTextColor");
+}
+
+exports.themeIcon = function(backgroundColor){
+	registerThemeColor(backgroundColor, "A0ThemeIconBackgroundColor");
+}
+
+exports.themeBackground = function(backgroundColor){
+	registerThemeColor(backgroundColor, "A0ThemeScreenBackgroundColor");
+}
+
+exports.themeDescription = function(textColor){
+	registerThemeColor(textColor, "A0ThemeDescriptionTextColor");
+}
+
+exports.themeSeperator = function(textColor){
+	registerThemeColor(textColor, "A0ThemeSeparatorTextColor");
+}
+
+exports.themeCredentialBox = function(borderColor, separatorColor, backgroundColor){
+	registerThemeColor(borderColor, "A0ThemeCredentialBoxBorderColor");
+	registerThemeColor(separatorColor, "A0ThemeCredentialBoxSeparatorColor");
+	registerThemeColor(backgroundColor, "A0ThemeCredentialBoxBackgroundColor");
+}
+
+exports.themeCloseButton = function(tintColor){
+	registerThemeColor(tintColor, "A0ThemeCloseButtonTintColor");
+}
+
+function registerThemeColor(color, key){
+	if(theme === null){
+		theme = new A0Theme();
+	}
 	
+	theme.registerColorForKey(new colorModule.Color(color).ios, key);
 }
 
 function saveProfile(profile){
