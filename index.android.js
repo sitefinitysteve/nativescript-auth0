@@ -24,11 +24,6 @@ exports.show = function(page) {
 	});
 }
 
-exports.registerTwitter = function(apiKey, secret) {
-	if(global.a0lock){			
-
-	}
-}
 
 function saveProfile(profile){
 	var userData = {

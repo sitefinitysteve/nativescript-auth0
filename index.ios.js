@@ -32,15 +32,6 @@ exports.show = function(page) {
 	});
 }
 
-exports.registerTwitter = function(apiKey, secret) {
-	if(global.a0lock){			
-		var authenticators = [];
-		var twitter = A0TwitterAuthenticator.newAuthenticatorWithKeyAndSecret(apiKey, secret)
-		authenticators.push(twitter);
-		global.a0lock.registerAuthenticators(authenticators);
-	}
-}
-
 function saveProfile(profile){
 	var userData = {
 		name: profile.name,

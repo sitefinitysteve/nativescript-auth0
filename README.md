@@ -31,6 +31,4 @@ This won't work yet until {N} can support impliments on the application
 [Git Issue #283](https://github.com/NativeScript/android-runtime/issues/283)
 
 ## TODO
-- Facebook
-- Twitter
 - Custom Login
