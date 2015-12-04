@@ -1,10 +1,12 @@
 var appSettings = require("application-settings");
+var frameModule = require("ui/frame");
 
-exports.show = function(page) {
+exports.show = function() {
 	return new Promise(function (resolve, reject) {
 		if(global.a0lock){
 			try
 			{
+				var page = frameModule.topmost().ios.controller;
 				var controller = global.a0lock.newLockViewController();
 				
 				controller.onAuthenticationBlock = function(profile, token){
@@ -14,7 +16,7 @@ exports.show = function(page) {
 					//Save token
 					var tokenData = saveToken(token);
 
-					page.ios.dismissViewControllerAnimatedCompletion(true, null);
+					page.dismissViewControllerAnimatedCompletion(true, null);
 					
 					resolve({
 						"profile": profileData,
@@ -22,7 +24,7 @@ exports.show = function(page) {
 						});
 						
 				}			
-				page.ios.presentViewControllerAnimatedCompletion(controller, true, null);
+				page.presentViewControllerAnimatedCompletion(controller, true, null);
 			}
 			catch(args){
 				reject(args);
