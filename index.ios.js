@@ -41,7 +41,10 @@ exports.show = function() {
 	});
 }
 
-//https://auth0.com/docs/libraries/lock-ios/customization
+// ###############################################################################
+// ## Style Methods
+// ## https://auth0.com/docs/libraries/lock-ios/customization
+// ###############################################################################
 exports.themePrimaryButton = function(normalColor, highlightColor, textColor, font){
 	registerThemeColor(normalColor, "A0ThemePrimaryButtonNormalColor");
 	registerThemeColor(highlightColor, "A0ThemePrimaryButtonHighlightedColor");
@@ -108,6 +111,9 @@ exports.themeCloseButton = function(tintColor){
 	registerThemeColor(tintColor, "A0ThemeCloseButtonTintColor");
 }
 
+// ###############################################################################
+// ## Functions
+// ###############################################################################
 function registerThemeColor(color, key){
 	if(color != "undefined"){
 		if(theme === null){
