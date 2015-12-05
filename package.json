@@ -1,6 +1,6 @@
 {
   "name": "nativescript-auth0",
-  "version": "0.1",
+  "version": "v0.1.0",
   "description": "A NativeScript module integrating Auth0 service",
   "main": "index.js",
   "nativescript": {
