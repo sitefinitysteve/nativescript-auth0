@@ -1,4 +1,4 @@
-# Auth0 Social Plugin for the NativeScript framework
+# Auth0 Social Authentication Plugin for NativeScript
 
 [Auth0: Identity made simple for developers](https://auth0.com)
 
