@@ -36,12 +36,12 @@ if (application.ios) {
 }
 ```
 
-Add the plugin
+In your login script reference the plugin
 ```
 var auth0 = require("nativescript-auth0");
 ```
 
-Open the login screen, returns a Promise
+This is how you open the login screen, returns a Promise
 ```
 auth0.show(page).then(function(args){
 		console.log(args.profile);
