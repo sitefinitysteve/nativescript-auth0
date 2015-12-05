@@ -1,6 +1,6 @@
 {
   "name": "nativescript-auth0",
-  "version": "0.1.1",
+  "version": "0.1",
   "description": "A NativeScript module integrating Auth0 service",
   "main": "index.js",
   "nativescript": {
@@ -11,7 +11,9 @@
   },
   "keywords": [
     "NativeScript",
-    "Auth0"
+    "Auth0",
+    "Social Login",
+    "Javascript"
   ],
   "author": "Steve McNiven-Scott <steve@sitefinitysteve.com> (https://github.com/sitefinitysteve)",
   "readmeFilename": "README.md"
