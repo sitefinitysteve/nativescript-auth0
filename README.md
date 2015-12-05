@@ -66,6 +66,7 @@ Auth0 lets you customize a lot about the widget, I've wrapped them into some hel
 * Pass the colors as Hex codes, convert to UIColor on iOS
 * Image the name of the image
 * Font string... I haven't tested yet, on iOS is a UIFont
+* Call these before your calling show
 
 
 ```
