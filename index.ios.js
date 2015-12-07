@@ -78,6 +78,52 @@ exports.refreshTokenWithRefreshToken = function(refreshId){
 	});
 }
 
+//https://auth0.com/docs/libraries/lock-ios/sending-authentication-parameters
+exports.addParameter = function(key, value){
+	return new Promise(function (resolve, reject) {
+		if((key != "undefined" && key != null) && (value != "undefined" && value != null)){
+			//Add Param
+			var params = A0AuthParameters.newDefaultParams();
+			params.setValueForKey(key, value);
+			resolve({
+				params: params,
+				status: true
+			});
+		}else{
+			reject(
+				{
+					status: false,
+					message: "key or value is undefined"
+				}
+			);
+		}
+	});
+}
+
+//https://auth0.com/docs/libraries/lock-ios/sending-authentication-parameters
+exports.addScopeParameter = function(scope){
+	return new Promise(function (resolve, reject) {
+		if(scope != "undefined" && scope != null) {
+			//Add Param
+			var params = A0AuthParameters.newDefaultParams();
+			params.state = scope;
+			
+			resolve({
+				params: params,
+				status: true
+			});
+		}else{
+			reject(
+				{
+					status: false,
+					message: "key or value is undefined"
+				}
+			);
+		}
+	});
+}
+
+
 //https://auth0.com/docs/libraries/lock-ios/customization
 exports.themePrimaryButton = function(normalColor, highlightColor, textColor, font){
 	registerThemeColor(normalColor, "A0ThemePrimaryButtonNormalColor");
@@ -145,6 +191,8 @@ exports.themeCloseButton = function(tintColor){
 	registerThemeColor(tintColor, "A0ThemeCloseButtonTintColor");
 }
 
+
+
 function registerThemeColor(color, key){
 	if(color != "undefined" && color !== null){
 		if(theme === null){
@@ -207,8 +255,6 @@ function saveProfile(profile){
 		userData.identities.push(data);
 	}
 	
-	//appSettings.setString("auth0UserData", JSON.stringify(userData));
-	//console.log(JSON.stringify(userData));
 	return userData;
 }
 
@@ -219,8 +265,6 @@ function saveToken(token){
 		refreshToken: token.refreshToken,
 		tokenType: token.tokenType	
 	};
-	
-	//appSettings.setString("auth0Token", JSON.stringify(tokenData));
-	//console.log(JSON.stringify(tokenData));
+
 	return tokenData;
 }

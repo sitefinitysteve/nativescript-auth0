@@ -48,6 +48,7 @@ auth0.show(page).then(function(args){
 		console.log(args.token);
 	});
 ```
+
 Open the plist.Info
 - Replace DOMAIN-GOES-HERE with your auth0 domain
 - Replace CLIENTID-GOES-HERE with your auth0 clientId, note the URLScheme needs an a0 prefix, find replace should just work.
@@ -80,6 +81,20 @@ auth0.themeDescription(textColor, font);
 auth0.themeSeperator(textColor, font);
 auth0.themeCredentialBox(borderColor, separatorColor, backgroundColor);
 auth0.themeCloseButton(tintColor);
+```
+
+## Parameters
+[Documentation](https://auth0.com/docs/libraries/lock-ios/sending-authentication-parameters)
+```
+auth0.addParameter("foo", "bar").then(function(args){
+        console.log(args);    
+    });
+```
+
+```
+auth0.addScopeParameter("login").then(function(args){
+        console.log(args);    
+    });
 ```
 
 ## TODO
