@@ -1,6 +1,7 @@
 var appSettings = require("application-settings");
 var frameModule = require("ui/frame");
 var colorModule = require("color");
+var dialogs = require("ui/dialogs");
 var theme = null;
 
 exports.show = function() {
@@ -38,6 +39,19 @@ exports.show = function() {
 			}
 		}
 	});
+}
+
+// Pass in the tokenId string, returns a new token object
+exports.refreshToken = function(tokenId){
+	A0APIClient.sharedClient().fetchNewIdTokenWithIdTokenParametersSuccessFailure(tokenId, null,
+		function(newToken){
+			//Success
+			return saveToken(newToken);
+		},
+		function(){
+			//Failure;
+			return null;
+		});
 }
 
 //https://auth0.com/docs/libraries/lock-ios/customization
@@ -169,8 +183,8 @@ function saveProfile(profile){
 		userData.identities.push(data);
 	}
 	
-	appSettings.setString("auth0UserData", JSON.stringify(userData));
-	console.log(JSON.stringify(userData));
+	//appSettings.setString("auth0UserData", JSON.stringify(userData));
+	//console.log(JSON.stringify(userData));
 	return userData;
 }
 
@@ -182,7 +196,7 @@ function saveToken(token){
 		tokenType: token.tokenType	
 	};
 	
-	appSettings.setString("auth0Token", JSON.stringify(tokenData));
-	console.log(JSON.stringify(tokenData));
+	//appSettings.setString("auth0Token", JSON.stringify(tokenData));
+	//console.log(JSON.stringify(tokenData));
 	return tokenData;
 }
