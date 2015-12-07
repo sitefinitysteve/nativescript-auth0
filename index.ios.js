@@ -9,7 +9,6 @@ exports.show = function() {
 			try
 			{
 				var page = frameModule.topmost().ios.controller;
-				debugger;
 				
 				if(theme !== null){
 					A0Theme.sharedInstance().registerTheme(theme);
