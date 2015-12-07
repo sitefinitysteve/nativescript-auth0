@@ -42,16 +42,40 @@ exports.show = function() {
 }
 
 // Pass in the tokenId string, returns a new token object
-exports.refreshToken = function(tokenId){
-	A0APIClient.sharedClient().fetchNewIdTokenWithIdTokenParametersSuccessFailure(tokenId, null,
-		function(newToken){
-			//Success
-			return saveToken(newToken);
-		},
-		function(){
-			//Failure;
-			return null;
-		});
+exports.refreshTokenWithId = function(tokenId){
+	return new Promise(function (resolve, reject) {
+		if(tokenId != "undefined" && tokenId != null){
+			A0APIClient.sharedClient().fetchNewIdTokenWithIdTokenParametersSuccessFailure(tokenId, null,
+			function(newToken){
+				//Success
+				resolve(saveToken(newToken));
+			},
+			function(args){
+				//Failure;
+				reject(args);
+			});
+		}else{
+			reject("Token is undefined");
+		}
+	});
+}
+
+exports.refreshTokenWithRefreshToken = function(refreshId){
+	return new Promise(function (resolve, reject) {
+		if(refreshId != "undefined" && refreshId != null){
+			A0APIClient.sharedClient().fetchNewIdTokenWithRefreshTokenParametersSuccessFailure(refreshId, null,
+			function(newToken){
+				//Success
+				resolve(saveToken(newToken));
+			},
+			function(args){
+				//Failure;
+				reject(args);
+			});
+		}else{
+			reject("Token is undefined");
+		}
+	});
 }
 
 //https://auth0.com/docs/libraries/lock-ios/customization
