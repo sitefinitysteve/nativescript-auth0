@@ -41,10 +41,7 @@ exports.show = function() {
 	});
 }
 
-// ###############################################################################
-// ## Style Methods
-// ## https://auth0.com/docs/libraries/lock-ios/customization
-// ###############################################################################
+//https://auth0.com/docs/libraries/lock-ios/customization
 exports.themePrimaryButton = function(normalColor, highlightColor, textColor, font){
 	registerThemeColor(normalColor, "A0ThemePrimaryButtonNormalColor");
 	registerThemeColor(highlightColor, "A0ThemePrimaryButtonHighlightedColor");
@@ -80,13 +77,13 @@ exports.themeTitle = function(textColor, font){
 exports.themeIcon = function(backgroundColor, imageName){
 	registerThemeColor(backgroundColor, "A0ThemeIconBackgroundColor");
 	
-	registerThemeColor(imageName, "A0ThemeIconImageName");
+	registerImage(imageName, "A0ThemeIconImageName");
 }
 
 exports.themeBackground = function(backgroundColor, imageName){
 	registerThemeColor(backgroundColor, "A0ThemeScreenBackgroundColor");
 	
-	registerThemeColor(imageName, "A0ThemeScreenBackgroundImageName");
+	registerImage(imageName, "A0ThemeScreenBackgroundImageName");
 }
 
 exports.themeDescription = function(textColor, font){
@@ -111,11 +108,8 @@ exports.themeCloseButton = function(tintColor){
 	registerThemeColor(tintColor, "A0ThemeCloseButtonTintColor");
 }
 
-// ###############################################################################
-// ## Functions
-// ###############################################################################
 function registerThemeColor(color, key){
-	if(color != "undefined"){
+	if(color != "undefined" && color !== null){
 		if(theme === null){
 			theme = new A0Theme();
 		}
@@ -125,17 +119,17 @@ function registerThemeColor(color, key){
 }
 
 function registerImage(name, key){
-	if(name != "undefined"){
+	if(name != "undefined" && name !== null){
 		if(theme === null){
 			theme = new A0Theme();
 		}
-		
-		theme.registerImageWithName(name, key);
+		debugger;
+		theme.registerImageWithNameForKey(name, key);
 	}
 }
 
 function registerFont(font, key){
-	if(font != "undefined"){
+	if(font != "undefined" && font !== null){
 		if(theme === null){
 			theme = new A0Theme();
 		}
