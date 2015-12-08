@@ -1,6 +1,7 @@
 var appSettings = require("application-settings");
 var frameModule = require("ui/frame");
 var colorModule = require("color");
+var fontModule = require("ui/styling/font");
 var dialogs = require("ui/dialogs");
 var theme = null;
 
@@ -220,7 +221,14 @@ function registerFont(font, key){
 			theme = new A0Theme();
 		}
 		
-		theme.registerFont(font, key);
+		if(font != null){
+			var uiFont = font.getUIFont();
+			if(uiFont != null){
+				theme.registerFontForKey(uiFont, key);
+			}else{
+				console.log("Unable to find font");
+			}
+		}
 	}
 }
 

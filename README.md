@@ -71,7 +71,13 @@ Auth0 lets you customize a lot about the widget, I've wrapped them into some hel
 var imageName = "Icon";
 var imageName = "Default";
 ```
-* Font string... I haven't tested yet, on iOS is a UIFont
+* Fonts require a NativeScript font object
+```
+// Example
+var fontModule = require("ui/styling/font");
+var font = new fontModule.Font("Open Sans", 20, "normal", "normal");
+auth0.themeTitle("#666666", font);
+```
 * Must call your theme BEFORE calling the .show method
 
 ```
