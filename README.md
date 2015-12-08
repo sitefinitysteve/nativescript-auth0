@@ -65,10 +65,14 @@ This won't work yet until {N} can support impliments on the application
 
 Auth0 lets you customize a lot about the widget, I've wrapped them into some helpers.  
 * Pass the colors as Hex codes, convert to UIColor on iOS
-* Image the name of the image
+* Image the name of the image which exists in your resources
+```
+// Examples
+var imageName = "Icon";
+var imageName = "Default";
+```
 * Font string... I haven't tested yet, on iOS is a UIFont
-* Call these before your calling show
-
+* Must call your theme BEFORE calling the .show method
 
 ```
 auth0.themePrimaryButton(normalColor, highlightColor, textColor, font);

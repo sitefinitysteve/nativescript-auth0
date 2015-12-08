@@ -19,7 +19,7 @@ exports.show = function() {
 				controller.onAuthenticationBlock = function(profile, token){
 					//Save profile
 					var profileData = saveProfile(profile);
-					
+
 					//Save token
 					var tokenData = saveToken(token);
 
@@ -208,8 +208,9 @@ function registerImage(name, key){
 		if(theme === null){
 			theme = new A0Theme();
 		}
-		debugger;
-		theme.registerImageWithNameForKey(name, key);
+
+		var bundle = NSBundle.mainBundle();
+		theme.registerImageWithNameBundleForKey(name, bundle, key);
 	}
 }
 
