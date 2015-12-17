@@ -13,8 +13,14 @@
     "NativeScript",
     "Auth0",
     "Social Login",
+    "Social",
+    "iOS",
+    "Android",
     "Javascript"
   ],
   "author": "Steve McNiven-Scott <steve@sitefinitysteve.com> (https://github.com/sitefinitysteve)",
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "license": "Apache-2.0",
+  "bugs": "https://github.com/sitefinitysteve/nativescript-auth0/issues",
+  "homepage": "https://github.com/sitefinitysteve/nativescript-auth0"
 }
