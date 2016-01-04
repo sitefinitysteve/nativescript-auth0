@@ -8,7 +8,7 @@
 - Make sure you have an allowed callback url per the [docs](https://auth0.com/docs/quickstart/native-mobile/ios-objc/aspnet-webapi#before-starting)
 
 ## iOS
-Initalize on load in app.js
+Initalize on load in app.js, put this before application.start();
 ```
 if (application.ios) {
     var __extends = this.__extends || function (d, b) {
@@ -34,6 +34,8 @@ if (application.ios) {
     })(UIResponder);
     application.ios.delegate = appDelegate;
 }
+
+//Application.start goes somewhere below here
 ```
 
 In your login script reference the plugin
@@ -48,8 +50,10 @@ auth0.show(page).then(function(args){
 		console.log(args.token);
 	});
 ```
+## Setting Credentials
+### iOS
+Credentials for iOS are set in the apps info.plist.  However as of 1.5.1 there's no way to merge it in from App_Resources as of yet.  So just open the info.plist from your node_modules/nativescript-auth0/platforms/ios directory or directly in your /platforms/ios/build folder.  I prefer the plugins folder atm because you're more likely to kill the platforms folder than get a new version of the plugin.  Anyway, vote for [this issue](https://github.com/NativeScript/nativescript-cli/issues/1089) to make 1.6
 
-Open the plist.Info
 - Replace DOMAIN-GOES-HERE with your auth0 domain
 - Replace CLIENTID-GOES-HERE with your auth0 clientId, note the URLScheme needs an a0 prefix, find replace should just work.
 
@@ -106,6 +110,17 @@ auth0.addScopeParameter("login").then(function(args){
         console.log(args);    
     });
 ```
+
+## ISSUES
+### iOS Cocoapod error on build: 
+Creating shallow clone of spec repo `master` from `https://github.com/CocoaPods/Specs.git`
+[!] Unable to add a source with url `https://github.com/CocoaPods/Specs.git` named `master`.
+You can try adding it manually in `~/.cocoapods/repos` or via `pod repo add`.
+Processing node_modules failed. Error:Error: Command sandbox-pod failed with exit code 1
+
+####Fix:
+in the terminal run 'pod setup'
+(which should create cocoapods/repos/master)
 
 ## TODO
 * Custom Login
