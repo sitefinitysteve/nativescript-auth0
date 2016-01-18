@@ -42,6 +42,46 @@ exports.show = function() {
 	});
 }
 
+exports.showIdp = function(connectionName){
+    return new Promise(function (resolve, reject) {
+        if(global.a0lock){
+            try
+            {
+                var page = frameModule.topmost().ios.controller;
+                var idp = global.a0lock.identityProviderAuthenticator();
+                
+                idp.authenticateWithConnectionNameParametersSuccessFailure(
+                    connectionName,
+                    null,
+                    //SUCCESS
+                    function(profile, token){
+                        //Save profile
+                        var profileData = saveProfile(profile);
+
+                        //Save token
+                        var tokenData = saveToken(token);
+                        
+                        resolve({
+                        "profile": profileData,
+                        "token": tokenData
+                        });
+                    },
+                    //FAILURE
+                    function(error){
+                        reject(error);
+                    }
+                )
+                
+
+            }
+            catch(args){
+                reject(args);
+                console.log(args.message + " : " + args.soureURL);
+            }
+        }
+    });
+}
+
 // Pass in the tokenId string, returns a new token object
 exports.refreshTokenWithId = function(tokenId){
 	return new Promise(function (resolve, reject) {

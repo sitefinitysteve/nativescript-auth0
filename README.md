@@ -43,13 +43,23 @@ In your login script reference the plugin
 var auth0 = require("nativescript-auth0");
 ```
 
-This is how you open the login screen, returns a Promise
+This is how you open the default lock screen, returns a Promise
 ```
-auth0.show(page).then(function(args){
+auth0.show().then(function(args){
 		console.log(args.profile);
 		console.log(args.token);
 	});
 ```
+
+This is how you open a single Idp, returns a Promise.  So you could have like a custom button on your page which calls this to trigger the Idp login screen.
+```
+auth0.showIdp(connectionName).then(function(args){
+		console.log(args.profile);
+		console.log(args.token);
+	});
+```
+The connectionName parameter is the name of the connection from your auth0 backend 
+
 ## Setting Credentials
 ### iOS
 Credentials for iOS are set in the apps info.plist.  However as of 1.5.1 there's no way to merge it in from App_Resources as of yet.  So just open the info.plist from your node_modules/nativescript-auth0/platforms/ios directory or directly in your /platforms/ios/build folder.  I prefer the plugins folder atm because you're more likely to kill the platforms folder than get a new version of the plugin.  Anyway, vote for [this issue](https://github.com/NativeScript/nativescript-cli/issues/1089) to make 1.6
