@@ -1,6 +1,6 @@
 {
   "name": "nativescript-auth0",
-  "version": "v0.1.6",
+  "version": "v0.1.7",
   "description": "A NativeScript module integrating Auth0 service",
   "main": "index.js",
   "nativescript": {
@@ -8,6 +8,10 @@
       "android": "1.5.0",
       "ios": "1.5.0"
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sitefinitysteve/nativescript-auth0.git"
   },
   "keywords": [
     "NativeScript",
