@@ -9,7 +9,8 @@
 
 ## iOS
 Initalize on load in app.js, put this before application.start();
-```
+
+``` js
 if (application.ios) {
     var __extends = this.__extends || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -39,12 +40,12 @@ if (application.ios) {
 ```
 
 In your login script reference the plugin
-```
+``` js
 var auth0 = require("nativescript-auth0");
 ```
 
 This is how you open the default lock screen, returns a Promise
-```
+``` js
 auth0.show().then(function(args){
 		console.log(args.profile);
 		console.log(args.token);
@@ -52,7 +53,9 @@ auth0.show().then(function(args){
 ```
 
 This is how you open a single Idp, returns a Promise.  So you could have like a custom button on your page which calls this to trigger the Idp login screen.
-```
+
+``` js
+var connectionName = "my-auth0-connection"; //Connection name from the auth0 backend
 auth0.showIdp(connectionName).then(function(args){
 		console.log(args.profile);
 		console.log(args.token);
@@ -62,7 +65,7 @@ The connectionName parameter is the name of the connection from your auth0 backe
 
 ## Setting Credentials
 ### iOS
-Credentials for iOS are set in the apps info.plist.  However as of 1.5.1 there's no way to merge it in from App_Resources as of yet.  So just open the info.plist from your node_modules/nativescript-auth0/platforms/ios directory or directly in your /platforms/ios/build folder.  I prefer the plugins folder atm because you're more likely to kill the platforms folder than get a new version of the plugin.  Anyway, vote for [this issue](https://github.com/NativeScript/nativescript-cli/issues/1089) to make 1.6
+Credentials for iOS are set in the apps info.plist.
 
 - Replace DOMAIN-GOES-HERE with your auth0 domain
 - Replace CLIENTID-GOES-HERE with your auth0 clientId, note the URLScheme needs an a0 prefix, find replace should just work.
@@ -109,13 +112,13 @@ auth0.themeCloseButton(tintColor);
 
 ## Parameters
 [Documentation](https://auth0.com/docs/libraries/lock-ios/sending-authentication-parameters)
-```
+``` js
 auth0.addParameter("foo", "bar").then(function(args){
         console.log(args);    
     });
 ```
 
-```
+``` js
 auth0.addScopeParameter("login").then(function(args){
         console.log(args);    
     });
