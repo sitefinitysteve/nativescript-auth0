@@ -3,6 +3,7 @@ var frameModule = require("ui/frame");
 var colorModule = require("color");
 var fontModule = require("ui/styling/font");
 var dialogs = require("ui/dialogs");
+var jwt = require("./jwt");
 var theme = null;
 
 exports.show = function() {
@@ -117,6 +118,17 @@ exports.refreshTokenWithRefreshToken = function(refreshId){
 			reject("Token is undefined");
 		}
 	});
+}
+
+exports.isTokenExpired = function(token){
+    var data = jwt(token);
+    var expiresOn = new Date(data.ext);
+    
+    return (expiresOn > new Date()) ? true : false;
+}
+
+exports.decodeToken = function(token){
+    return jwt(token);
 }
 
 //https://auth0.com/docs/libraries/lock-ios/sending-authentication-parameters

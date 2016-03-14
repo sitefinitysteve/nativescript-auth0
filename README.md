@@ -39,12 +39,12 @@ if (application.ios) {
 //Application.start goes somewhere below here
 ```
 
-In your login script reference the plugin
+## Usage ##
 ``` js
 var auth0 = require("nativescript-auth0");
 ```
 
-This is how you open the default lock screen, returns a Promise
+#### Open login UI ####
 ``` js
 auth0.show().then(function(args){
 		console.log(args.profile);
@@ -52,7 +52,8 @@ auth0.show().then(function(args){
 	});
 ```
 
-This is how you open a single Idp, returns a Promise.  So you could have like a custom button on your page which calls this to trigger the Idp login screen.
+#### Open identity providers UI directly ####
+##### Like sends you right to googles auth screen, returning the result #####
 
 ``` js
 var connectionName = "my-auth0-connection"; //Connection name from the auth0 backend
@@ -62,6 +63,13 @@ auth0.showIdp(connectionName).then(function(args){
 	});
 ```
 The connectionName parameter is the name of the connection from your auth0 backend 
+
+## Methods ##
+* isTokenExpired(tokenid) * (Decodes and validates the exp date) *
+* decodeToken(tokenid) * (Does not validate the token) *
+* addParameter(key, value) [Doc](https://auth0.com/docs/libraries/lock-ios/sending-authentication-parameters)
+* addScopeParameter(scope) [Doc](https://auth0.com/docs/libraries/lock-ios/sending-authentication-parameters)
+
 
 ## Setting Credentials
 ### iOS
@@ -110,31 +118,9 @@ auth0.themeCredentialBox(borderColor, separatorColor, backgroundColor);
 auth0.themeCloseButton(tintColor);
 ```
 
-## Parameters
-[Documentation](https://auth0.com/docs/libraries/lock-ios/sending-authentication-parameters)
-``` js
-auth0.addParameter("foo", "bar").then(function(args){
-        console.log(args);    
-    });
-```
-
-``` js
-auth0.addScopeParameter("login").then(function(args){
-        console.log(args);    
-    });
-```
-
-## ISSUES
-### iOS Cocoapod error on build: 
-Creating shallow clone of spec repo `master` from `https://github.com/CocoaPods/Specs.git`
-[!] Unable to add a source with url `https://github.com/CocoaPods/Specs.git` named `master`.
-You can try adding it manually in `~/.cocoapods/repos` or via `pod repo add`.
-Processing node_modules failed. Error:Error: Command sandbox-pod failed with exit code 1
-
-####Fix:
-in the terminal run 'pod setup'
-(which should create cocoapods/repos/master)
-
 ## TODO
 * Custom Login
 * Token Helpers, store in Keychain
+
+## Thanks to
+* [jwt-decode](https://www.npmjs.com/package/jwt-decode) from Auth0
