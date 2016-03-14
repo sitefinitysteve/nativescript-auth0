@@ -7,6 +7,13 @@
 - Setup the allowed providers, what you pick here is what AUTOMATICALLY shows up on the login box (so cool and easy)
 - Make sure you have an allowed callback url per the [docs](https://auth0.com/docs/quickstart/native-mobile/ios-objc/aspnet-webapi#before-starting)
 
+
+Credentials for iOS are set in the apps info.plist.
+
+- Replace DOMAIN-GOES-HERE with your auth0 domain
+- Replace CLIENTID-GOES-HERE with your auth0 clientId, note the URLScheme needs an a0 prefix, find replace should just work.
+
+
 ## iOS
 Initalize on load in app.js, put this before application.start();
 
@@ -44,7 +51,7 @@ if (application.ios) {
 var auth0 = require("nativescript-auth0");
 ```
 
-#### Open login UI ####
+#### Login Option 1: Open native auth0 login UI (Called "Lock") ####
 ``` js
 auth0.show().then(function(args){
 		console.log(args.profile);
@@ -52,7 +59,8 @@ auth0.show().then(function(args){
 	});
 ```
 
-#### Open identity providers UI directly ####
+
+#### Login Option 2: Open identity providers UI directly ####
 ##### Like sends you right to googles auth screen, returning the result #####
 
 ``` js
@@ -70,13 +78,6 @@ The connectionName parameter is the name of the connection from your auth0 backe
 * addParameter(key, value) [Doc](https://auth0.com/docs/libraries/lock-ios/sending-authentication-parameters)
 * addScopeParameter(scope) [Doc](https://auth0.com/docs/libraries/lock-ios/sending-authentication-parameters)
 
-
-## Setting Credentials
-### iOS
-Credentials for iOS are set in the apps info.plist.
-
-- Replace DOMAIN-GOES-HERE with your auth0 domain
-- Replace CLIENTID-GOES-HERE with your auth0 clientId, note the URLScheme needs an a0 prefix, find replace should just work.
 
 ## Android
 
