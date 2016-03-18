@@ -1,11 +1,12 @@
 {
-	"nativescript": {
-		"id": "org.nativescript.demo",
-		"tns-ios": {
-			"version": "1.7.0"
-		}
-	},
-	"dependencies": {
-		"tns-core-modules": "1.7.0"
-	}
+  "nativescript": {
+    "id": "org.nativescript.demo",
+    "tns-ios": {
+      "version": "1.7.0"
+    }
+  },
+  "dependencies": {
+    "nativescript-auth0": "file:../plugin",
+    "tns-core-modules": "1.7.0"
+  }
 }

@@ -73,9 +73,11 @@ var auth0 = require("nativescript-auth0");
 
 #### Login Option 1: Open native auth0 login UI (Called "Lock") ####
 ``` js
+//Doesn't seem to work on navigatedTo event, call on the loadedEvent
 auth0.show().then(function(args){
 		console.log(args.profile);
 		console.log(args.token);
+        appSettings.setString("UserData", JSON.stringify(args));
 	});
 ```
 
@@ -88,6 +90,7 @@ var connectionName = "my-auth0-connection"; //Connection name from the auth0 bac
 auth0.showIdp(connectionName).then(function(args){
 		console.log(args.profile);
 		console.log(args.token);
+        appSettings.setString("UserData", JSON.stringify(args));
 	});
 ```
 The connectionName parameter is the name of the connection from your auth0 backend 

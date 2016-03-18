@@ -25,4 +25,4 @@ if (application.ios) {
     application.ios.delegate = appDelegate;
 }
 
-application.start({ moduleName: "main-page" });
+application.start({ moduleName: "login" });
