@@ -83,7 +83,7 @@ auth0.show().then(function(args){
 
 
 #### Login Option 2: Open identity providers UI directly ####
-##### Like sends you right to googles auth screen, returning the result #####
+##### Sends you right to googles auth screen, returning the result #####
 
 ``` js
 var connectionName = "my-auth0-connection"; //Connection name from the auth0 backend
@@ -93,7 +93,8 @@ auth0.showIdp(connectionName).then(function(args){
         appSettings.setString("UserData", JSON.stringify(args));
 	});
 ```
-The connectionName parameter is the name of the connection from your auth0 backend 
+
+[Complete Login Sample](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/login.js)
 
 ## Methods ##
 * isTokenExpired(tokenid) * (Decodes and validates the exp date) *
