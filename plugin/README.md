@@ -3,6 +3,10 @@
 [Auth0: Identity made simple for developers](https://auth0.com)
 
 ## Setup
+``` terminal
+tns plugin add nativescript-auth0
+```
+
 - Login to your auth0 account, get your domain\clientid info
 - Setup the allowed providers, what you pick here is what AUTOMATICALLY shows up on the login box (so cool and easy)
 - Make sure you have an allowed callback url per the [docs](https://auth0.com/docs/quickstart/native-mobile/ios-objc/aspnet-webapi#before-starting)
