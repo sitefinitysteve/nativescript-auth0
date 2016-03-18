@@ -1,0 +1,14 @@
+Label{
+    vertical-align: center;
+    horizontal-align: center;
+    text-align: center;
+}
+
+.logout {
+    font-size: 14;
+    background-color: #358ccb;
+    color: #FFF;
+    border-radius: 10;
+    padding: 10 20;
+    margin-bottom: 40;
+}

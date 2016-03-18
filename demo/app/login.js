@@ -18,7 +18,7 @@ exports.onPageLoaded = function (args) {
             doLogin();
         }else{
             //All good, navigate to your start page
-            frameModule.topmost().navigate("home");
+            goToHome();
         }
     }
 }
@@ -27,6 +27,19 @@ function doLogin(){
     auth0.show().then(function(args){
         //Serialize the user data
         appSettings.setString("UserData", JSON.stringify(args));
-        frameModule.topmost().navigate("home");
+        goToHome();
+    });
+}
+
+function goToHome(){
+    frameModule.topmost().navigate(
+    { 
+        moduleName: "home",
+        transition: {
+            name: "fade",
+            duration: 380,
+            curve: "easeIn"
+        },
+        clearHistory: true //Dont want the user to nav back to login
     });
 }
