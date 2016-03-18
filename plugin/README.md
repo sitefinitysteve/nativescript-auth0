@@ -8,10 +8,30 @@
 - Make sure you have an allowed callback url per the [docs](https://auth0.com/docs/quickstart/native-mobile/ios-objc/aspnet-webapi#before-starting)
 
 
-Credentials for iOS are set in the apps info.plist.
+### iOS Credentials ###
+* Open your App_Resources/Info.plist and paste the following code in
+* Replace DOMAIN-GOES-HERE with your auth0 domain
+* Replace CLIENTID-GOES-HERE with your auth0 clientId, note the URLScheme needs an a0 prefix, find replace should just work.
+``` xml
+	<key>Auth0Domain</key>
+	<string>DOMAIN-GOES-HERE</string>
+	<key>Auth0ClientId</key>
+	<string>CLIENTID-GOES-HERE</string>
+    <key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>None</string>
+			<key>CFBundleURLName</key>
+			<string>auth0</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>a0CLIENTID-GOES-HERE</string>
+			</array>
+		</dict>
+	</array>
+```
 
-- Replace DOMAIN-GOES-HERE with your auth0 domain
-- Replace CLIENTID-GOES-HERE with your auth0 clientId, note the URLScheme needs an a0 prefix, find replace should just work.
 
 
 ## iOS
