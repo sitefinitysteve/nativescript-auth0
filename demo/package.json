@@ -1,0 +1,8 @@
+{
+	"nativescript": {
+		"id": "org.nativescript.demo"
+	},
+	"dependencies": {
+		"tns-core-modules": "1.7.0"
+	}
+}

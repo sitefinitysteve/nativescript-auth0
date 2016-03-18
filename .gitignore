@@ -1,0 +1,7 @@
+
+npm-debug.log
+
+demo/platforms/
+demo/node_modules/
+demo/app/App_Resources/iOS/Info.plist
+demo/app/App_Resources/Android/AndroidManifest.xml
