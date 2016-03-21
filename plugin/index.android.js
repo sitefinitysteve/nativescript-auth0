@@ -4,23 +4,20 @@ var appModule = require("application");
 
 exports.show = function(page) {
 	return new Promise(function (resolve, reject) {
-		if(global.a0lock){
-			try
-			{
-
-				var context = util.ad.getApplicationContext();
-				var lockIntent = new android.content.Intent(appModule.android.foregroundActivity, com.auth0.lock.LockActivity.class);
-				if (lockIntent.resolveActivity(context.getPackageManager()) != null) {
-					debugger;
-					appModule.android.foregroundActivity.startActivity(lockIntent);	
-				}
-				
-			}
-			catch(args){
-				reject(args);
-				debugger;
-			}
-		}
+        try
+        {
+            debugger;
+            var context = util.ad.getApplicationContext();
+            var lockIntent = new android.content.Intent(appModule.android.foregroundActivity, com.auth0.lock.LockActivity.class);
+            if (lockIntent.resolveActivity(context.getPackageManager()) != null) {
+                appModule.android.foregroundActivity.startActivity(lockIntent);	
+            }
+            
+        }
+        catch(args){
+            reject(args);
+            debugger;
+        }
 	});
 }
 

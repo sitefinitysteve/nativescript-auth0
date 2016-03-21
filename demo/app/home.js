@@ -3,7 +3,6 @@ var frameModule = require("ui/frame");
 
 exports.onPageLoaded = function (args) {
     var page = args.object;
-    debugger;
     var userData = JSON.parse(appSettings.getString("UserData"));
     page.bindingContext = userData;
 }

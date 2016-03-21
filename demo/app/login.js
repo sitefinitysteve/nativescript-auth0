@@ -24,6 +24,7 @@ exports.onPageLoaded = function (args) {
 }
 
 function doLogin(){
+    debugger;
     auth0.show().then(function(args){
         //Serialize the user data
         appSettings.setString("UserData", JSON.stringify(args));
