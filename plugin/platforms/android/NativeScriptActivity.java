@@ -2,19 +2,8 @@ package com.tns;
 
 @JavaScriptImplementation(javaScriptFile = "app/tns_modules/ui/frme/frame.js")
 public class NativeScriptActivity extends android.app.Activity implements com.tns.NativeScriptHashCodeProvider {
-    // AUTH0 START
     private android.support.v4.content.LocalBroadcastManager broadcastManager;
     
-    private android.content.BroadcastReceiver authenticationReceiver = new 	android.content.BroadcastReceiver() {
-
-        public void onReceive(android.content.Context context, android.content.Intent intent) {
-            com.auth0.core.UserProfile profile = intent.getParcelableExtra(com.auth0.lock.Lock.AUTHENTICATION_ACTION_PROFILE_PARAMETER);
-            com.auth0.core.Token token = intent.getParcelableExtra(com.auth0.lock.Lock.AUTHENTICATION_ACTION_TOKEN_PARAMETER);
-        }
-     };
-    // AUTH0 END
-    
-
     public NativeScriptActivity()
     {
         com.tns.Platform.initInstance(this);
@@ -24,10 +13,13 @@ public class NativeScriptActivity extends android.app.Activity implements com.tn
         java.lang.Object[] params = new Object[1];
         params[0] = savedInstanceState;
         com.tns.Platform.callJSMethod(this, "onCreate", void.class, params);
-        
+
         // AUTH0 START
         broadcastManager = android.support.v4.content.LocalBroadcastManager.getInstance(this);
         broadcastManager.registerReceiver(authenticationReceiver, new android.content.IntentFilter(com.auth0.lock.Lock.AUTHENTICATION_ACTION));
+        System.out.println("AUTH0DEBUG: CREATED authenticationReceiver");
+        System.out.println(authenticationReceiver);
+        System.out.println("AUTH0DEBUG: DONE authenticationReceiver");
         // AUTH0 END
     }
 
@@ -76,6 +68,12 @@ public class NativeScriptActivity extends android.app.Activity implements com.tn
         return super.hashCode();
     }
     
-
+    private android.content.BroadcastReceiver authenticationReceiver = new android.content.BroadcastReceiver() {
+        public void onReceive(android.content.Context context, android.content.Intent intent) {
+            com.auth0.core.UserProfile profile = intent.getParcelableExtra("profile");
+            com.auth0.core.Token token = intent.getParcelableExtra("token");
+            System.out.println("AUTH0DEBUG: LOGGED IN");
+        }
+   };
 
 }
