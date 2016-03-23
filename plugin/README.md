@@ -11,36 +11,51 @@ tns plugin add nativescript-auth0
 - Setup the allowed providers, what you pick here is what AUTOMATICALLY shows up on the login box (so cool and easy)
 - Make sure you have an allowed callback url per the [docs](https://auth0.com/docs/quickstart/native-mobile/ios-objc/aspnet-webapi#before-starting)
 
-
-### iOS Credentials ###
-* Open your App_Resources/Info.plist and paste the following code in
-* Replace DOMAIN-GOES-HERE with your auth0 domain
-* Replace CLIENTID-GOES-HERE with your auth0 clientId, note the URLScheme needs an a0 prefix, find replace should just work.
+#### Android: App_Resources/Android/AndroidManifest.xml ####
 ``` xml
-	<key>Auth0Domain</key>
-	<string>DOMAIN-GOES-HERE</string>
-	<key>Auth0ClientId</key>
-	<string>CLIENTID-GOES-HERE</string>
-    <key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>None</string>
-			<key>CFBundleURLName</key>
-			<string>auth0</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>a0CLIENTID-GOES-HERE</string>
-			</array>
-		</dict>
-	</array>
+	<!--Auth0 Lock-->
+	<activity
+	android:name="com.auth0.lock.LockActivity"
+	android:theme="@style/Lock.Theme"
+	android:screenOrientation="portrait"
+	android:launchMode="singleTask">
+	<intent-filter>
+		<action android:name="android.intent.action.VIEW"/>
+		<category android:name="android.intent.category.DEFAULT"/>
+		<category android:name="android.intent.category.BROWSABLE"/>
+		<!--Keep the a0 at the start-->
+		<data android:scheme="a0CLIENTID-GOES-HERE" android:host="DOMAIN-GOES-HERE"/>
+	</intent-filter>
+	</activity>
+	<meta-data android:name="com.auth0.lock.client-id" android:value="CLIENTID-GOES-HERE"/>
+	<meta-data android:name="com.auth0.lock.domain-url" android:value="DOMAIN-GOES-HERE"/>
+	<!--Auth0 Lock End-->
 ```
 
+#### iOS: App_Resources/iOS/Info.plist ####
+``` xml
+<key>Auth0Domain</key>
+    <string>DOMAIN-GOES-HERE</string>
+    <key>Auth0ClientId</key>
+    <string>CLIENTID-GOES-HERE</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>None</string>
+            <key>CFBundleURLName</key>
+            <string>auth0</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>a0CLIENTID-GOES-HERE</string>
+            </array>
+        </dict>
+    </array>
+```
 
+## Configuration/Initalization ##
 
-## iOS
-Initalize on load in app.js, put this before application.start();
-
+## iOS: app.js ##
 ``` js
 if (application.ios) {
     var __extends = this.__extends || function (d, b) {
@@ -70,7 +85,14 @@ if (application.ios) {
 //Application.start goes somewhere below here
 ```
 
-## Usage ##
+## Android: Just overwrite files ##
+* Open node_modules/platforms/android
+* Copy the NativeScriptActivity.java and NativeScriptApplication.java files
+* Overwrite the exisitng files
+* ![alt text](android-setup.png)
+* **NOTE:** platforms is a volitle folder, you'll need to re-copy these files on every platform remove/add android command.  {N} is working on a way to improve this process.
+
+## How to use ##
 ``` js
 var auth0 = require("nativescript-auth0");
 ```
