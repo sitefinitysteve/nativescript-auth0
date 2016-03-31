@@ -1,4 +1,10 @@
 android {
+    productFlavors {
+        "nativescriptauth0" {
+            dimension "nativescriptauth0"
+        }
+    }
+    
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/NOTICE'
