@@ -23,11 +23,12 @@ tns plugin add nativescript-auth0
 		<action android:name="android.intent.action.VIEW"/>
 		<category android:name="android.intent.category.DEFAULT"/>
 		<category android:name="android.intent.category.BROWSABLE"/>
-		<!--Keep the a0 at the start-->
+		<!-- 1) Keep the a0 at the start-->
+        <!-- 2) CLIENTID SCHEME MUST BE LOWERCASE, JUST HERE !!! -->
 		<data android:scheme="a0CLIENTID-GOES-HERE" android:host="DOMAIN-GOES-HERE"/>
 	</intent-filter>
 	</activity>
-	<meta-data android:name="com.auth0.lock.client-id" android:value="CLIENTID-GOES-HERE"/>
+	<meta-data android:name="com.auth0.lock.client-id" android:value="CLIENTID-GOES-HERE"/> <!-- ClientID here should be as you see it in your auth0 dash -->
 	<meta-data android:name="com.auth0.lock.domain-url" android:value="DOMAIN-GOES-HERE"/>
 	<!--Auth0 Lock End-->
 ```
