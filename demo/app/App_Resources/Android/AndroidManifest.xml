@@ -36,7 +36,7 @@
 			</intent-filter>
 		</activity>
 		<activity android:name="com.tns.ErrorReportActivity"/>
-        
+
         <!--Auth0 Lock-->
         <activity
         android:name="com.auth0.lock.LockActivity"
@@ -48,7 +48,7 @@
             <category android:name="android.intent.category.DEFAULT"/>
             <category android:name="android.intent.category.BROWSABLE"/>
             <!-- CLIENTID SCHEME MUST BE LOWERCASE!!! -->
-            <data android:scheme="a0q5atozi6dgmwbphwrjbd7mbaa5elbprp" android:host="nativescript.auth0.com"/>
+            <data android:scheme="a0q5atqzi6dgmwbphwrjbd7mbna5elbprp" android:host="nativescript.auth0.com"/>
         </intent-filter>
         </activity>
         <meta-data android:name="com.auth0.lock.client-id" android:value="q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp"/>
