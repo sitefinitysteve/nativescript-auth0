@@ -6,11 +6,11 @@ exports.onPageLoaded = function (args) {
     var page = args.object;
 
     //Check to see if the user is logged in
-    if(!appSettings.hasKey("UserData")){
+    if(!appSettings.hasKey("auth0UserData")){
         doLogin();
     }else{
         //Deserialzise the saved user
-        var userData = JSON.parse(appSettings.getString("UserData"));
+        var userData = JSON.parse(appSettings.getString("auth0UserData"));
         
         //Check if it's expired
         if(auth0.isTokenExpired(userData.token.idToken)){
@@ -26,7 +26,7 @@ exports.onPageLoaded = function (args) {
 function doLogin(){
     auth0.show().then(function(args){
         //Serialize the user data
-        appSettings.setString("UserData", JSON.stringify(args));
+        appSettings.setString("auth0UserData", JSON.stringify(args));
         goToHome();
     });
 }
@@ -40,6 +40,6 @@ function goToHome(){
             duration: 380,
             curve: "easeIn"
         },
-        clearHistory: true //Dont want the user to nav back to login
+        //clearHistory: true //Dont want the user to nav back to login
     });
 }
