@@ -3,12 +3,13 @@ var frameModule = require("ui/frame");
 
 exports.onPageLoaded = function (args) {
     var page = args.object;
-    var userData = JSON.parse(appSettings.getString("UserData"));
+    debugger;
+    var userData = JSON.parse(appSettings.getString("auth0UserData"));
     page.bindingContext = userData;
 }
 
 exports.onLogout = function (args) {
-    appSettings.remove("UserData");
+    appSettings.remove("auth0UserData");
     frameModule.topmost().navigate(
     { 
         moduleName: "login",

@@ -4,16 +4,16 @@ var frameModule = require("ui/frame");
 
 exports.onPageLoaded = function (args) {
     var page = args.object;
-
+        
     //Check to see if the user is logged in
-    if(!appSettings.hasKey("auth0UserData")){
+    if(!appSettings.hasKey("auth0Token")){
         doLogin();
     }else{
         //Deserialzise the saved user
-        var userData = JSON.parse(appSettings.getString("auth0UserData"));
+        var tokenData = JSON.parse(appSettings.getString("auth0Token"));
         
         //Check if it's expired
-        if(auth0.isTokenExpired(userData.token.idToken)){
+        if(auth0.isTokenExpired(tokenData.idToken)){
             //Make them log in again
             doLogin();
         }else{
@@ -25,8 +25,6 @@ exports.onPageLoaded = function (args) {
 
 function doLogin(){
     auth0.show().then(function(args){
-        //Serialize the user data
-        appSettings.setString("auth0UserData", JSON.stringify(args));
         goToHome();
     });
 }
@@ -40,6 +38,6 @@ function goToHome(){
             duration: 380,
             curve: "easeIn"
         },
-        //clearHistory: true //Dont want the user to nav back to login
+        clearHistory: true //Dont want the user to nav back to login
     });
 }
