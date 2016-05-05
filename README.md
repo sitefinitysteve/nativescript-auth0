@@ -5,6 +5,10 @@
 * [NPM](https://www.npmjs.com/package/nativescript-auth0)
 
 ## Revision History ##
+### v0.1.3 ###
+* Something changed in 2.0, android still not working
+* Moved common functions to shared file
+
 ### v0.1.2 ###
 * Android Callback fixed by Auth0
 

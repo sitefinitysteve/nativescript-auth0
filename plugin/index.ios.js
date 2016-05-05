@@ -3,6 +3,7 @@ var frameModule = require("ui/frame");
 var colorModule = require("color");
 var fontModule = require("ui/styling/font");
 var dialogs = require("ui/dialogs");
+var common = require("./common");
 var jwt = require("./jwt");
 var theme = null;
 
@@ -20,10 +21,10 @@ exports.show = function() {
 				var controller = global.a0lock.newLockViewController();
 				controller.onAuthenticationBlock = function(profile, token){
 					//Save profile
-					var profileData = saveProfile(profile);
+					var profileData = common.saveProfile(profile);
 
 					//Save token
-					var tokenData = saveToken(token);
+					var tokenData = common.saveToken(token);
 
 					page.dismissViewControllerAnimatedCompletion(true, null);
 					
@@ -57,10 +58,10 @@ exports.showIdp = function(connectionName){
                     //SUCCESS
                     function(profile, token){
                         //Save profile
-                        var profileData = saveProfile(profile);
+                        var profileData = common.saveProfile(profile);
 
                         //Save token
-                        var tokenData = saveToken(token);
+                        var tokenData = common.saveToken(token);
                         
                         resolve({
                         "profile": profileData,
@@ -90,7 +91,7 @@ exports.refreshTokenWithId = function(tokenId){
 			A0APIClient.sharedClient().fetchNewIdTokenWithIdTokenParametersSuccessFailure(tokenId, null,
 			function(newToken){
 				//Success
-				resolve(saveToken(newToken));
+				resolve(common.saveProfileToken(newToken));
 			},
 			function(args){
 				//Failure;
@@ -108,7 +109,7 @@ exports.refreshTokenWithRefreshToken = function(refreshId){
 			A0APIClient.sharedClient().fetchNewIdTokenWithRefreshTokenParametersSuccessFailure(refreshId, null,
 			function(newToken){
 				//Success
-				resolve(saveToken(newToken));
+				resolve(common.saveToken(newToken));
 			},
 			function(args){
 				//Failure;
@@ -282,50 +283,4 @@ function registerFont(font, key){
 			}
 		}
 	}
-}
-
-function saveProfile(profile){
-	var userData = {
-		name: profile.name,
-		nickname: profile.nickname,
-		userId: profile.userId,
-		email: profile.email,
-		createdAt: profile.createdAt,
-		avatarUrl: profile.picture.absoluteURL.absoluteString,
-		extraInfo: [],
-		identities: []
-	};
-	
-	for(var i = 0; i < profile.extraInfo.allKeys.count; i++){
-		var data = {
-			"key" : profile.extraInfo.allKeys[i],
-			"value" : profile.extraInfo.allValues[i] 
-		};
-		userData.extraInfo.push(data);
-	}
-	
-	for(var i = 0; i < profile.identities.count; i++){
-		var data = {
-			accessToken : profile.identities[i].accessToken,
-			connection : profile.identities[i].connection,
-			identityId: profile.identities[i].identityId,
-			provider: profile.identities[i].provider,
-			social:profile.identities[i].social,
-			userId: profile.identities[i].userId
-		};
-		userData.identities.push(data);
-	}
-	
-	return userData;
-}
-
-function saveToken(token){
-	var tokenData = {
-		accessToken: token.accessToken,
-		idToken: token.idToken,
-		refreshToken: token.refreshToken,
-		tokenType: token.tokenType	
-	};
-
-	return tokenData;
 }
