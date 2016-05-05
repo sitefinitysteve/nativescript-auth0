@@ -5,11 +5,16 @@
 //	compile 'com.android.support:recyclerview-v7:+'
 //}
 
-android {  
-  defaultConfig {  
-    generatedDensities = []  
-  }  
-  aaptOptions {  
-    additionalParameters "--no-version-vectors"  
-  }  
-} 
+android {
+  defaultConfig {
+    generatedDensities = []
+  }
+  aaptOptions {
+    additionalParameters "--no-version-vectors"
+  }
+  packagingOptions {
+    exclude 'META-INF/DEPENDENCIES'
+    exclude 'META-INF/NOTICE'
+    exclude 'META-INF/LICENSE'
+  }
+}

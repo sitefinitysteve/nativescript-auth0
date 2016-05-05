@@ -5,11 +5,18 @@
 			"version": "1.7.0"
 		},
 		"tns-android": {
-			"version": "2.0.0-2016-03-18-282"
+			"version": "2.0.0"
 		}
 	},
 	"dependencies": {
 		"nativescript-auth0": "file:../plugin",
 		"tns-core-modules": "1.7.0"
+	},
+	"devDependencies": {
+		"babel-traverse": "6.8.0",
+		"babel-types": "6.8.1",
+		"babylon": "6.8.0",
+		"filewalker": "0.1.2",
+		"lazy": "1.0.11"
 	}
 }
