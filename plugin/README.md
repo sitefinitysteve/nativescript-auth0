@@ -11,7 +11,7 @@ tns plugin add nativescript-auth0
 - Setup the allowed providers, what you pick here is what AUTOMATICALLY shows up on the login box (so cool and easy)
 - Make sure you have an allowed callback url per the [docs](https://auth0.com/docs/quickstart/native-mobile/ios-objc/aspnet-webapi#before-starting)
 
-#### Android: App_Resources/Android/AndroidManifest.xml ####
+#### Android: App_Resources/Android/AndroidManifest.xml
 ``` xml
 	<!--Auth0 Lock-->
 	<activity
@@ -33,7 +33,7 @@ tns plugin add nativescript-auth0
 	<!--Auth0 Lock End-->
 ```
 
-#### iOS: App_Resources/iOS/Info.plist ####
+#### iOS: App_Resources/iOS/Info.plist 
 ``` xml
 <key>Auth0Domain</key>
     <string>DOMAIN-GOES-HERE</string>
@@ -54,9 +54,9 @@ tns plugin add nativescript-auth0
     </array>
 ```
 
-## Configuration/Initalization ##
+## Configuration/Initalization 
 
-## iOS: app.js ##
+## iOS: app.js 
 ``` js
 if (application.ios) {
     var __extends = this.__extends || function (d, b) {
@@ -86,19 +86,19 @@ if (application.ios) {
 //Application.start goes somewhere below here
 ```
 
-## Android: Just overwrite files ##
+## Android: Just overwrite files 
 * Open node_modules/platforms/android
 * Copy the NativeScriptActivity.java and NativeScriptApplication.java files
 * Overwrite the exisitng files
 * ![alt text](android-setup.png)
 * **NOTE:** platforms is a volitle folder, you'll need to re-copy these files on every platform remove/add android command.  {N} is working on a way to improve this process.
 
-## How to use ##
+## How to use 
 ``` js
 var auth0 = require("nativescript-auth0");
 ```
 
-#### Login Option 1: Open native auth0 login UI (Called "Lock") ####
+#### Login Option 1: Open native auth0 login UI (Called "Lock") 
 ``` js
 //Doesn't seem to work on navigatedTo event, call on the loadedEvent
 auth0.show().then(function(args){
@@ -109,8 +109,8 @@ auth0.show().then(function(args){
 ```
 
 
-#### Login Option 2: Open identity providers UI directly ####
-##### Sends you right to googles auth screen, returning the result #####
+#### Login Option 2: Open identity providers UI directly 
+##### Sends you right to googles auth screen, returning the result 
 
 ``` js
 var connectionName = "my-auth0-connection"; //Connection name from the auth0 backend
