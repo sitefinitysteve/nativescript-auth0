@@ -30,7 +30,7 @@ android:launchMode="singleTask">
 <meta-data android:name="com.auth0.lock.domain-url" android:value="DOMAIN.auth0.com"/>
 ```
 
-* Copy the 2 java files from `node_modules/nativescript-auth0/platforms/android` to the `platforms/android/src/main/java/com/tns/` replacing the existing ones.
+* Copy the 2 java files from `./plugin/platforms/android` to the `platforms/android/src/main/java/com/tns/` replacing the existing ones.
 
 > The _demo_ uses the relative _plugin_ folder as a dependency. In that case, the path in which you should search the files is `../plugin/nativescript-auth0/platforms/android`.
 

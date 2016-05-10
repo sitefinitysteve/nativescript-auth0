@@ -5,8 +5,8 @@
   "main": "index.js",
   "nativescript": {
     "platforms": {
-      "android": "2.0.0",
-      "ios": "2.0.0"
+      "android": "1.7.0",
+      "ios": "1.7.0"
     }
   },
   "repository": {

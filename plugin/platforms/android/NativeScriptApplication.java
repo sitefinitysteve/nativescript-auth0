@@ -1,17 +1,18 @@
 package com.tns;
 
-@com.tns.JavaScriptImplementation(javaScriptFile = "./tns_modules/application/application.js")
+import android.app.Application;
+
+@JavaScriptImplementation(javaScriptFile = "app/tns_modules/application/application.js")
 public class NativeScriptApplication extends android.app.Application implements com.tns.NativeScriptHashCodeProvider,
  com.auth0.lock.LockProvider {  // AUTH0 INTERFACE
-	private static android.app.Application thiz;
+private static NativeScriptApplication thiz;
 	// AUTH0 START
   private com.auth0.lock.Lock lock;
 	// AUTH0 END
 
-	public NativeScriptApplication(){
-		super();
-		thiz = this;
-	}
+    public NativeScriptApplication() {
+        thiz = this;
+    }
 
 	// AUTH0 START
 	public com.auth0.lock.Lock getLock() {
@@ -22,12 +23,12 @@ public class NativeScriptApplication extends android.app.Application implements 
 
 	public void onCreate()  {
 		new RuntimeHelper(this).initRuntime();
-		if (!Runtime.isInitialized()) {
+		if (Platform.isInitialized()) {
+	        java.lang.Object[] params = null;
+	        com.tns.Platform.callJSMethod(this, "onCreate", void.class, params);
+		} else {
 			super.onCreate();
-			return;
 		}
-		java.lang.Object[] args = null;
-		com.tns.Runtime.callJSMethod(this, "onCreate", void.class, args);
 
 		// AUTH0 START
 		System.out.println("AUTH0DEBUG: Initializing Lock instance");
@@ -39,24 +40,24 @@ public class NativeScriptApplication extends android.app.Application implements 
 		// AUTH0 END
 	}
 
-	public void onLowMemory()  {
-		if (!Runtime.isInitialized()) {
-			super.onLowMemory();
-			return;
-		}
-		java.lang.Object[] args = null;
-		com.tns.Runtime.callJSMethod(this, "onLowMemory", void.class, args);
-	}
-
-	public void onTrimMemory(int param_0)  {
-		if (!Runtime.isInitialized()) {
-			super.onTrimMemory(param_0);
-			return;
-		}
-		java.lang.Object[] args = new java.lang.Object[1];
-		args[0] = param_0;
-		com.tns.Runtime.callJSMethod(this, "onTrimMemory", void.class, args);
-	}
+    public void onLowMemory() {
+    	if (Platform.isInitialized()) {
+	        java.lang.Object[] params = null;
+	        com.tns.Platform.callJSMethod(this, "onLowMemory", void.class, params);
+    	} else {
+    		super.onLowMemory();
+    	}
+    }
+	
+    public void onTrimMemory(int level) {
+    	if (Platform.isInitialized()) {
+	        java.lang.Object[] params = new Object[1];
+	        params[0] = level;
+	        com.tns.Platform.callJSMethod(this, "onTrimMemory", void.class, params);
+    	} else {
+    		super.onTrimMemory(level);
+    	}
+    }
 
 	public boolean equals__super(java.lang.Object other) {
 		return super.equals(other);
@@ -66,7 +67,7 @@ public class NativeScriptApplication extends android.app.Application implements 
 		return super.hashCode();
 	}
 
-	public static android.app.Application getInstance() {
-		return thiz;
-	}
+    public static Application getInstance() {
+        return thiz;
+    }
 }
