@@ -7,6 +7,10 @@ var common = require("./common");
 var jwt = require("./jwt");
 var theme = null;
 
+exports.initalize = function () {
+    global.a0lock = new A0Lock();
+}
+
 exports.show = function() {
 	return new Promise(function (resolve, reject) {
 		if(global.a0lock){

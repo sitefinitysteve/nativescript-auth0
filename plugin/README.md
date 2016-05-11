@@ -56,7 +56,7 @@ tns plugin add nativescript-auth0
 
 ## Configuration/Initalization 
 
-## iOS: app.js 
+## app.js 
 ``` js
 if (application.ios) {
     var __extends = this.__extends || function (d, b) {
@@ -73,14 +73,16 @@ if (application.ios) {
         }
         
         appDelegate.prototype.applicationDidFinishLaunchingWithOptions = function (application, launchOptions) {
-            global.a0lock = new A0Lock();
-            
+            auth0.initalize();
         };
         
         appDelegate.ObjCProtocols = [UIApplicationDelegate];
         return appDelegate;
     })(UIResponder);
     application.ios.delegate = appDelegate;
+}else{
+    //Android
+    auth0.initalize();
 }
 
 //Application.start goes somewhere below here
@@ -88,8 +90,8 @@ if (application.ios) {
 
 ## Android: Just overwrite files 
 * Open node_modules/platforms/android
-* Copy the NativeScriptActivity.java and NativeScriptApplication.java files
-* Overwrite the exisitng files
+* Copy the NativeScriptApplication.java file
+* Overwrite the exisiting file
 * ![alt text](android-setup.png)
 * **NOTE:** platforms is a volitle folder, you'll need to re-copy these files on every platform remove/add android command.  {N} is working on a way to improve this process.
 

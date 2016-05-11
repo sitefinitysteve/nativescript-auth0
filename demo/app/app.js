@@ -16,8 +16,7 @@ if (application.ios) {
         }
 
         appDelegate.prototype.applicationDidFinishLaunchingWithOptions = function (application, launchOptions) {
-            global.a0lock = new A0Lock();
-
+            auth0.initalize();
         };
 
         appDelegate.ObjCProtocols = [UIApplicationDelegate];
