@@ -1,4 +1,5 @@
 var application = require("application");
+var auth0 = require("nativescript-auth0");
 
 if (application.ios) {
     var __extends = this.__extends || function (d, b) {
@@ -23,6 +24,9 @@ if (application.ios) {
         return appDelegate;
     })(UIResponder);
     application.ios.delegate = appDelegate;
+}else{
+    //Android
+    auth0.initalize();
 }
 
 application.start({ moduleName: "login" });

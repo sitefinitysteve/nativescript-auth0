@@ -10,6 +10,14 @@ exports.show = function(page) {
             var context = util.ad.getApplicationContext();
             var lockIntent = new android.content.Intent(appModule.android.foregroundActivity, com.auth0.lock.LockActivity.class);
             if (lockIntent.resolveActivity(context.getPackageManager()) != null) {
+                appModule.android.onActivityResult = function(requestCode, resultCode, data) {
+                    debugger;
+                    console.log(requestCode);
+                    console.log(resultCode);
+                    console.log(data);
+                }
+                
+                
                 appModule.android.foregroundActivity.startActivity(lockIntent);	
             }
             

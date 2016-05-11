@@ -96,9 +96,10 @@ public class NativeScriptActivity extends android.app.Activity implements com.tn
 	// AUTH0 START
 	private android.content.BroadcastReceiver authenticationReceiver = new android.content.BroadcastReceiver() {
 	    public void onReceive(android.content.Context context, android.content.Intent intent) {
+			System.out.println("AUTH0DEBUG: onReceive authenticationReceiver");
 	        com.auth0.core.UserProfile profile = intent.getParcelableExtra("profile");
 	        com.auth0.core.Token token = intent.getParcelableExtra("token");
-	        System.out.println("AUTH0DEBUG: LOGGED IN");
+	        System.out.println("AUTH0DEBUG: end onReceive");
 	    }
 	};
 	// AUTH0 END
