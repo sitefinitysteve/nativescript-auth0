@@ -1,12 +1,35 @@
 var appSettings = require("application-settings");
 var util = require("utils/utils");
-var appModule = require("application");
+var application = require("application");
 var common = require("./common");
 
 var localResolve;
+var reciever;
 
 exports.initalize = function () {
-    appModule.android.registerBroadcastReceiver(new android.content.IntentFilter(com.auth0.lock.Lock.AUTHENTICATION_ACTION), recieverCallback);
+    application.on(application.launchEvent, function (args) {
+        if (args.android) {
+            var thiz = application.android.context;
+            var lock = new com.auth0.lock.Lock.Builder()
+            .loadFromApplication(thiz)
+            //Other configuration goes here
+            .closable(thiz)
+            .build();
+            
+            global.a0lock = lock;
+        }
+    });
+    
+    //Activity OnCreate
+    application.android.on(application.AndroidApplication.activityCreatedEvent, function (args) {
+        reciever = new android.content.IntentFilter(com.auth0.lock.Lock.AUTHENTICATION_ACTION);
+        application.android.registerBroadcastReceiver(reciever, recieverCallback);
+    });
+    
+    //Activity OnDestroy
+    application.android.on(application.AndroidApplication.activityDestroyedEvent, function (args) {
+        application.android.unregisterBroadcastReceiver(reciever);
+    });
 }
 
 exports.show = function(page) {
@@ -15,10 +38,10 @@ exports.show = function(page) {
         {
             localResolve = resolve;
             var context = util.ad.getApplicationContext();
-            var lockIntent = new android.content.Intent(appModule.android.foregroundActivity, com.auth0.lock.LockActivity.class);
+            var lockIntent = new android.content.Intent(application.android.foregroundActivity, com.auth0.lock.LockActivity.class);
             
             if (lockIntent.resolveActivity(context.getPackageManager()) != null) {
-                appModule.android.foregroundActivity.startActivity(lockIntent);	
+                application.android.foregroundActivity.startActivity(lockIntent);	
             }
             
         }

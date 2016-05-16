@@ -26,6 +26,9 @@ if (application.ios) {
 }else{
     //Android
     auth0.initalize();
+    
+
+
 }
 
 application.start({ moduleName: "login" });
