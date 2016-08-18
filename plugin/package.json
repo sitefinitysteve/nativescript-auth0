@@ -1,12 +1,12 @@
 {
   "name": "nativescript-auth0",
-  "version": "v0.1.5", 
-  "description": "A NativeScript module integrating Auth0 service",
+  "version": "v0.2.0", 
+  "description": "Auth0 social login",
   "main": "index.js",
   "nativescript": {
     "platforms": {
-      "android": "1.7.0",
-      "ios": "1.7.0"
+      "android": "2.2.0",
+      "ios": "2.2.0"
     }
   },
   "repository": {
