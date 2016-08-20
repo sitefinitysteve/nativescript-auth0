@@ -1,5 +1,8 @@
 
 npm-debug.log
 
+*.js
+*.js.map
+*.log
 demo/platforms/
 demo/node_modules/

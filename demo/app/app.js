@@ -23,12 +23,13 @@ if (application.ios) {
         return appDelegate;
     })(UIResponder);
     application.ios.delegate = appDelegate;
+
+    application.start({ moduleName: "login" });
 }else{
     //Android
     auth0.initalize();
-    
 
-
+    application.start({ moduleName: "login" });
 }
 
-application.start({ moduleName: "login" });
+

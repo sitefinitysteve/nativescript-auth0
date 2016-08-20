@@ -5,7 +5,6 @@ var userData = {};
 
 exports.onPageLoaded = function (args) {
     var page = args.object;
-    debugger;
     
     if(!init){
         userData = JSON.parse(appSettings.getString("auth0UserData"));
