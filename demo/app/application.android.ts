@@ -1,8 +1,9 @@
-import * as application from "application";
+/*import * as application from "application";
 
 // the `JavaProxy` decorator specifies the package and the name for the native *.JAVA file generated. 
 @JavaProxy("org.myApp.Application")
-class Application extends android.app.Application implements com.auth0.lock.LockProvider{
+@Interfaces([com.auth0.lock.LockProvider]) 
+class Application extends android.app.Application{
     // AUTH0 START
     private lock: com.auth0.lock.Lock;
 	// AUTH0 END
@@ -18,7 +19,7 @@ class Application extends android.app.Application implements com.auth0.lock.Lock
 		console.log("AUTH0DEBUG: Initializing Lock instance");
 		this.lock = new com.auth0.lock.Lock.Builder()
         .loadFromApplication(this)
-        /** Other configuration goes here */
+        //Other configuration goes here
         .closable(true)
         .build();
 
@@ -40,3 +41,4 @@ class Application extends android.app.Application implements com.auth0.lock.Lock
         // android.support.multidex.MultiDex.install(this);
     }
 }
+*/
