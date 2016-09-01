@@ -1,4 +1,4 @@
-/*import * as application from "application";
+import * as application from "application";
 
 // the `JavaProxy` decorator specifies the package and the name for the native *.JAVA file generated. 
 @JavaProxy("org.myApp.Application")
@@ -41,4 +41,3 @@ class Application extends android.app.Application{
         // android.support.multidex.MultiDex.install(this);
     }
 }
-*/

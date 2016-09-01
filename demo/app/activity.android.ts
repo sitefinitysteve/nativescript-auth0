@@ -1,12 +1,12 @@
-import {setActivityCallbacks, AndroidActivityCallbacks} from "ui/frame";
+import * as frame from "ui/frame";
 
 @JavaProxy("org.myApp.MainActivity")
 class Activity extends android.app.Activity {
-    private _callbacks: AndroidActivityCallbacks;
+    private _callbacks: frame.AndroidActivityCallbacks;
 
     protected onCreate(savedInstanceState: android.os.Bundle): void {
         if (!this._callbacks) {
-            setActivityCallbacks(this);
+            (<any>frame).setActivityCallbacks(this); //hack around the private issue https://github.com/NativeScript/NativeScript/issues/2526
         }
 
         this._callbacks.onCreate(this, savedInstanceState, super.onCreate);
