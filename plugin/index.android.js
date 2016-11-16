@@ -13,7 +13,7 @@ exports.initalize = function () {
             var lock = new com.auth0.lock.Lock.Builder()
             .loadFromApplication(thiz)
             //Other configuration goes here
-            .closable(thiz)
+            .closable(true)
             .build();
             
             global.a0lock = lock;

@@ -26,6 +26,7 @@ if (application.ios) {
 
     application.start({ moduleName: "login" });
 }else{
+    __enableVerboseLogging(); //REMOVE
     //Android
     auth0.initalize();
 

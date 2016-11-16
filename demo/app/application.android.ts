@@ -11,9 +11,6 @@ class Application extends android.app.Application{
     public onCreate(): void {
         super.onCreate();
 
-        // initialize the modules with the custom application object
-        application.android.init(this);
-
         // Enter custom initialization code here
         		// AUTH0 START
 		console.log("AUTH0DEBUG: Initializing Lock instance");
