@@ -52,7 +52,6 @@ exports.show = function(page) {
 }
 
 function recieverCallback(context, intent){
-        debugger;
         var profile = intent.getParcelableExtra("profile");
         var token = intent.getParcelableExtra("token");
         

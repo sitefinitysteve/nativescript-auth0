@@ -88,12 +88,34 @@ if (application.ios) {
 //Application.start goes somewhere below here
 ```
 
-## Android: Just overwrite files 
-* Open node_modules/platforms/android
-* Copy the NativeScriptApplication.java file
-* Overwrite the exisiting file
-* ![alt text](android-setup.png)
-* **NOTE:** platforms is a volitle folder, you'll need to re-copy these files on every platform remove/add android command.  {N} is working on a way to improve this process.
+## app.ts
+``` typescript
+import * as auth0 from "nativescript-auth0";
+
+if (application.ios) {
+    //iOS
+    class MyDelegate extends UIResponder implements UIApplicationDelegate {
+        public static ObjCProtocols = [UIApplicationDelegate];
+
+        applicationDidFinishLaunchingWithOptions(application: UIApplication, launchOptions: NSDictionary): boolean {
+            auth0.initalize();
+
+            return true;
+        }
+    }
+
+    application.ios.delegate = MyDelegate;
+
+}else{
+    //ANDROID
+    application.on(application.launchEvent, function (args) {
+        auth0.initalize();
+    });
+}
+```
+
+## Android: 
+- Copy activity.android.ts and application.android.ts to your /app root.
 
 ## How to use 
 ``` js
@@ -134,11 +156,7 @@ auth0.showIdp(connectionName).then(function(args){
 
 ## Android
 
-This won't work yet until {N} can support impliments on the application
-
 [Auth0 Sample](https://auth0.com/docs/quickstart/native-mobile/android/aspnet-webapi#3-initialize-lock)
-
-[Git Issue #283](https://github.com/NativeScript/android-runtime/issues/283)
 
 ## Styling
 

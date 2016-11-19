@@ -4,7 +4,7 @@ var frameModule = require("ui/frame");
 
 exports.onPageLoaded = function (args) {
     var page = args.object;
-    
+    debugger;
     //Check to see if the user is logged in
     if(!appSettings.hasKey("auth0Token")){
         doLogin();

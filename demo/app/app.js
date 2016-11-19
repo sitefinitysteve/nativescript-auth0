@@ -1,36 +1,29 @@
+"use strict";
 var application = require("application");
 var auth0 = require("nativescript-auth0");
-
 if (application.ios) {
-    var __extends = this.__extends || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-        function __() { this.constructor = d; }
-        __.prototype = b.prototype;
-        d.prototype = new __();
-    };
-
-    var appDelegate = (function (_super) {
-        __extends(appDelegate, _super);
-        function appDelegate() {
+    //iOS
+    var MyDelegate = (function (_super) {
+        __extends(MyDelegate, _super);
+        function MyDelegate() {
             _super.apply(this, arguments);
         }
-
-        appDelegate.prototype.applicationDidFinishLaunchingWithOptions = function (application, launchOptions) {
+        MyDelegate.prototype.applicationDidFinishLaunchingWithOptions = function (application, launchOptions) {
             auth0.initalize();
+            return true;
         };
-
-        appDelegate.ObjCProtocols = [UIApplicationDelegate];
-        return appDelegate;
-    })(UIResponder);
-    application.ios.delegate = appDelegate;
-
-    application.start({ moduleName: "login" });
-}else{
-    __enableVerboseLogging(); //REMOVE
-    //Android
-    auth0.initalize();
-
-    application.start({ moduleName: "login" });
+        MyDelegate.ObjCProtocols = [UIApplicationDelegate];
+        return MyDelegate;
+    }(UIResponder));
+    application.ios.delegate = MyDelegate;
 }
-
-
+else {
+    //ANDROID
+    application.on(application.launchEvent, function (args) {
+        auth0.initalize();
+    });
+}
+application.start({
+    moduleName: "login"
+});
+//# sourceMappingURL=app.js.map

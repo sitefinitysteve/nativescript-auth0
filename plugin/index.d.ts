@@ -1,12 +1,12 @@
 export function initalize(): void;
-export function show(): Promise<T>;
-export function showIdp(): Promise<T>;
-export function refreshTokenWithId(tokenId: string): Promise<T>;
-export function refreshTokenWithRefreshToken(refreshId: string): Promise<T>;
+export function show(): Promise<any>;
+export function showIdp(): Promise<any>;
+export function refreshTokenWithId(tokenId: string): Promise<any>;
+export function refreshTokenWithRefreshToken(refreshId: string): Promise<any>;
 export function isTokenExpired(token: string): boolean;
 export function decodeToken(token: string): string;
-export function addParameter(key: string, value: string): Promise<T>;
-export function addScopeParameter(scope: any): Promise<T>;
+export function addParameter(key: string, value: string): Promise<any>;
+export function addScopeParameter(scope: any): Promise<any>;
 
 /*export function initalize(options: InitalizeOptions): void;
 export function logEvent(options: LogEventOptions): void;
