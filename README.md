@@ -5,6 +5,9 @@
 * [NPM](https://www.npmjs.com/package/nativescript-auth0)
 
 ## Revision History ##
+### v2.4.0 ###
+* Auth0 released Lock v2, big changes from v1, custom application no longer needed
+
 ### v0.1.3 ###
 * Something changed in 2.0, android still not working
 * Moved common functions to shared file

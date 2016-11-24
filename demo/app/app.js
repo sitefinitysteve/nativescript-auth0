@@ -26,4 +26,3 @@ else {
 application.start({
     moduleName: "login"
 });
-//# sourceMappingURL=app.js.map

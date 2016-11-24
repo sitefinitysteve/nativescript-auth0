@@ -115,7 +115,10 @@ if (application.ios) {
 ```
 
 ## Android: 
-- Copy activity.android.ts and application.android.ts to your /app root.
+- Copy activity.android.ts to your /app root.
+- Modify your AndroidManifest (see the [sample](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/App_Resources/Android/AndroidManifest.xml#L28))
+  - Change the default tns activity to org.myApp.MainActivity (or whatever you have the activity set to in the activity.android.ts)
+  - Copy\pase in the auth0 lock activity section
 
 ## How to use 
 ``` js

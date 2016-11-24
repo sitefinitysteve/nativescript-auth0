@@ -1,5 +1,4 @@
 import * as frame from "ui/frame";0
-import {AuthenticationCallbackImpl} from "./AuthenticationCallbackImpl";
 
 @JavaProxy("org.myApp.MainActivity")
 class Activity extends android.app.Activity {
@@ -14,9 +13,14 @@ class Activity extends android.app.Activity {
         }
         this._callbacks.onCreate(this, savedInstanceState, super.onCreate);
         
+        
         this._callback = new AuthenticationCallbackImpl();
         var auth0 = new com.auth0.android.Auth0('q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp','nativescript.auth0.com');
+        console.log("auth0");
+        console.dump(auth0);
 
+        console.log("_callback");
+        console.dump(this._callback);
         this._lock = com.auth0.android.lock.Lock.newBuilder(auth0, this._callback).build(this);
         
     }
@@ -54,3 +58,22 @@ class Activity extends android.app.Activity {
 
 }
 
+@Interfaces([com.auth0.android.callback.AuthenticationCallback])
+export class AuthenticationCallbackImpl extends java.lang.Object {
+    constructor(){
+        super();
+        return global.__native(this);
+    }
+
+    protected onAuthentication(credentials: any): void {
+        console.log("onAuthentication!!!")
+    }
+
+    protected onCanceled(): void {
+        console.log("Cancelled, user pressed back!!!")
+    }
+
+    protected onError(error: any): void {
+        console.log("Exception occurred!!!")
+    }
+}
