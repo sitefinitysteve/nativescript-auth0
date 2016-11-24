@@ -12,13 +12,11 @@ class Activity extends android.app.Activity {
         if (!this._callbacks) {
             (<any>frame).setActivityCallbacks(this); //hack around the private issue https://github.com/NativeScript/NativeScript/issues/2526
         }
-        debugger;
         this._callbacks.onCreate(this, savedInstanceState, super.onCreate);
-        debugger;
-        console.log("OnCreate baby");
         
-        //this._callback = new AuthenticationCallbackImpl();
+        this._callback = new AuthenticationCallbackImpl();
         var auth0 = new com.auth0.android.Auth0('q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp','nativescript.auth0.com');
+
         this._lock = com.auth0.android.lock.Lock.newBuilder(auth0, this._callback).build(this);
         
     }
@@ -37,6 +35,9 @@ class Activity extends android.app.Activity {
 
     protected onDestroy(): void {
         this._callbacks.onDestroy(this, super.onDestroy);
+
+        this._lock.onDestroy(this);
+        this._lock = null;
     }
 
     public onBackPressed(): void {
