@@ -1,10 +1,10 @@
 var appSettings = require("application-settings");
-var auth0 = require("nativescript-auth0");
+import * as auth0 from "nativescript-auth0";
 var frameModule = require("ui/frame");
 
 exports.onPageLoaded = function (args) {
     var page = args.object;
-    
+
     //Check to see if the user is logged in
     if(!appSettings.hasKey("auth0Token")){
         doLogin();
@@ -23,12 +23,12 @@ exports.onPageLoaded = function (args) {
     }
 }
 
-function doLogin(){
+function doLogin(){/*
     auth0.show().then(function(args){
         goToHome();
     }, function (error) {
         alert(error);
-    });
+    });*/
 }
 
 function goToHome(){
