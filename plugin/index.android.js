@@ -7,6 +7,7 @@ var localResolve;
 var reciever;
 
 exports.initalize = function () {
+    /*
     application.on(application.launchEvent, function (args) {
         if (args.android) {
             var thiz = application.android.context;
@@ -30,6 +31,7 @@ exports.initalize = function () {
     application.android.on(application.AndroidApplication.activityDestroyedEvent, function (args) {
         application.android.unregisterBroadcastReceiver(reciever);
     });
+    */
 }
 
 exports.show = function(page) {

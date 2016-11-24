@@ -1,15 +1,26 @@
-import * as frame from "ui/frame";
+import * as frame from "ui/frame";0
+import {AuthenticationCallbackImpl} from "./AuthenticationCallbackImpl";
 
 @JavaProxy("org.myApp.MainActivity")
 class Activity extends android.app.Activity {
     private _callbacks: frame.AndroidActivityCallbacks;
+    private _lock: com.auth0.android.lock.Lock;
+    private _callback: AuthenticationCallbackImpl;
 
     protected onCreate(savedInstanceState: android.os.Bundle): void {
+        
         if (!this._callbacks) {
             (<any>frame).setActivityCallbacks(this); //hack around the private issue https://github.com/NativeScript/NativeScript/issues/2526
         }
-
+        debugger;
         this._callbacks.onCreate(this, savedInstanceState, super.onCreate);
+        debugger;
+        console.log("OnCreate baby");
+        
+        //this._callback = new AuthenticationCallbackImpl();
+        var auth0 = new com.auth0.android.Auth0('q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp','nativescript.auth0.com');
+        this._lock = com.auth0.android.lock.Lock.newBuilder(auth0, this._callback).build(this);
+        
     }
 
     protected onSaveInstanceState(outState: android.os.Bundle): void {
@@ -39,4 +50,6 @@ class Activity extends android.app.Activity {
     protected onActivityResult(requestCode: number, resultCode: number, data: android.content.Intent): void {
         this._callbacks.onActivityResult(this, requestCode, resultCode, data, super.onActivityResult);
     }
+
 }
+
