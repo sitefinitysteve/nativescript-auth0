@@ -1,4 +1,4 @@
-import * as frame from "ui/frame";0
+import * as frame from "ui/frame";
 
 @JavaProxy("org.myApp.MainActivity")
 class Activity extends android.app.Activity {
@@ -21,6 +21,7 @@ class Activity extends android.app.Activity {
 
         console.log("** this._callback **");
         console.dump(this._callback);
+        
         this._lock = com.auth0.android.lock.Lock.newBuilder(auth0, this._callback).build(this);
         
     }
