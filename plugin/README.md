@@ -31,6 +31,12 @@ tns plugin add nativescript-auth0
 	<meta-data android:name="com.auth0.lock.client-id" android:value="CLIENTID-GOES-HERE"/> <!-- ClientID here should be as you see it in your auth0 dash -->
 	<meta-data android:name="com.auth0.lock.domain-url" android:value="DOMAIN-GOES-HERE"/>
 	<!--Auth0 Lock End-->
+
+    <!--Auth0 Lock Embedded WebView-->
+    <activity
+        android:name="com.auth0.android.provider.WebAuthActivity"
+        android:theme="@style/MyLock.Theme" />
+    <!--Auth0 Lock Embedded WebView End-->
 ```
 
 #### iOS: App_Resources/iOS/Info.plist 
