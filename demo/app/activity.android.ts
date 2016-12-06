@@ -21,8 +21,9 @@ class Activity extends android.app.Activity {
 
         console.log("** this._callback **");
         console.dump(this._callback);
-        
-        this._lock = com.auth0.android.lock.Lock.newBuilder(auth0, this._callback).build(this);
+        debugger;
+        var builder = com.auth0.android.lock.Lock.newBuilder(auth0, this._callback); //Crashing happens here
+        this._lock = builder.build(this);
         
     }
 
@@ -63,7 +64,7 @@ class Activity extends android.app.Activity {
 export class AuthenticationCallbackImpl extends java.lang.Object {
     constructor(){
         super();
-        return global.__native(this);
+        //return global.__native(this);
     }
 
     protected onAuthentication(credentials: any): void {
