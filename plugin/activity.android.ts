@@ -16,10 +16,10 @@ class Activity extends android.app.Activity {
         
         this._callback = new AuthenticationCallbackImpl();
         var auth0 = new com.auth0.android.Auth0('q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp','nativescript.auth0.com');
-        console.log("auth0");
+        console.log("** auth0 **");
         console.dump(auth0);
 
-        console.log("_callback");
+        console.log("** this._callback **");
         console.dump(this._callback);
         this._lock = com.auth0.android.lock.Lock.newBuilder(auth0, this._callback).build(this);
         
@@ -40,8 +40,8 @@ class Activity extends android.app.Activity {
     protected onDestroy(): void {
         this._callbacks.onDestroy(this, super.onDestroy);
 
-        this._lock.onDestroy(this);
-        this._lock = null;
+        //this._lock.onDestroy(this);
+        //this._lock = null;
     }
 
     public onBackPressed(): void {

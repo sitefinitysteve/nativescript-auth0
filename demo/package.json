@@ -11,7 +11,7 @@
   "dependencies": {
     "nativescript-auth0": "file:../plugin",
     "nativescript-dev-typescript": "^0.3.2",
-    "tns-core-modules": "^2.4.0"
+    "tns-core-modules": "^2.4.1"
   },
   "devDependencies": {
     "babel-traverse": "6.13.0",
