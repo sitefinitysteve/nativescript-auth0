@@ -24,7 +24,6 @@ exports.onPageLoaded = function (args) {
 }
 
 function doLogin(){
-    debugger;
     auth0.show().then(function(args){
         goToHome();
     }, function (error) {

@@ -38,8 +38,6 @@ exports.show = function(page) {
 	return new Promise(function (resolve, reject) {
         try
         {
-            debugger;
-            console.dump(global.auth0Activity);
             localResolve = resolve;
             
             var context = util.ad.getApplicationContext();
