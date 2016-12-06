@@ -18,3 +18,10 @@ export function startTimer(timerName: string, options: StartTimerOptions): void;
 export function stopTimer(timerName: string): void;
 export function logTimingEvent(options: LogTimingEventOptions): void;
 export function getTracker(): string;*/
+
+interface Credentials{
+    getAccessToken(): string;
+    getIdToken(): string;
+    getRefreshToken(): string;
+    getType(): string;
+}

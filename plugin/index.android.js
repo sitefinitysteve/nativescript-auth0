@@ -7,31 +7,10 @@ var localResolve;
 var reciever;
 
 exports.initalize = function () {
-    /*
-    application.on(application.launchEvent, function (args) {
-        if (args.android) {
-            var thiz = application.android.context;
-            var lock = new com.auth0.lock.Lock.Builder()
-            .loadFromApplication(thiz)
-            //Other configuration goes here
-            .closable(true)
-            .build();
-            
-            global.a0lock = lock;
-        }
+    //Stub to maintain platform compatability
+    application.on("activityResult", function(args){
+       debugger; 
     });
-    
-    //Activity OnCreate
-    application.android.on(application.AndroidApplication.activityCreatedEvent, function (args) {
-        reciever = new android.content.IntentFilter(com.auth0.lock.Lock.AUTHENTICATION_ACTION);
-        application.android.registerBroadcastReceiver(reciever, recieverCallback);
-    });
-    
-    //Activity OnDestroy
-    application.android.on(application.AndroidApplication.activityDestroyedEvent, function (args) {
-        application.android.unregisterBroadcastReceiver(reciever);
-    });
-    */
 }
 
 exports.show = function(page) {
@@ -51,14 +30,4 @@ exports.show = function(page) {
             reject(args);
         }
 	});
-}
-
-function recieverCallback(context, intent){
-        var profile = intent.getParcelableExtra("profile");
-        var token = intent.getParcelableExtra("token");
-        
-        localResolve({
-            profile: profile,
-            token: token
-        })
 }

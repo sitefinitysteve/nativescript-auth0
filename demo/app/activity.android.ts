@@ -1,3 +1,5 @@
+///<reference path="../node_modules/nativescript-auth0/index.d.ts" />
+
 import * as frame from "ui/frame";
 var application = require("application");
 
@@ -74,6 +76,7 @@ export class AuthenticationCallbackImpl extends com.auth0.android.lock.Authentic
 
     protected onAuthentication(credentials: any): void {
         console.log("onAuthentication!!!")
+        console.dump(credentials);
     }
 
     protected onCanceled(): void {
@@ -81,6 +84,7 @@ export class AuthenticationCallbackImpl extends com.auth0.android.lock.Authentic
     }
 
     protected onError(error: any): void {
-        console.log("Exception occurred!!!")
+        console.log("Exception occurred!!! " + error)
+        console.dump(error);
     }
 }
