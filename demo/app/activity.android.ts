@@ -1,10 +1,11 @@
 import * as frame from "ui/frame";
+var application = require("application");
 
 @JavaProxy("org.myApp.MainActivity")
 class Activity extends android.app.Activity {
     private _callbacks: frame.AndroidActivityCallbacks;
-    private _lock: com.auth0.android.lock.Lock;
-    private _callback: AuthenticationCallbackImpl;
+    public _lock: com.auth0.android.lock.Lock;
+    public _callback: AuthenticationCallbackImpl;
 
     protected onCreate(savedInstanceState: android.os.Bundle): void {
         
@@ -16,15 +17,18 @@ class Activity extends android.app.Activity {
         
         this._callback = new AuthenticationCallbackImpl();
         var auth0 = new com.auth0.android.Auth0('q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp','nativescript.auth0.com');
+        /*
         console.log("** auth0 **");
         console.dump(auth0);
 
         console.log("** this._callback **");
         console.dump(this._callback);
-        debugger;
+        console.dump(this._callback.getClass());
+        */
         var builder = com.auth0.android.lock.Lock.newBuilder(auth0, this._callback); //Crashing happens here
         this._lock = builder.build(this);
-        
+
+        global.auth0 = this;
     }
 
     protected onSaveInstanceState(outState: android.os.Bundle): void {
@@ -42,8 +46,10 @@ class Activity extends android.app.Activity {
     protected onDestroy(): void {
         this._callbacks.onDestroy(this, super.onDestroy);
 
-        //this._lock.onDestroy(this);
-        //this._lock = null;
+        if(this._lock !== null){
+            this._lock.onDestroy(this);
+            this._lock = null;
+        }
     }
 
     public onBackPressed(): void {
@@ -60,11 +66,10 @@ class Activity extends android.app.Activity {
 
 }
 
-@Interfaces([com.auth0.android.callback.AuthenticationCallback])
-export class AuthenticationCallbackImpl extends java.lang.Object {
+export class AuthenticationCallbackImpl extends com.auth0.android.lock.AuthenticationCallback {
     constructor(){
         super();
-        //return global.__native(this);
+        return global.__native(this);
     }
 
     protected onAuthentication(credentials: any): void {

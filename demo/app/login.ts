@@ -23,12 +23,13 @@ exports.onPageLoaded = function (args) {
     }
 }
 
-function doLogin(){/*
+function doLogin(){
+    debugger;
     auth0.show().then(function(args){
         goToHome();
     }, function (error) {
         alert(error);
-    });*/
+    });
 }
 
 function goToHome(){

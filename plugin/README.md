@@ -15,7 +15,7 @@ tns plugin add nativescript-auth0
 ``` xml
 	<!--Auth0 Lock-->
 	<activity
-	android:name="com.auth0.lock.LockActivity"
+	android:name="com.auth0.android.lock.LockActivity"
 	android:theme="@style/Lock.Theme"
 	android:screenOrientation="portrait"
 	android:launchMode="singleTask">

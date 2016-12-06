@@ -38,14 +38,16 @@ exports.show = function(page) {
 	return new Promise(function (resolve, reject) {
         try
         {
+            debugger;
+            console.dump(global.auth0Activity);
             localResolve = resolve;
+            
             var context = util.ad.getApplicationContext();
-            var lockIntent = new android.content.Intent(application.android.foregroundActivity, com.auth0.lock.LockActivity.class);
+            var lockIntent = global.auth0._lock.newIntent(global.auth0);
             
             if (lockIntent.resolveActivity(context.getPackageManager()) != null) {
                 application.android.foregroundActivity.startActivity(lockIntent);	
             }
-            
         }
         catch(args){
             reject(args);
