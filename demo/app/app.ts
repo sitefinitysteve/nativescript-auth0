@@ -1,5 +1,7 @@
 import * as application from "application";
-import * as auth0 from "nativescript-auth0";
+import { Auth0Lock } from "nativescript-auth0";
+
+
 
 if (application.ios) {
     //iOS
@@ -7,8 +9,9 @@ if (application.ios) {
         public static ObjCProtocols = [UIApplicationDelegate];
 
         applicationDidFinishLaunchingWithOptions(application: UIApplication, launchOptions: NSDictionary): boolean {
-            auth0.initalize();
-
+            var lock = new Auth0Lock('q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp','nativescript.auth0.com');
+            lock.initalize();
+            global.auth0 = lock;
             return true;
         }
 
@@ -19,7 +22,8 @@ if (application.ios) {
 }else{
     //ANDROID
     application.on(application.launchEvent, function (args) {
-        auth0.initalize();
+        var lock = new Auth0Lock('q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp','nativescript.auth0.com');
+        global.auth0 = lock;
     });
 
 }

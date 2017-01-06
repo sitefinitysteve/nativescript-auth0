@@ -1,24 +1,29 @@
 {
   "nativescript": {
     "id": "org.nativescript.demo",
-    "tns-ios": {
-      "version": "2.4.0"
-    },
     "tns-android": {
       "version": "2.4.1"
+    },
+    "tns-ios": {
+      "version": "2.4.0"
     }
   },
   "dependencies": {
-    "nativescript-auth0": "file:../plugin",
-    "nativescript-dev-typescript": "^0.3.2",
-    "tns-core-modules": "^2.4.1"
+    "nativescript-auth0": "file:..",
+    "nativescript-unit-test-runner": "^0.3.0",
+    "tns-core-modules": "^2.4.4"
   },
   "devDependencies": {
-    "babel-traverse": "6.13.0",
-    "babel-types": "6.13.0",
-    "babylon": "6.9.0",
+    "babel-traverse": "6.12.0",
+    "babel-types": "6.11.1",
+    "babylon": "6.8.4",
+    "filewalker": "0.1.2",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.3.0",
+    "karma-jasmine": "^1.0.2",
+    "karma-nativescript-launcher": "^0.4.0",
     "lazy": "1.0.11",
     "nativescript-dev-typescript": "^0.3.2",
-    "typescript": "^1.8.10"
+    "typescript": "^2.0.7"
   }
 }

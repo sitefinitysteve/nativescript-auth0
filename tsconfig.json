@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
-        "declaration": false,
+        "declaration": true,
         "removeComments": true,
         "noLib": false,
         "emitDecoratorMetadata": true,
@@ -24,11 +24,12 @@
             "./node_modules/@types",
             "./node_modules"
         ],
-        "types": []
+        "types": [
+        ]
     },
     "exclude": [
-        "node_modules",
-        "platforms"
+        "demo",
+        "node_modules"
     ],
     "compileOnSave": false
 }

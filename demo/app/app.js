@@ -1,28 +1,30 @@
 "use strict";
 var application = require("application");
-var auth0 = require("nativescript-auth0");
+var nativescript_auth0_1 = require("nativescript-auth0");
 if (application.ios) {
-    //iOS
     var MyDelegate = (function (_super) {
         __extends(MyDelegate, _super);
         function MyDelegate() {
-            _super.apply(this, arguments);
+            return _super.apply(this, arguments) || this;
         }
         MyDelegate.prototype.applicationDidFinishLaunchingWithOptions = function (application, launchOptions) {
-            auth0.initalize();
+            var lock = new nativescript_auth0_1.Auth0Lock('q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp', 'nativescript.auth0.com');
+            lock.initalize();
+            global.auth0 = lock;
             return true;
         };
-        MyDelegate.ObjCProtocols = [UIApplicationDelegate];
         return MyDelegate;
     }(UIResponder));
+    MyDelegate.ObjCProtocols = [UIApplicationDelegate];
     application.ios.delegate = MyDelegate;
 }
 else {
-    //ANDROID
     application.on(application.launchEvent, function (args) {
-        auth0.initalize();
+        var lock = new nativescript_auth0_1.Auth0Lock('q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp', 'nativescript.auth0.com');
+        global.auth0 = lock;
     });
 }
 application.start({
     moduleName: "login"
 });
+//# sourceMappingURL=app.js.map

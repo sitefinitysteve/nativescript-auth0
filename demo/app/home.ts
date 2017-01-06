@@ -3,6 +3,8 @@ var frameModule = require("ui/frame");
 var init = false;
 var userData = {};
 
+declare var JSON: any;
+
 exports.onPageLoaded = function (args) {
     var page = args.object;
     
