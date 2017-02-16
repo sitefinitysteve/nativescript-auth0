@@ -10,7 +10,6 @@ if (application.ios) {
 
         applicationDidFinishLaunchingWithOptions(application: UIApplication, launchOptions: NSDictionary): boolean {
             var lock = new Auth0Lock('q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp','nativescript.auth0.com');
-            lock.initalize();
             global.auth0 = lock;
             return true;
         }

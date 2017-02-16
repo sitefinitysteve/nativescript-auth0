@@ -1,4 +1,4 @@
-import { Common } from './auth0.common';
+import common = require("./auth0.common");
 
 import * as util from "utils/utils";
 import * as application from "application";
@@ -6,13 +6,9 @@ import * as application from "application";
 var localResolve;
 var reciever;
 
-export class Auth0Lock{
-    constructor(){
-
-    }
-
-    public initalize(clientId: string, domain: string) : void{
-
+export class Auth0Lock extends common.Auth0Lock{
+    constructor(clientId: string, domain: string){
+        super(clientId, domain);
     }
 
     public show() : Promise<any>{

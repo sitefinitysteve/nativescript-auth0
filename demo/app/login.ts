@@ -1,35 +1,24 @@
-var appSettings = require("application-settings");
+import * as appSettings from "application-settings";
+import * as frameModule from "ui/frame";
 import { Auth0Lock } from "nativescript-auth0";
-var frameModule = require("ui/frame");
-
-let auth0: Auth0Lock;
 
 exports.onPageLoaded = function (args) {
     var page = args.object;
-    auth0 = new Auth0Lock('q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp','nativescript.auth0.com');
+    console.log("Login page");
 
     //Check to see if the user is logged in
-    if(!appSettings.hasKey("auth0Token")){
+    if(!appSettings.hasKey("auth0Tokens")){
+      //No tokens -> login
         doLogin();
-    }else{
-        /*
-        //Deserialzise the saved user
-        var tokenData = JSON.parse(appSettings.getString("auth0Token"));
-        
-        //Check if it's expired
-        if(auth0.isTokenExpired(tokenData.idToken)){
-            //Make them log in again
-            doLogin();
-        }else{
-            //All good, navigate to your start page
-            goToHome();
-        }
-        */
+    } else {
+      //Tokens available. Check expiry and if OK show 'home'
+      goToHome();
     }
 }
 
+
 function doLogin(){
-    auth0.show().then((args) => {
+    global.auth0.show().then((res) => {
         goToHome();
     }, function (error) {
         alert(error);
@@ -37,14 +26,14 @@ function doLogin(){
 }
 
 function goToHome(){
-    frameModule.topmost().navigate(
-    { 
-        moduleName: "home",
-        transition: {
-            name: "fade",
-            duration: 380,
-            curve: "easeIn"
-        },
-        clearHistory: true //Dont want the user to nav back to login
-    });
+  var navOptions = {
+      moduleName: "home",
+      transition: {
+          name: "fade",
+          duration: 380,
+          curve: "easeIn"
+      },
+      clearHistory: true //Dont want the user to nav back to login
+  };
+  frameModule.topmost().navigate(navOptions);
 }

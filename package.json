@@ -1,6 +1,6 @@
 {
   "name": "nativescript-auth0",
-  "version": "v0.2.4", 
+  "version": "v0.2.5", 
   "description": "Auth0 social login",
   "main": "auth0.js",
   "typings": "index.d.ts",
@@ -21,7 +21,11 @@
     "preparedemo": "npm run build && cd demo && tns plugin remove nativescript-auth0 && tns plugin add .. && tns install",
     "setup": "npm i && cd demo && npm i && cd .. && npm run build && cd demo && tns plugin add .. && cd ..",
     "postclone": "npm i && node scripts/postclone.js",
-    "refresh": "cd demo && tns plugin remove nativescript-auth0 && tns plugin add .."
+    "run.android": "cd demo && tns run android",
+    "run.ios": "cd demo && tns run ios",
+    "refresh": "cd demo && tns plugin remove nativescript-auth0 && tns plugin add ..",
+    "copy.android": "cp *.js demo/node_modules/nativescript-auth0 && cd demo && tns run android",
+    "copy.ios": "cp *.js demo/node_modules/nativescript-auth0 && cd demo && tns run ios"
   },
    "repository": {
     "type": "git",

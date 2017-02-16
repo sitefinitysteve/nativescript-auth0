@@ -1,14 +1,14 @@
-export declare class Auth0Lock{
+
+export class Auth0Lock{
     constructor(clientId: string, domain: string)
-    public initalize(): void;
     public show(): Promise<any>;
     public isTokenExpired(): boolean;
+
+    public credientials: Credentials;
 }
 
-
 export interface Credentials{
-    getAccessToken(): string;
-    getIdToken(): string;
-    getRefreshToken(): string;
-    getType(): string;
+    accessToken: string;
+    idToken: string;
+    refreshToken: string;
 }

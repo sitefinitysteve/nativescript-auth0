@@ -1,33 +1,34 @@
-var appSettings = require("application-settings");
-var frameModule = require("ui/frame");
+import * as appSettings from "application-settings";
+import * as frameModule from "ui/frame";
+import * as observableModule from "data/observable";
 var init = false;
-var userData = {};
+var auth0Tokens = {};
 
 declare var JSON: any;
 
 exports.onPageLoaded = function (args) {
     var page = args.object;
-    
-    if(!init){
-        userData = JSON.parse(appSettings.getString("auth0UserData"));
-        init = true;
-    }
-    
-    page.bindingContext = userData;
+    console.log("Home page");
+
+    var source = new observableModule.Observable();
+    console.dump(global.auth0.credentials);
+    source = global.auth0.credentials;
+    page.bindingContext = source;
 }
 
 exports.onLogout = function (args) {
-    appSettings.remove("auth0Token");
-    appSettings.remove("auth0UserData");
+    console.log("Logout");
+    appSettings.remove("auth0Tokens");
         
-    frameModule.topmost().navigate(
-    { 
-        moduleName: "login",
-        transition: {
-            name: "fade",
-            duration: 380,
-            curve: "easeIn"
-        },
-        clearHistory: true //Dont want the user to nav back to home
-    });
+  var navOptions = {
+      moduleName: "login",
+      transition: {
+          name: "fade",
+          duration: 380,
+          curve: "easeIn"
+      },
+      clearHistory: true //Dont want the user to nav back to login
+  };
+
+  frameModule.topmost().navigate(navOptions);
 }
