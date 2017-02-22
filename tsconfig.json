@@ -4,12 +4,9 @@
         "module": "commonjs",
         "declaration": true,
         "removeComments": true,
-        "noLib": false,
+        "noLib": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "lib": [
-            "dom"
-        ],
         "sourceMap": true,
         "pretty": true,
         "allowUnreachableCode": false,

@@ -2,6 +2,7 @@ import common = require("./auth0.common");
 import * as util from "utils/utils";
 import * as frameModule from "ui/frame";
 import * as application from "application";
+import * as appSetttings from 'application-settings';
 
 var localResolve;
 var localReject;
@@ -10,8 +11,8 @@ export class Auth0Lock extends common.Auth0Lock{
     public _lock: any;
     public _callback: any; 
 
-    constructor(clientId: string, domain: string){
-        super(clientId, domain);
+    constructor(options: common.Options){
+        super(options);
     }
 
     public show() : Promise<any>{
@@ -22,7 +23,7 @@ export class Auth0Lock extends common.Auth0Lock{
                 localReject = reject;
 
                 this._callback = new AuthCallback();
-                var auth0 = new com.auth0.android.Auth0(this._clientId, this._domain);
+                var auth0 = new com.auth0.android.Auth0(this.options.clientId, this.options.domain);
                 var builder = com.auth0.android.lock.Lock.newBuilder(auth0, this._callback); 
                 
                 var activity = frameModule.topmost().android.activity;
@@ -45,11 +46,23 @@ export class Auth0Lock extends common.Auth0Lock{
 
 var AuthCallback = com.auth0.android.lock.AuthenticationCallback.extend({
   onAuthentication: function(credentials){
-    console.log("Authentication Success");
-    //Set the global data
-    debugger;
-    global.auth0.saveTokens(credentials.accessToken, credentials.refreshToken, credentials.idToken);
-    localResolve(credentials);
+        console.log("Authentication Success");
+        var accessToken = credentials.getAccessToken();
+        var idToken = credentials.getIdToken();
+        var refreshToken = credentials.getRefreshToken();
+
+        let creds: common.Credentials = {
+            accessToken: accessToken,
+            idToken: idToken,
+            refreshToken: refreshToken,
+        };
+
+        appSetttings.setString(common.Auth0Lock._tokenKey, JSON.stringify(creds));
+
+        localResolve({
+            credentials: creds,
+            android: credentials
+        });
   },
   onCanceled: function(){
     console.log("Cancelled, user pressed back!!!");
@@ -58,6 +71,9 @@ var AuthCallback = com.auth0.android.lock.AuthenticationCallback.extend({
   onError: function(error){
     console.log("Exception occurred!!! " + error.getMessage());
     localReject(new Error(error.getMessage()));
+  },
+  onDestroy: function(){
+    console.log("DESTROY");
   }
 });
 exports.AuthCallback = AuthCallback;

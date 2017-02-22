@@ -1,13 +1,18 @@
 import * as appSettings from "application-settings";
 import * as frameModule from "ui/frame";
+import * as helpers from "./scripts/helpers";
 import { Auth0Lock } from "nativescript-auth0";
 
+let lock: Auth0Lock = null;
+
 exports.onPageLoaded = function (args) {
+    lock = helpers.getAuthLock();
+
     var page = args.object;
     console.log("Login page");
 
     //Check to see if the user is logged in
-    if(!appSettings.hasKey("auth0Tokens")){
+    if(!lock.hasToken()){
       //No tokens -> login
         doLogin();
     } else {
@@ -18,10 +23,10 @@ exports.onPageLoaded = function (args) {
 
 
 function doLogin(){
-    global.auth0.show().then((res) => {
+    lock.show().then((res) => {
         goToHome();
     }, function (error) {
-        alert(error);
+        console.log(error);
     });
 }
 

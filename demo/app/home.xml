@@ -1,6 +1,14 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="onPageLoaded">
     <GridLayout rows="*, auto">
-        <Label row="0" text="{{ 'Welcome ' + accessToken }}" textWrap="true" />
-        <Button row="1" text="LOGOUT" class="logout"  tap="onLogout" />
+        <GridLayout rows="*" row="0" class="data">
+            <ScrollView>
+                <Label text="{{ data }}" textWrap="true" />
+            </ScrollView>
+        </GridLayout>
+        <StackLayout row="1" class="commands">
+            <Button text="GET USER" class="btn"  tap="onGetUserData" />            
+            <Button text="GET TOKEN" class="btn"  tap="onGetTokenData" />            
+            <Button text="LOGOUT" class="btn"  tap="onLogout" />            
+        </StackLayout>
     </GridLayout>
 </Page>
