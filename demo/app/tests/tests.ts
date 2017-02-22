@@ -29,10 +29,7 @@ describe('Auth0Lock', () => {
 
   it("Can get user profile", () =>{
       var user = lock.getUserInfo();
+      console.dump(user);
       assert.isTrue(user);
-  })
-
-  it("Can get token details", () =>{
-      assert.isTrue(true);
   })
 });

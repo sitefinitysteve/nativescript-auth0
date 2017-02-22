@@ -52,7 +52,7 @@ export class Auth0Lock {
           url: "https://" + this.options.domain + "/userinfo", 
           method: "GET",
           headers: {
-            Authorization: "Bearer " + this.credientials.accessToken
+            "Authorization": "Bearer " + this.credientials.accessToken
           }
       }).then((response) => {
             resolve(response.content.toJSON());
@@ -67,7 +67,9 @@ export class Auth0Lock {
       return new Promise((resolve, reject) => {
         httpModule.request({ 
           url: "https://" + this.options.domain + "/tokeninfo", 
-          method: "POST"
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          content: JSON.stringify({ "id_token": this.credientials.idToken })
       }).then((response) => {
             resolve(response.content.toJSON());
         }, function (e) {
@@ -82,14 +84,18 @@ export class Auth0Lock {
       if(token === "")
         return false;
 
-      if(this.isTokenExpired)
+      if(this.isTokenExpired())
         return false;
 
       return true;
   }
 
   public isTokenExpired(): boolean{
-    var data = jwt(this.credientials.idToken);
+    var token = this.credientials.idToken;
+    if(token === "")
+      return true;
+
+    var data = jwt(token);
     var expiresOn = new Date(data.ext);
     
     return (expiresOn > new Date()) ? true : false;

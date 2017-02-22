@@ -21,8 +21,8 @@ exports.onPageLoaded = function (args) {
     lock = helpers.getAuthLock();
     console.dump(lock.credientials);
 
-    page.bindingContext = auth0Data;
-}
+    page.bindingContext = auth0Data; 
+} 
 
 exports.onLogout = function (args) {
     console.log("Logout");

@@ -12,7 +12,7 @@ exports.onPageLoaded = function (args) {
     console.log("Login page");
 
     //Check to see if the user is logged in
-    if(!lock.hasToken()){
+    if(!lock.hasValidToken()){
       //No tokens -> login
         doLogin();
     } else {
