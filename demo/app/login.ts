@@ -6,6 +6,7 @@ import { Auth0Lock } from "nativescript-auth0";
 let lock: Auth0Lock = null;
 
 exports.onPageLoaded = function (args) {
+    debugger;
     lock = helpers.getAuthLock();
 
     var page = args.object;

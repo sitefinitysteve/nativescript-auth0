@@ -24,6 +24,7 @@
     "run.android": "cd demo && tns run android",
     "run.ios": "cd demo && tns run ios",
     "refresh": "cd demo && tns plugin remove nativescript-auth0 && tns plugin add ..",
+    "copy": "cp *.js demo/node_modules/nativescript-auth0 && cp *.d.ts demo/node_modules/nativescript-auth0",
     "copy.android": "cp *.js demo/node_modules/nativescript-auth0 && cp *.d.ts demo/node_modules/nativescript-auth0 && cd demo && tns run android",
     "copy.ios": "cp *.js demo/node_modules/nativescript-auth0 && cp *.d.ts demo/node_modules/nativescript-auth0 && cd demo && tns run ios"
   },

@@ -2,7 +2,7 @@ import common = require("./auth0.common");
 import * as util from "utils/utils";
 import * as frameModule from "ui/frame";
 import * as application from "application";
-import * as appSetttings from 'application-settings';
+import * as appSettings from 'application-settings';
 
 var localResolve;
 var localReject;
@@ -57,7 +57,7 @@ var AuthCallback = com.auth0.android.lock.AuthenticationCallback.extend({
             refreshToken: refreshToken,
         };
 
-        appSetttings.setString(common.Auth0Lock._tokenKey, JSON.stringify(creds));
+        appSettings.setString(common.Auth0Lock._tokenKey, JSON.stringify(creds));
 
         localResolve({
             credentials: creds,
