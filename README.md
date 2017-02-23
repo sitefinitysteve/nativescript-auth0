@@ -1,4 +1,14 @@
 # Nativescript Auth0 
+<img src="https://cdn.auth0.com/styleguide/latest/lib/logos/img/logo-grey.png" alt="Drawing" style="width: 200px;"/>
+
+[Auth0](https://auth0.com) is the only social login provider for Nativescript that allows you to choose around [50 providers](https://auth0.com/docs/identityproviders) to log in with.
+
+The very clear benifet of the system is you configure and select which providers you want in the Auth0 backend and the plugin will dynamically load them in.  This cuts down on the plugin code and the amount of cocoapods or gradle dependancies you need to use\compile.
+
+Auth0 won't even cost you anuthing until you need over 7000 active users! 
+[Pricing page](https://auth0.com/pricing)
+
+I wont even touch on analytics, logging, webtasks, go browse them [here](https://auth0.com/why-auth0) when you get a chance
 
 ## Installation
 
@@ -12,9 +22,9 @@ Add this to your info.plist somewhere
 
 ``` xml
 <key>Auth0ClientId</key>
-	<string>q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp</string>
+	<string>myclientid</string>
 	<key>Auth0Domain</key>
-	<string>nativescript.auth0.com</string>
+	<string>mydomain.auth0.com</string>
 	 <key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -24,7 +34,7 @@ Add this to your info.plist somewhere
 			<string>auth0</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>a0q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp</string>
+				<string>a0myclientid</string>
 			</array>
 		</dict>
 	</array>
