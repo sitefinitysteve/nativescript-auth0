@@ -1,5 +1,6 @@
 # Nativescript Auth0 
-<img src="https://cdn.auth0.com/styleguide/latest/lib/logos/img/logo-grey.png" alt="Drawing" style="width: 200px;"/>
+
+![](https://cdn.auth0.com/styleguide/latest/lib/logos/img/logo-grey.png | width=200)
 
 [Auth0](https://auth0.com) is the only social login provider for Nativescript that allows you to choose around [50 providers](https://auth0.com/docs/identityproviders) to log in with.
 
