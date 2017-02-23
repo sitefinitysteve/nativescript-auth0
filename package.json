@@ -1,13 +1,13 @@
 {
   "name": "nativescript-auth0",
-  "version": "v0.2.5", 
+  "version": "v0.3.0", 
   "description": "Auth0 social login",
   "main": "auth0.js",
   "typings": "index.d.ts",
   "nativescript": {
     "platforms": {
-      "android": "2.4.0",
-      "ios": "2.4.0"
+      "android": "2.5.0",
+      "ios": "2.5.0"
     }
   },
   "scripts": {
