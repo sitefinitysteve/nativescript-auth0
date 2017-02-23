@@ -13,7 +13,7 @@ I wont even touch on analytics, logging, webtasks, go browse them [here](https:/
 ## Installation
 
 ``` terminal
-  tns plugin add nativescript-auth0
+tns plugin add nativescript-auth0
 ```
 
 ### iOS
@@ -111,6 +111,16 @@ Show the lock screen, returns a promise
         //console.log(error);
     });
 ```
+
+## Methods
+| Name             | Description                                                                                                   | Docs                                                             | Returns |
+|------------------|---------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|--------:|
+| refresh()        | reloads the saved credentials from app-settings                                                               |                                                                  |    void |
+| hasValidToken()  | Is the token still good, is there a token set, is it expired, couple checks                                   |                                                                  |    bool |
+| isTokenExpired() | Decodes the token to check it's expiry                                                                        |                                                                  |    bool |
+| clearToken()     | Removes the appsettings key that stores the tokens locally                                                    |                                                                  |    void |
+| getUserInfo()    | Returns the current user details, this is an internal http callback to auth0, might want to cache the results | [Link](https://auth0.com/docs/api/authentication#get-user-info)  | Promise |
+| getTokenInfo()   | Token details, this is an internal http callback to auth0, might want to cache the results                    | [Link](https://auth0.com/docs/api/authentication#get-token-info) | Promise |
 
 ## Version Notes
 
