@@ -1,12 +1,15 @@
 # Nativescript Auth0 
 
 ## Installation
+
 ``` terminal
   tns plugin add nativescript-auth0
 ```
 
 ### iOS
+
 Add this to your info.plist somewhere 
+
 ``` xml
 <key>Auth0ClientId</key>
 	<string>q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp</string>
@@ -29,7 +32,9 @@ Add this to your info.plist somewhere
   [Sample from demo](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/App_Resources/iOS/Info.plist#L46-L62)
 
   ### Android
+
   Add this to your AndroidManifest.xml
+
   ``` xml
   <!--Auth0 Lock-->
         <activity
@@ -60,6 +65,7 @@ Add this to your info.plist somewhere
   [Sample from demo](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/App_Resources/Android/AndroidManifest.xml#L39-L63)
 
   ## Usage
+
   Initalize at the top of your view
 
 ``` js
@@ -97,5 +103,7 @@ Show the lock screen, returns a promise
 ```
 
 ## Version Notes
+
 ### 3.0
+
 Total rewrite, hey, but it works!
