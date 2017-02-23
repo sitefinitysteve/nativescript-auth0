@@ -126,4 +126,4 @@ Show the lock screen, returns a promise
 
 ### 3.0
 
-Total rewrite, hey, but it works!
+Total rewrite, hey, but it works!  Per semvar incrimenting major version as there's breaking changes.  However the bonus of this is you no longer need app.js initaliation code.
