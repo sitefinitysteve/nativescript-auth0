@@ -66,6 +66,14 @@ Add this to your info.plist somewhere
 import { Auth0Lock } from "nativescript-auth0";
 ```
 
+Create your lock object, I like to do this in a [shared helper or something](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/scripts/helpers.ts#L4)
+``` js
+  var lock = new Auth0Lock({
+        clientId: '<your clientid>',
+        domain:'<your domain>'
+    });
+```
+
 Show the lock screen, returns a promise
 ```js
     /// Promise returns
@@ -81,10 +89,13 @@ Show the lock screen, returns a promise
     ///        },
     ///        android: {}
     /// }
-
     lock.show().then((res) => {
         //goToHomeOrWhatevs(); 
     }, function (error) {
         //console.log(error);
     });
 ```
+
+## Version Notes
+### 3.0
+Total rewrite, hey, but it works!
