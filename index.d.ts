@@ -1,6 +1,13 @@
 export interface Options{
   domain: string,
   clientId: string,
+  scope?: Array<string>
+}
+
+export interface Credentials {
+    accessToken: string;
+    idToken: string;
+    refreshToken: string;
 }
 
 export class Auth0Lock{
@@ -18,12 +25,4 @@ export class Auth0Lock{
     public getTokenInfo(): Promise<any>;
 
     public credientials: Credentials;
-}
-
-export class Credentials{
-    constructor(accessToken: string, idToken: string, refreshToken: string);
-
-    public accessToken: string;
-    public idToken: string;
-    public refreshToken: string;
 }

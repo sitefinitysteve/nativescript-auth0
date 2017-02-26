@@ -3,9 +3,6 @@
     "id": "org.nativescript.auth0demo",
     "tns-android": {
       "version": "2.5.0"
-    },
-    "tns-ios": {
-      "version": "2.5.0"
     }
   },
   "dependencies": {

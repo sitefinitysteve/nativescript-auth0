@@ -6,7 +6,9 @@ var jwt = require("./jwt");
 export interface Options{
   domain: string,
   clientId: string,
+  scope?: Array<string>
 }
+
 export interface Credentials {
     accessToken: string;
     idToken: string;
@@ -92,7 +94,7 @@ export class Auth0Lock {
 
   public isTokenExpired(): boolean{
     var token = this.credientials.idToken;
-    if(token === "")
+    if(token === "" || token === null)
       return true;
 
     var data = jwt(token);

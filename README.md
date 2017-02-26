@@ -86,7 +86,8 @@ Create your lock object, I like to do this in a [shared helper or something](htt
 ``` js
   var lock = new Auth0Lock({
         clientId: '<your clientid>',
-        domain:'<your domain>'
+        domain:'<your domain>',
+        scopes: [ "offline_access openid"] //Optional param, check the auth0 docs
     });
 ```
 

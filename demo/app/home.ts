@@ -12,14 +12,23 @@ let auth0Data: observableModule.Observable;
 
 exports.onPageLoaded = function (args) {
     var page = args.object;
-    console.log("Home page");
+    console.log("Home page"); 
+debugger;
+    lock = helpers.getAuthLock();
 
     auth0Data = observableModule.fromObject({
-        data: "Welcome, press a button below"
+        data: "Welcome, press a button below",
+        creds: { 
+            accessToken: lock.credientials.accessToken,
+            idToken: lock.credientials.idToken,
+            refreshToken: lock.credientials.refreshToken
+        }
     });
 
-    lock = helpers.getAuthLock();
+    
     console.dump(lock.credientials);
+
+
 
     page.bindingContext = auth0Data; 
 } 

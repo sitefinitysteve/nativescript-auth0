@@ -27,6 +27,16 @@ export class Auth0Lock extends common.Auth0Lock{
                 var builder = com.auth0.android.lock.Lock.newBuilder(auth0, this._callback); 
                 
                 var activity = frameModule.topmost().android.activity;
+                
+                //Add scope
+                if(this.options.scope){
+                    var scopeItems = this.options.scope.join(" ");
+                    console.log("Adding scope of " + scopeItems);
+
+                    var paramBuilder = com.auth0.android.authentication.ParameterBuilder.newBuilder();
+                    var authenticationParameters = paramBuilder.setScope(scopeItems).asDictionary();
+                    builder.withAuthenticationParameters(authenticationParameters)
+                }
 
                 this._lock = builder.build(activity);
 
