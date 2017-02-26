@@ -16,6 +16,12 @@
     margin: 10;
 }
 
+.header{
+    font-size: 16;
+    font-weight: bold;
+    margin-top: 20;
+}
+
 .commands{
     horizontal-align: center;
     

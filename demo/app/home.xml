@@ -5,9 +5,9 @@
                 <StackLayout>
                     <Label text="{{ data }}" textWrap="true" />    
                     <Label text="TOKENS" class="header" textWrap="true" />
-                    <Label text="{{ creds.accessToken" textWrap="false" />
-                    <Label text="{{ creds.idToken" textWrap="false" />
-                    <Label text="{{ creds.refreshToken" textWrap="false" />
+                    <Label text="{{ 'accessToken: ' + creds.accessToken }}" textWrap="false" />
+                    <Label text="{{ 'idToken: ' + creds.idToken }}" textWrap="false" />
+                    <Label text="{{ 'refreshToken: ' + creds.refreshToken }}" textWrap="false" />
                 </StackLayout>
                 
             </ScrollView>
