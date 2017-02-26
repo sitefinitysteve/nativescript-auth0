@@ -43,11 +43,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>Auth0ClientId</key>
-	<string>q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp</string>
-	<key>Auth0Domain</key>
-	<string>nativescript.auth0.com</string>
-	 <key>CFBundleURLTypes</key>
+	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
