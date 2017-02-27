@@ -18,28 +18,39 @@ tns plugin add nativescript-auth0
 
 ### iOS
 
-Add this to your info.plist somewhere 
+Make a new file called Auth0.plist, add this into it, clearly replacing the temp clientids and domain.  Note to keep a0 infront of the scheme.
 
+[Info.plist](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/App_Resources/iOS/Info.plist#L46-L62)
 ``` xml
-<key>Auth0ClientId</key>
-	<string>myclientid</string>
-	<key>Auth0Domain</key>
-	<string>mydomain.auth0.com</string>
-	 <key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>None</string>
-			<key>CFBundleURLName</key>
-			<string>auth0</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>a0myclientid</string>
-			</array>
-		</dict>
-	</array>
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>None</string>
+		<key>CFBundleURLName</key>
+		<string>auth0</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<string>a0myclientid</string>
+		</array>
+	</dict>
+</array>
   ```
-  [Sample from demo](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/App_Resources/iOS/Info.plist#L46-L62)
+
+[Auth0.plist](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/App_Resources/iOS/Auth0.plist)
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>ClientId</key>
+    <string>q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp</string>
+    <key>Domain</key>
+    <string>nativescript.auth0.com</string>
+  </dict>
+</plist>
+  ```
+  
 
 ### Android
 
