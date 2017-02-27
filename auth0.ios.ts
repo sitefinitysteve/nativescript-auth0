@@ -1,4 +1,4 @@
-/// <reference path="./Lock.d.ts" />
+/// <reference path="./Lock.ios.d.ts" />
 
 
 import common = require("./auth0.common");
@@ -17,11 +17,18 @@ export class Auth0Lock extends common.Auth0Lock{
 
     public show() : Promise<any>{
         return new Promise((resolve, reject) =>  {
-            debugger;
             var page = frameModule.topmost().ios.controller;
 
             let lock: A0Lock = A0Lock.newLockWithClientIdDomain(this.options.clientId,this.options.domain);
-            var controller = lock.newLockViewController();
+            let controller: A0LockViewController = lock.newLockViewController();
+            
+            //Add scope
+            if(this.options.scope){
+                var scopeItems = this.options.scope.join(" ");
+                console.log("Adding scope of " + scopeItems);
+
+                controller.authenticationParameters.scopes = this.options.scope;
+            }
 
             controller.onAuthenticationBlock = function(profile: A0UserProfile, token: A0Token){
                     
