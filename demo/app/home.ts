@@ -13,7 +13,6 @@ let auth0Data: observableModule.Observable;
 exports.onPageLoaded = function (args) {
     var page = args.object;
     console.log("Home page"); 
-debugger;
     lock = helpers.getAuthLock();
 
     auth0Data = observableModule.fromObject({
