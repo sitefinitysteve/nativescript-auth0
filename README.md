@@ -1,14 +1,13 @@
 # Nativescript Auth0Lock
 
+[Auth0](https://auth0.com) is a social login provider for Nativescript allowing you to choose between [50 different providers](https://auth0.com/docs/identityproviders).  Use the Auth0 portal to select and configure the providers you would like to make available in your NativeScript application. The Auth0 NativeScript plugin will dynamically load your chosen providers into your application.
 
-[Auth0](https://auth0.com) is the only social login provider for Nativescript that allows you to choose around [50 providers](https://auth0.com/docs/identityproviders) to log in with.
+The dynamically loading feature reduces the amount of dependencies you’ll have in your application. You also don’t have to worry about loading and managing Cocoapods or Android Jars specific to each implementation.
 
-The very clear benifet of the system is you configure and select which providers you want in the Auth0 backend and the plugin will dynamically load them in.  This cuts down on the plugin code and the amount of cocoapods or gradle dependancies you need to use\compile.
+Auth0 is a freemium service. The free tier supports up to 7,000 active users. [Auth0 paid service levels](https://auth0.com/pricing) are very reasonable.
 
-Auth0 won't even cost you anuthing until you need over 7000 active users! 
-[Pricing page](https://auth0.com/pricing)
+In addition to managing many login providers, Auth0 also has solutions for application analytics, logging, web tasks and more. [Take a look at all of the Auth0 features](https://auth0.com/why-auth0) and services.
 
-I wont even touch on analytics, logging, webtasks, go browse them [here](https://auth0.com/why-auth0) when you get a chance
 
 ## Installation
 
