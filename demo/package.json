@@ -9,7 +9,7 @@
     }
   },
   "dependencies": {
-    "nativescript-auth0": "file:///Users/steve/Dropbox/Projects/Plugins/nativescript-auth0",
+    "nativescript-auth0": "file:..",
     "nativescript-unit-test-runner": "^0.3.0",
     "tns-core-modules": "^2.5.1"
   },
