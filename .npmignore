@@ -1,3 +1,4 @@
+.vscode/
 demo/
 scripts/
 screenshots/
@@ -7,3 +8,4 @@ screenshots/
 *.map
 *.ts
 !*.d.ts
+tsconfig.json
