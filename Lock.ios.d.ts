@@ -1104,6 +1104,8 @@ declare class Lock extends NSObject implements A0APIClientProvider, A0Authentica
 
 	retainCount(): number;
 
+    presentFrom(controller: UIViewController): void;
+
 	self(): this;
 }
 

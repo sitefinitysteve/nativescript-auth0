@@ -50,7 +50,7 @@ export class Auth0Lock extends common.Auth0Lock{
                 });
             };
 
-            lockClassicScreen.presnet(page);
+            lockClassicScreen.presentFrom(page);
             console.log("PRESENT");
         });
     }
