@@ -934,7 +934,7 @@ declare class A0IdentityProviderAuthenticator extends NSObject {
 
 	useWebAsDefault: boolean;
 
-	constructor(o: { lock: A0Lock; });
+	constructor(o: { lock: Lock; });
 
 	applicationLaunchedWithOptions(launchOptions: NSDictionary<any, any>): void;
 
@@ -952,7 +952,7 @@ declare class A0IdentityProviderAuthenticator extends NSObject {
 
 	handleURLSourceApplication(url: NSURL, application: string): boolean;
 
-	initWithLock(lock: A0Lock): this;
+	initWithLock(lock: Lock): this;
 
 	registerAuthenticationProvider(authenticationProvider: A0BaseAuthenticator): void;
 
@@ -1012,19 +1012,23 @@ declare class A0LoadingView extends UIView {
 	message: string;
 }
 
-declare class A0Lock extends NSObject implements A0APIClientProvider, A0AuthenticatorProvider {
+declare class Lock extends NSObject implements A0APIClientProvider, A0AuthenticatorProvider {
 
-	static alloc(): A0Lock; // inherited from NSObject
+	static alloc(): Lock; // inherited from NSObject
 
-	static new(): A0Lock; // inherited from NSObject
+	static new(): Lock; // inherited from NSObject
 
-	static newLock(): A0Lock;
+	static newLock(): Lock;
 
-	static newLockWithClientIdDomain(clientId: string, domain: string): A0Lock;
+	static newLockWithClientIdDomain(clientId: string, domain: string): Lock;
 
-	static newLockWithClientIdDomainConfigurationDomain(clientId: string, domain: string, configurationDomain: string): A0Lock;
+	static newLockWithClientIdDomainConfigurationDomain(clientId: string, domain: string, configurationDomain: string): Lock;
 
-	static sharedLock(): A0Lock;
+	static sharedLock(): Lock;
+
+    static classic(): Lock;
+
+	static class(): Lock;
 
 	readonly clientId: string;
 
@@ -1078,9 +1082,9 @@ declare class A0Lock extends NSObject implements A0APIClientProvider, A0Authenti
 
 	isMemberOfClass(aClass: typeof NSObject): boolean;
 
-	newLockViewController(): A0LockViewController;
+	newLockViewController(): LockViewController;
 
-	newSignUpViewController(): A0LockSignUpViewController;
+	newSignUpViewController(): LockSignUpViewController;
 
 	newUserAPIClientWithIdToken(idToken: string): A0UserAPIClient;
 
@@ -1090,9 +1094,9 @@ declare class A0Lock extends NSObject implements A0APIClientProvider, A0Authenti
 
 	performSelectorWithObjectWithObject(aSelector: string, object1: any, object2: any): any;
 
-	presentLockControllerFromController(lockController: A0LockViewController, controller: UIViewController): void;
+	presentLockControllerFromController(lockController: LockViewController, controller: UIViewController): void;
 
-	presentLockControllerFromControllerPresentationStyle(lockController: A0LockViewController, controller: UIViewController, presentationStyle: UIModalPresentationStyle): void;
+	presentLockControllerFromControllerPresentationStyle(lockController: LockViewController, controller: UIViewController, presentationStyle: UIModalPresentationStyle): void;
 
 	registerAuthenticators(authenticators: NSArray<any>): void;
 
@@ -1103,11 +1107,11 @@ declare class A0Lock extends NSObject implements A0APIClientProvider, A0Authenti
 	self(): this;
 }
 
-declare class A0LockConfiguration extends NSObject {
+declare class LockConfiguration extends NSObject {
 
-	static alloc(): A0LockConfiguration; // inherited from NSObject
+	static alloc(): LockConfiguration; // inherited from NSObject
 
-	static new(): A0LockConfiguration; // inherited from NSObject
+	static new(): LockConfiguration; // inherited from NSObject
 
 	readonly application: A0Application;
 
@@ -1136,26 +1140,26 @@ declare class A0LockConfiguration extends NSObject {
 	socialStrategies(): NSArray<any>;
 }
 
-declare class A0LockEventDelegate extends NSObject {
+declare class LockEventDelegate extends NSObject {
 
-	static alloc(): A0LockEventDelegate; // inherited from NSObject
+	static alloc(): LockEventDelegate; // inherited from NSObject
 
-	static new(): A0LockEventDelegate; // inherited from NSObject
+	static new(): LockEventDelegate; // inherited from NSObject
 
-	constructor(o: { lockViewController: A0LockViewController; });
+	constructor(o: { lockViewController: LockViewController; });
 
 	backToLock(): void;
 
 	dismissLock(): void;
 
-	initWithLockViewController(controller: A0LockViewController): this;
+	initWithLockViewController(controller: LockViewController): this;
 
 	userAuthenticatedWithTokenProfile(token: A0Token, profile: A0UserProfile): void;
 }
 
-declare class A0LockLogger extends NSObject {
+declare class LockLogger extends NSObject {
 
-	static alloc(): A0LockLogger; // inherited from NSObject
+	static alloc(): LockLogger; // inherited from NSObject
 
 	static logAll(): void;
 
@@ -1163,38 +1167,38 @@ declare class A0LockLogger extends NSObject {
 
 	static logOff(): void;
 
-	static new(): A0LockLogger; // inherited from NSObject
+	static new(): LockLogger; // inherited from NSObject
 }
 
-declare var A0LockNotificationChangePasswordFailed: string;
+declare var LockNotificationChangePasswordFailed: string;
 
-declare var A0LockNotificationChangePasswordSuccessful: string;
+declare var LockNotificationChangePasswordSuccessful: string;
 
-declare var A0LockNotificationConnectionParameterKey: string;
+declare var LockNotificationConnectionParameterKey: string;
 
-declare var A0LockNotificationEmailParameterKey: string;
+declare var LockNotificationEmailParameterKey: string;
 
-declare var A0LockNotificationErrorParameterKey: string;
+declare var LockNotificationErrorParameterKey: string;
 
-declare var A0LockNotificationLockDismissed: string;
+declare var LockNotificationLockDismissed: string;
 
-declare var A0LockNotificationLoginFailed: string;
+declare var LockNotificationLoginFailed: string;
 
-declare var A0LockNotificationLoginSuccessful: string;
+declare var LockNotificationLoginSuccessful: string;
 
-declare var A0LockNotificationSignUpFailed: string;
+declare var LockNotificationSignUpFailed: string;
 
-declare var A0LockNotificationSignUpSuccessful: string;
+declare var LockNotificationSignUpSuccessful: string;
 
-declare var A0LockNotificationUniversalLinkParameterKey: string;
+declare var LockNotificationUniversalLinkParameterKey: string;
 
-declare var A0LockNotificationUniversalLinkReceived: string;
+declare var LockNotificationUniversalLinkReceived: string;
 
-declare class A0LockSignUpViewController extends UIViewController {
+declare class LockSignUpViewController extends UIViewController {
 
-	static alloc(): A0LockSignUpViewController; // inherited from NSObject
+	static alloc(): LockSignUpViewController; // inherited from NSObject
 
-	static new(): A0LockSignUpViewController; // inherited from NSObject
+	static new(): LockSignUpViewController; // inherited from NSObject
 
 	authenticationParameters: A0AuthParameters;
 
@@ -1210,16 +1214,16 @@ declare class A0LockSignUpViewController extends UIViewController {
 
 	useWebView: boolean;
 
-	constructor(o: { lock: A0Lock; });
+	constructor(o: { lock: Lock; });
 
-	initWithLock(lock: A0Lock): this;
+	initWithLock(lock: Lock): this;
 }
 
-declare class A0LockViewController extends A0ContainerViewController {
+declare class LockViewController extends A0ContainerViewController {
 
-	static alloc(): A0LockViewController; // inherited from NSObject
+	static alloc(): LockViewController; // inherited from NSObject
 
-	static new(): A0LockViewController; // inherited from NSObject
+	static new(): LockViewController; // inherited from NSObject
 
 	authenticationParameters: A0AuthParameters;
 
@@ -1227,7 +1231,7 @@ declare class A0LockViewController extends A0ContainerViewController {
 
 	connections: NSArray<any>;
 
-	customSignUp: (p1: A0Lock, p2: A0LockEventDelegate) => UIViewController;
+	customSignUp: (p1: Lock, p2: LockEventDelegate) => UIViewController;
 
 	defaultADUsernameFromEmailPrefix: boolean;
 
@@ -1253,9 +1257,9 @@ declare class A0LockViewController extends A0ContainerViewController {
 
 	usesEmail: boolean;
 
-	constructor(o: { lock: A0Lock; });
+	constructor(o: { lock: Lock; });
 
-	initWithLock(lock: A0Lock): this;
+	initWithLock(lock: Lock): this;
 }
 
 declare const enum A0LoginIndentifierType {
@@ -1579,11 +1583,11 @@ declare class A0PasswordlessLockViewModel extends NSObject {
 
 	onMagicLink: (p1: NSError, p2: boolean) => void;
 
-	constructor(o: { lock: A0Lock; authenticationParameters: A0AuthParameters; strategy: A0PasswordlessLockStrategy; });
+	constructor(o: { lock: Lock; authenticationParameters: A0AuthParameters; strategy: A0PasswordlessLockStrategy; });
 
 	authenticateWithVerificationCodeCallback(verificationCode: string, callback: (p1: NSError) => void): void;
 
-	initWithLockAuthenticationParametersStrategy(lock: A0Lock, parameters: A0AuthParameters, strategy: A0PasswordlessLockStrategy): this;
+	initWithLockAuthenticationParametersStrategy(lock: Lock, parameters: A0AuthParameters, strategy: A0PasswordlessLockStrategy): this;
 
 	requestVerificationCodeWithCallback(callback: (p1: NSError) => void): void;
 }
@@ -2400,9 +2404,9 @@ declare class A0WebViewAuthenticator extends A0BaseAuthenticator {
 
 	localizedCancelButtonTitle: string;
 
-	constructor(o: { connectionName: string; lock: A0Lock; });
+	constructor(o: { connectionName: string; lock: Lock; });
 
-	initWithConnectionNameLock(connectionName: string, lock: A0Lock): this;
+	initWithConnectionNameLock(connectionName: string, lock: Lock): this;
 }
 
 declare var A0WebViewAuthenticatorTitleBarBarTintColor: string;

@@ -4,6 +4,8 @@ npm-debug.log
 *.js
 *.js.map
 *.log
+.idea
+.DS_Store
 !scripts/*.js
 demo/app/*.js
 !demo/karma.conf.js
