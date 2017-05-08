@@ -8,7 +8,7 @@ import * as frameModule from "ui/frame";
 import * as util from "utils/utils";
 import * as application from "application";
 
-declare var A0Lock;
+declare var Lock;
 
 export class Auth0Lock extends common.Auth0Lock{
     constructor(options: common.Options){
@@ -19,21 +19,18 @@ export class Auth0Lock extends common.Auth0Lock{
         return new Promise((resolve, reject) =>  {
             var page = frameModule.topmost().ios.controller;
 
-            let lock: A0Lock = A0Lock.newLockWithClientIdDomain(this.options.clientId,this.options.domain);
-            let controller: A0LockViewController = lock.newLockViewController();
-            
+            let lockClassicScreen: Lock = Lock.classic();
+
             //Add scope
             if(this.options.scope){
                 var scopeItems = this.options.scope.join(" ");
                 console.log("Adding scope of " + scopeItems);
 
-                controller.authenticationParameters.scopes = this.options.scope;
+                lockClassicScreen.authenticationParameters.scopes = this.options.scope;
             }
 
-            controller.onAuthenticationBlock = function(profile: A0UserProfile, token: A0Token){
+            lockClassicScreen.onAuthenticationBlock = function(profile: A0UserProfile, token: A0Token){
                     
-                page.dismissViewControllerAnimatedCompletion(true, null);
-
                 console.log("Authentication Success");
 
                 let creds: common.Credentials = {
@@ -51,9 +48,9 @@ export class Auth0Lock extends common.Auth0Lock{
                         token: token
                     }
                 });
-            }			
-            page.presentViewControllerAnimatedCompletion(controller, true, null);
+            };
 
+            lockClassicScreen.presentFrom(page);
             console.log("PRESENT");
         });
     }
