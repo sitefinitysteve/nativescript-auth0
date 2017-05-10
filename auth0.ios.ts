@@ -26,12 +26,11 @@ export class Auth0Lock extends common.Auth0Lock{
                 var scopeItems = this.options.scope.join(" ");
                 console.log("Adding scope of " + scopeItems);
 
-                
+                //Pending update from telerik\progress
                 //lockClassicScreen.authenticationParameters.scopes = this.options.scope;
             }
 
             lock.onAuthWithCallback((credientials: A0Credentials) => {
-                debugger;
                 console.log("Authentication Success");
 
                 let creds: common.Credentials = {
