@@ -9,9 +9,9 @@
     }
   },
   "dependencies": {
-    "nativescript-auth0": "file:..",
+    "nativescript-auth0": "file:///Users/steve/Dropbox/Projects/Plugins/nativescript-auth0",
     "nativescript-unit-test-runner": "^0.3.0",
-    "tns-core-modules": "^2.5.1"
+    "tns-core-modules": "^2.5.2"
   },
   "devDependencies": {
     "@types/chai": "^3.4.35",
