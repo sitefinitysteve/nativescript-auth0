@@ -52,6 +52,13 @@ Make a new file called Auth0.plist, add this into it, clearly replacing the temp
   </dict>
 </plist>
   ```
+
+  #### Impliement Delegate ####
+
+  [Sample Delegate](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/custom-app-delegate.ts)
+
+  [How to initalize it in app.ts](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/app.ts#L5-L17)
+
   
 
 ### Android
