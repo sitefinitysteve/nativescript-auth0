@@ -1,4 +1,6 @@
-/// <reference path="./Lock.ios.d.ts" />
+/// <reference path="./typings/Auth0.ios.d.ts" />
+/// <reference path="./typings/Lock.ios.d.ts" />
+
 
 
 import common = require("./auth0.common");
@@ -7,8 +9,6 @@ import * as appSettings from "application-settings";
 import * as frameModule from "ui/frame";
 import * as util from "utils/utils";
 import * as application from "application";
-
-declare var Lock;
 
 export class Auth0Lock extends common.Auth0Lock{
     constructor(options: common.Options){
@@ -26,29 +26,25 @@ export class Auth0Lock extends common.Auth0Lock{
                 var scopeItems = this.options.scope.join(" ");
                 console.log("Adding scope of " + scopeItems);
 
-                lockClassicScreen.authenticationParameters.scopes = this.options.scope;
+                //lockClassicScreen.authenticationParameters.scopes = this.options.scope;
             }
 
-            lockClassicScreen.onAuthenticationBlock = function(profile: A0UserProfile, token: A0Token){
-                    
+            lockClassicScreen.onAuthWithCallback((credientials: A0Credentials) => {
+                debugger;
                 console.log("Authentication Success");
 
                 let creds: common.Credentials = {
-                    accessToken: token.accessToken,
-                    idToken: token.idToken,
-                    refreshToken: token.refreshToken,
+                    accessToken: credientials.accessToken,
+                    idToken: credientials.idToken,
+                    refreshToken: credientials.refreshToken,
                 };
 
                 appSettings.setString(common.Auth0Lock._tokenKey, JSON.stringify(creds));
 
                 resolve({
-                    credentials: creds,
-                    ios: {
-                        profile: profile,
-                        token: token
-                    }
+                    credentials: credientials
                 });
-            };
+            });
 
             lockClassicScreen.presentFrom(page);
             console.log("PRESENT");

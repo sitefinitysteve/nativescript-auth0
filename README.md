@@ -15,6 +15,9 @@ In addition to managing many login providers, Auth0 also has solutions for appli
 tns plugin add nativescript-auth0
 ```
 
+Go to your Auth0.com backend and configure your CallbackUrls, *DO NOT USE THE KEYS IN THE DEMO*
+[Configure Callback URLs](https://auth0.com/docs/quickstart/native/ios-swift/00-getting-started#configure-callback-urls)
+
 ### iOS
 
 Make a new file called Auth0.plist, add this into it, clearly replacing the temp clientids and domain.  Note to keep a0 infront of the scheme.
@@ -30,7 +33,7 @@ Make a new file called Auth0.plist, add this into it, clearly replacing the temp
 		<string>auth0</string>
 		<key>CFBundleURLSchemes</key>
 		<array>
-			<string>a0myclientid</string>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 		</array>
 	</dict>
 </array>
@@ -134,6 +137,10 @@ Show the lock screen, returns a promise
 | getTokenInfo()   | Token details, this is an internal http callback to auth0, might want to cache the results                    | [Link](https://auth0.com/docs/api/authentication#get-token-info) | Promise |
 
 ## Version Notes
+
+### 1.2.0
+
+Updated API to Auth0 v2 Swift on iOS
 
 ### 1.0.0
 
