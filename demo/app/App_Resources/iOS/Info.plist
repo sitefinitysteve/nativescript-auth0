@@ -52,7 +52,7 @@
 			<string>auth0</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+				<string>org.nativescript.auth0demo</string>
 			</array>
 		</dict>
 	</array>

@@ -19,17 +19,18 @@ export class Auth0Lock extends common.Auth0Lock{
         return new Promise((resolve, reject) =>  {
             var page = frameModule.topmost().ios.controller;
 
-            let lockClassicScreen: Lock = Lock.classic();
+            let lock: Lock = Lock.classic();
 
             //Add scope
             if(this.options.scope){
                 var scopeItems = this.options.scope.join(" ");
                 console.log("Adding scope of " + scopeItems);
 
+                
                 //lockClassicScreen.authenticationParameters.scopes = this.options.scope;
             }
 
-            lockClassicScreen.onAuthWithCallback((credientials: A0Credentials) => {
+            lock.onAuthWithCallback((credientials: A0Credentials) => {
                 debugger;
                 console.log("Authentication Success");
 
@@ -46,7 +47,7 @@ export class Auth0Lock extends common.Auth0Lock{
                 });
             });
 
-            lockClassicScreen.presentFrom(page);
+            lock.presentFrom(page);
             console.log("PRESENT");
         });
     }
