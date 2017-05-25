@@ -1,4 +1,3 @@
-
 export class CustomAppDelegate extends UIResponder implements UIApplicationDelegate {
     public static ObjCProtocols = [UIApplicationDelegate];
     protected static _queue: Object = {};
@@ -12,7 +11,7 @@ export class CustomAppDelegate extends UIResponder implements UIApplicationDeleg
         return CustomAppDelegate._promise("applicationDidFinishLaunchingWithOptions", { application, launchOptions });
     }
 
-    applicationOpenURLOptions(application: typeof UIApplication, url: string, options: typeof NSDictionary) {
+	applicationOpenURLOptions(application: typeof UIApplication, url: string, options: typeof NSDictionary) {
         console.log("applicationOpenURLOptions");
 		return CustomAppDelegate._promise("applicationOpenURLOptions", { application, url, options });
 	}
