@@ -1,5 +1,3 @@
-/// <reference path="../node_modules/nativescript-auth0/typings/Auth0.ios.d.ts" />
-/// <reference path="../node_modules/nativescript-auth0/typings/Lock.ios.d.ts" />
 
 export class CustomAppDelegate extends UIResponder implements UIApplicationDelegate {
     public static ObjCProtocols = [UIApplicationDelegate];
@@ -9,7 +7,7 @@ export class CustomAppDelegate extends UIResponder implements UIApplicationDeleg
         console.log("applicationDidEnterBackground");
     }
 
-    public applicationDidFinishLaunchingWithOptions(application: UIApplication, launchOptions: NSDictionary): boolean {
+    public applicationDidFinishLaunchingWithOptions(application: UIApplication, launchOptions: any): boolean {
         console.log("applicationDidFinishLaunchingWithOptions");
         return CustomAppDelegate._promise("applicationDidFinishLaunchingWithOptions", { application, launchOptions });
     }

@@ -15,10 +15,18 @@ In addition to managing many login providers, Auth0 also has solutions for appli
 tns plugin add nativescript-auth0
 ```
 
+OPTIONAL: Add this to your references.d.ts (if you use typescript)
+``` xml
+/// <reference path="./node_modules/nativescript-auth0/typings/Auth0.ios.d.ts" />
+/// <reference path="./node_modules/nativescript-auth0/typings/Lock.ios.d.ts" />
+```
+
 Go to your Auth0.com backend and configure your CallbackUrls, *DO NOT USE THE KEYS IN THE DEMO*
 [Configure Callback URLs](https://auth0.com/docs/quickstart/native/ios-swift/00-getting-started#configure-callback-urls)
 
 Syntax should be: {YOURBUNDLEID}://{DOMAIN}.auth0.com/ios/{YOURBUNDLEID}/callback
+
+
 
 ### iOS
 
