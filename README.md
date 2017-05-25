@@ -18,6 +18,8 @@ tns plugin add nativescript-auth0
 Go to your Auth0.com backend and configure your CallbackUrls, *DO NOT USE THE KEYS IN THE DEMO*
 [Configure Callback URLs](https://auth0.com/docs/quickstart/native/ios-swift/00-getting-started#configure-callback-urls)
 
+Syntax should be: {YOURBUNDLEID}://{DOMAIN}.auth0.com/ios/{YOURBUNDLEID}/callback
+
 ### iOS
 
 Make a new file called Auth0.plist, add this into it, clearly replacing the temp clientids and domain.  Note to keep a0 infront of the scheme.
@@ -33,11 +35,12 @@ Make a new file called Auth0.plist, add this into it, clearly replacing the temp
 		<string>auth0</string>
 		<key>CFBundleURLSchemes</key>
 		<array>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			<string>org.nativescript.auth0demo</string>
 		</array>
 	</dict>
 </array>
   ```
+  
 
 [Auth0.plist](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/App_Resources/iOS/Auth0.plist)
 ``` xml
@@ -142,6 +145,11 @@ Show the lock screen, returns a promise
 | clearToken()     | Removes the appsettings key that stores the tokens locally                                                    |                                                                  |    void |
 | getUserInfo()    | Returns the current user details, this is an internal http callback to auth0, might want to cache the results | [Link](https://auth0.com/docs/api/authentication#get-user-info)  | Promise |
 | getTokenInfo()   | Token details, this is an internal http callback to auth0, might want to cache the results                    | [Link](https://auth0.com/docs/api/authentication#get-token-info) | Promise |
+
+
+## ISSUES
+- iOS: Login success, but iOS says unable to open page and doesn't return you to your app.  Please replace the ${PRODUCT_BUNDLE_IDENTIFIER} in the info.plist with actual bundle ID.
+
 
 ## Version Notes
 
