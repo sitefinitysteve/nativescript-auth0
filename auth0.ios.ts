@@ -40,6 +40,7 @@ export class Auth0Lock extends common.Auth0Lock{
                 };
 
                 appSettings.setString(common.Auth0Lock._tokenKey, JSON.stringify(creds));
+                this.refresh(); //hydrate the local object, sounds fancy
 
                 resolve({
                     credentials: credientials

@@ -26,10 +26,17 @@ describe('Auth0Lock', () => {
 
       appSetttings.setString(Auth0Lock._tokenKey, JSON.stringify(creds));
   });
+  
+  it("Can validate expiry", () =>{
+      var isExpired = lock.isTokenExpired();
+      console.log("Is expired: " + isExpired);
+      assert.isFalse(isExpired);
+  })
 
   it("Can get user profile", () =>{
       var user = lock.getUserInfo();
       console.dump(user);
       assert.isTrue(user);
   })
+
 });

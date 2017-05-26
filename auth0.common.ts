@@ -97,10 +97,22 @@ export class Auth0Lock {
     if(token === "" || token === null)
       return true;
 
-    var data = jwt(token);
-    var expiresOn = new Date(data.ext);
+    var expiresOn = this.getRawToken().exp;
     
-    return (expiresOn > new Date()) ? true : false;
+    return (expiresOn < Date.now() / 1000);
+  }
+
+  public getTokenExpiryDate(): Date{
+    var data = this.getRawToken()
+    return new Date(data.exp * 1000); //JS is in milliseconds
+  }
+
+  public getRawToken(): any{
+    var token = this.credientials.idToken;
+    if(token === "" || token === null)
+      throw "idToken is empty";
+
+    return jwt(token);
   }
 
   public clearTokens(): void{

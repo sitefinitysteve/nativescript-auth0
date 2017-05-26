@@ -24,21 +24,25 @@ exports.onPageLoaded = function (args) {
 
 function doLogin(){
     lock.show().then((res) => {
-        goToHome();
+        console.log("Hey login worked")
+        setTimeout(function(){
+            goToHome();
+        }, 2000);
     }, function (error) {
         console.log(error);
     });
 }
 
 function goToHome(){
-  var navOptions = {
-      moduleName: "home",
-      transition: {
-          name: "fade",
-          duration: 380,
-          curve: "easeIn"
-      },
-      clearHistory: true //Dont want the user to nav back to login
-  };
-  frameModule.topmost().navigate(navOptions);
+        var navOptions = {
+            moduleName: "home",
+            transition: {
+                name: "fade",
+                duration: 380,
+                curve: "easeIn"
+            },
+            clearHistory: true //Dont want the user to nav back to login
+        };
+        frameModule.topmost().navigate(navOptions);
+
 }

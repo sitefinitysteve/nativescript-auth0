@@ -21,14 +21,16 @@ exports.onPageLoaded = function (args) {
             accessToken: lock.credientials.accessToken,
             idToken: lock.credientials.idToken,
             refreshToken: lock.credientials.refreshToken
-        }
+        },
+        tokenExpiryDate: lock.getTokenExpiryDate() + " (" + lock.getRawToken().exp + ")"
     });
+
 
     
     console.dump(lock.credientials);
 
 
-
+    console.log("ID TOKEN: " + lock.credientials.idToken);
     page.bindingContext = auth0Data; 
 } 
 
@@ -45,7 +47,7 @@ exports.onLogout = function (args) {
       },
       clearHistory: true //Dont want the user to nav back to login
   };
-
+  
   frameModule.topmost().navigate(navOptions);
 }
 

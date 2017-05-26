@@ -19,5 +19,7 @@ export declare class Auth0Lock {
     getTokenInfo(): Promise<any>;
     hasValidToken(): Boolean;
     isTokenExpired(): boolean;
+    getTokenExpiryDate(): Date;
+    getRawToken(): any;
     clearTokens(): void;
 }

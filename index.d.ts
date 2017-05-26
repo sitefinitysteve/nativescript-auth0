@@ -20,6 +20,8 @@ export class Auth0Lock{
     public hasValidToken(): boolean;
     public isTokenExpired(): boolean;
     public clearTokens(): void;
+    public getTokenExpiryDate(): Date;
+    public getRawToken(): any;
 
     public getUserInfo(): Promise<any>;
     public getTokenInfo(): Promise<any>;
