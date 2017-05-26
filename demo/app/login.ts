@@ -24,25 +24,25 @@ exports.onPageLoaded = function (args) {
 
 function doLogin(){
     lock.show().then((res) => {
-        console.log("Hey login worked")
-        setTimeout(function(){
-            goToHome();
-        }, 2000);
+        console.log("Hey login worked");
+        goToHome();
     }, function (error) {
         console.log(error);
     });
 }
 
 function goToHome(){
-        var navOptions = {
-            moduleName: "home",
-            transition: {
-                name: "fade",
-                duration: 380,
-                curve: "easeIn"
-            },
-            clearHistory: true //Dont want the user to nav back to login
-        };
-        frameModule.topmost().navigate(navOptions);
+    console.log("Lets navigate to home");
+
+    var navOptions = {
+        moduleName: "home",
+        transition: {
+            name: "fade",
+            duration: 380,
+            curve: "easeIn"
+        },
+        clearHistory: true //Dont want the user to nav back to login
+    };
+    frameModule.topmost().navigate(navOptions);
 
 }
