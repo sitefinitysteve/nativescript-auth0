@@ -1,7 +1,7 @@
 
 npm-debug.log
 
-*.js
+auth0*.js
 *.js.map
 *.log
 .idea
@@ -12,6 +12,7 @@ demo/app/*.js
 !demo/app/tests/*.js
 demo/*.d.ts
 demo/lib
+demo/hooks
 demo/platforms
 demo/localplugin
 demo/node_modules
