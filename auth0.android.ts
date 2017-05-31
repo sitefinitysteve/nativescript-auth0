@@ -13,6 +13,8 @@ export class Auth0Lock extends common.Auth0Lock{
 
     constructor(options: common.Options){
         super(options);
+
+        this._this = this;
     }
 
     public show() : Promise<any>{
@@ -54,6 +56,7 @@ export class Auth0Lock extends common.Auth0Lock{
     }
 }
 
+var $this: Auth0Lock = this;
 var AuthCallback = com.auth0.android.lock.AuthenticationCallback.extend({
   onAuthentication: function(credentials){
         console.log("Authentication Success");
@@ -68,7 +71,7 @@ var AuthCallback = com.auth0.android.lock.AuthenticationCallback.extend({
         };
 
         appSettings.setString(common.Auth0Lock._tokenKey, JSON.stringify(creds));
-        this.refresh(); //hydrate the local object, sounds fancy
+        $this.refresh(); //hydrate the local object, sounds fancy
 
         localResolve({
             credentials: creds,

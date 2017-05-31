@@ -43,6 +43,7 @@ function goToHome(){
         },
         clearHistory: true //Dont want the user to nav back to login
     };
+    console.log("Frame count: " + frameModule.stack().length);
     frameModule.topmost().navigate(navOptions);
 
 }

@@ -161,6 +161,10 @@ Show the lock screen, returns a promise
 
 ## Version Notes
 
+### 1.2.3
+
+Bug fixes
+
 ### 1.2.0
 
 Updated API to Auth0 v2 Swift on iOS
