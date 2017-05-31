@@ -2,9 +2,11 @@
 /// <reference path="../node_modules/nativescript-auth0/typings/Lock.ios.d.ts" />
 
 import * as application from "application";
-import { CustomAppDelegate } from "./custom-app-delegate";
 
 if(application.ios){
+    var delegate = require("./custom-app-delegate");
+    
+    var CustomAppDelegate = delegate.CustomAppDelegate;
     application.ios.delegate = CustomAppDelegate;
 
     CustomAppDelegate.apply("applicationOpenURLOptions", (event) => {

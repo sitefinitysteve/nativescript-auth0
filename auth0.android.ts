@@ -6,6 +6,7 @@ import * as appSettings from 'application-settings';
 
 var localResolve;
 var localReject;
+var $this;
 
 export class Auth0Lock extends common.Auth0Lock{
     public _lock: any;
@@ -13,8 +14,6 @@ export class Auth0Lock extends common.Auth0Lock{
 
     constructor(options: common.Options){
         super(options);
-
-        this._this = this;
     }
 
     public show() : Promise<any>{
@@ -23,6 +22,7 @@ export class Auth0Lock extends common.Auth0Lock{
             {
                 localResolve = resolve;
                 localReject = reject;
+                $this = this;
 
                 this._callback = new AuthCallback();
                 var auth0 = new com.auth0.android.Auth0(this.options.clientId, this.options.domain);
@@ -56,7 +56,6 @@ export class Auth0Lock extends common.Auth0Lock{
     }
 }
 
-var $this: Auth0Lock = this;
 var AuthCallback = com.auth0.android.lock.AuthenticationCallback.extend({
   onAuthentication: function(credentials){
         console.log("Authentication Success");

@@ -1,6 +1,6 @@
 {
   "name": "nativescript-auth0",
-  "version": "v1.2.3", 
+  "version": "v1.2.4", 
   "description": "Auth0 social login",
   "main": "auth0.js",
   "typings": "index.d.ts",
