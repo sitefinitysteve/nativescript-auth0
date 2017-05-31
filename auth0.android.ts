@@ -26,6 +26,8 @@ export class Auth0Lock extends common.Auth0Lock{
 
                 this._callback = new AuthCallback();
                 var auth0 = new com.auth0.android.Auth0(this.options.clientId, this.options.domain);
+                auth0.setOIDCConformant(true);
+
                 var builder = com.auth0.android.lock.Lock.newBuilder(auth0, this._callback); 
                 
                 var activity = frameModule.topmost().android.activity;
@@ -59,6 +61,7 @@ export class Auth0Lock extends common.Auth0Lock{
 var AuthCallback = com.auth0.android.lock.AuthenticationCallback.extend({
   onAuthentication: function(credentials){
         console.log("Authentication Success");
+        debugger;
         var accessToken = credentials.getAccessToken();
         var idToken = credentials.getIdToken();
         var refreshToken = credentials.getRefreshToken();

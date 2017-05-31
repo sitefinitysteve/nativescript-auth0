@@ -42,4 +42,8 @@
 
     <style name="NativeScriptToolbarStyle" parent="NativeScriptToolbarStyleBase">
     </style>
+
+
+
+    <style name="MyLock.Theme" parent="Lock.Theme" />
 </resources> 

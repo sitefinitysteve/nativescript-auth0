@@ -39,10 +39,10 @@
         <!--Auth0 Lock-->
         <activity
             android:name="com.auth0.android.lock.LockActivity"
-            android:label="Classic Lock"
+            android:label="Auth0 Demo"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-			android:theme="@style/Lock.Theme">
+			android:theme="@style/MyLock.Theme">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -56,10 +56,5 @@
             </intent-filter>
         </activity>
         <!--Auth0 Lock End-->
-
-		<!--Auth0 Lock Embedded WebView-->
-        <activity
-            android:name="com.auth0.android.provider.WebAuthActivity" />
-        <!--Auth0 Lock Embedded WebView End-->
 	</application>
 </manifest>
