@@ -161,6 +161,10 @@ Show the lock screen, returns a promise
 
 ## Version Notes
 
+### 1.2.6
+
+Update to android lock v2
+
 ### 1.2.3
 
 Bug fixes
