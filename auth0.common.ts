@@ -6,6 +6,7 @@ var jwt = require("./jwt");
 export interface Options{
   domain: string,
   clientId: string,
+  audience?: string,
   scope?: Array<string>
 }
 
