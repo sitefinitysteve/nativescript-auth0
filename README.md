@@ -74,36 +74,36 @@ Make a new file called Auth0.plist, add this into it, clearly replacing the temp
 
 ### Android
 
-Add this to your AndroidManifest.xml
+1. Add `manifestPlaceholders` to `app/App_resources/Android/app.gradle`.
+
+```
+
+defaultConfig {  
+    generatedDensities = []
+    applicationId = "org.nativescript.app"  
+    manifestPlaceholders = [auth0Domain: "yourdomain.auth0.com", auth0Scheme: "https"]
+  } 
+```
+
+2. Add this to your `AndroidManifest.xml`
 
 ``` xml
-<!--Auth0 Lock-->
-      <activity
-          android:name="com.auth0.android.lock.LockActivity"
-          android:label="Classic Lock"
-          android:launchMode="singleTask"
-          android:screenOrientation="portrait"
-          android:theme="@style/Lock.Theme">
-          <intent-filter>
-              <action android:name="android.intent.action.VIEW" />
-
-              <category android:name="android.intent.category.DEFAULT" />
-              <category android:name="android.intent.category.BROWSABLE" />
-
-              <data
-                  android:host="nativescript.auth0.com"
-                  android:pathPrefix="/android/__PACKAGE__/callback"
-                  android:scheme="https" />
-          </intent-filter>
-      </activity>
-      <!--Auth0 Lock End-->
-
-  <!--Auth0 Lock Embedded WebView-->
-      <activity
-          android:name="com.auth0.android.provider.WebAuthActivity" />
-      <!--Auth0 Lock Embedded WebView End-->
+    <activity
+			android:name="com.auth0.android.lock.LockActivity"
+			android:label="@string/app_name"
+			android:launchMode="singleTask"
+			android:screenOrientation="portrait"
+			android:theme="@style/MyLock.Theme"/>
 ```
 [Sample from demo](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/App_Resources/Android/AndroidManifest.xml#L39-L63)
+
+
+3. Add this to `app/App_resouces/Android/values/styles.xml`
+
+``` xml
+<style name="MyLock.Theme" parent="Lock.Theme" />
+```
+
 
 ## Usage
 
@@ -118,7 +118,8 @@ Create your lock object, I like to do this in a [shared helper or something](htt
   var lock = new Auth0Lock({
         clientId: '<your clientid>',
         domain:'<your domain>',
-        scopes: [ "offline_access openid"] //Optional param, check the auth0 docs
+        audience: '<your-auth0-audience>',
+        scope: [ 'offline_access', 'openid'] //Optional param, check the auth0 docs
     });
 ```
 

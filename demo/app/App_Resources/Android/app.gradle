@@ -9,6 +9,7 @@ android {
   defaultConfig {  
     generatedDensities = []
     applicationId = "org.nativescript.auth0demo"  
+    manifestPlaceholders = [auth0Domain: "yourdomain.auth0.com", auth0Scheme: "https"]
   }  
   aaptOptions {  
     additionalParameters "--no-version-vectors"  

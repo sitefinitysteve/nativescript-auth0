@@ -28,7 +28,11 @@ export class Auth0Lock extends common.Auth0Lock{
                 var auth0 = new com.auth0.android.Auth0(this.options.clientId, this.options.domain);
                 auth0.setOIDCConformant(true);
 
-                var builder = com.auth0.android.lock.Lock.newBuilder(auth0, this._callback); 
+                var builder = com.auth0.android.lock.Lock.newBuilder(auth0, this._callback);
+
+                if (this.options.audience) {
+                    builder.withAudience(this.options.audience);
+                }
                 
                 var activity = frameModule.topmost().android.activity;
                 
