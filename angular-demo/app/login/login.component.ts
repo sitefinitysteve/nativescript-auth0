@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
     this.lock = this.auth0LockService.getLock();
     if (!this.lock.hasValidToken()) {
       this.doLogin();
+    } else {
+      this.goToHome();
     }
   }
 
