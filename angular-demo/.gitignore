@@ -1,0 +1,8 @@
+node_modules/
+platforms/
+tmp/
+typings/
+*.js.map
+app/**/*.js
+app/**/*.css
+hooks/
