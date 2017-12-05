@@ -1,0 +1,6 @@
+framework module TKLiveSync {
+  umbrella header "TKLiveSync.h"
+
+  export *
+  module * { export * }
+}

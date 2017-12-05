@@ -1,0 +1,22 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="onPageLoaded">
+    <GridLayout rows="*, auto">
+        <GridLayout rows="*" row="0" class="data">
+            <ScrollView>
+                <StackLayout>
+                    <Label text="{{ data }}" textWrap="true" />    
+                    <Label text="TOKENS" class="header" textWrap="true" />
+                    <Label text="{{ 'accessToken: ' + creds.accessToken }}" textWrap="false" />
+                    <Label text="{{ 'idToken: ' + creds.idToken }}" textWrap="true" />
+                    <Label text="{{ 'refreshToken: ' + creds.refreshToken }}" textWrap="false" />
+                    <Label text="{{ 'Token expires: ' + tokenExpiryDate }}" textWrap="true" />
+                </StackLayout>
+                
+            </ScrollView>
+        </GridLayout>
+        <StackLayout row="1" class="commands">
+            <Button text="GET USER" class="btn"  tap="onGetUserData" />            
+            <Button text="GET TOKEN" class="btn"  tap="onGetTokenData" />            
+            <Button text="LOGOUT" class="btn"  tap="onLogout" />            
+        </StackLayout>
+    </GridLayout>
+</Page>

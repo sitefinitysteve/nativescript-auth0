@@ -1,0 +1,11 @@
+.vscode/
+demo/
+scripts/
+screenshots/
+*.gif
+*.png
+*.log
+*.map
+*.ts
+!*.d.ts
+tsconfig.json
