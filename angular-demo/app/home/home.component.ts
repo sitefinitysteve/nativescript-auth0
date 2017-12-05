@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
   }
 
   public onLogout() {
+    this.lock.clearTokens();
     this.routerExtension.navigate(['/login'], {
       transition: {
         name: "fade",
@@ -48,7 +49,7 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  public OnGetTokenData() {
+  public onGetTokenData() {
     console.log("Get token data");
     this.lock.getTokenInfo().then((token) => {
       console.log("complete");
