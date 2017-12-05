@@ -13,8 +13,8 @@
     </ScrollView>
   </GridLayout>
   <StackLayout row="1" class="commands">
-    <Button text="GET USER" class="btn" tap="onGetUserData"></Button>
-    <Button text="GET TOKEN" class="btn" tap="onGetTokenData"></Button>
-    <Button text="LOGOUT" class="btn" tap="onLogout"></Button>
+    <Button text="GET USER" class="btn" (tap)="onGetUserData()"></Button>
+    <Button text="GET TOKEN" class="btn" (tap)="onGetTokenData()"></Button>
+    <Button text="LOGOUT" class="btn" (tap)="onLogout()"></Button>
   </StackLayout>
 </GridLayout>
