@@ -10,7 +10,7 @@ var $this;
 
 export class Auth0Lock extends common.Auth0Lock{
     public _lock: any;
-    public _callback: any; 
+    public _callback: any;
 
     constructor(options: common.Options){
         super(options);
@@ -28,10 +28,10 @@ export class Auth0Lock extends common.Auth0Lock{
                 var auth0 = new com.auth0.android.Auth0(this.options.clientId, this.options.domain);
                 auth0.setOIDCConformant(true);
 
-                var builder = com.auth0.android.lock.Lock.newBuilder(auth0, this._callback); 
-                
+                var builder = com.auth0.android.lock.Lock.newBuilder(auth0, this._callback);
+
                 var activity = frameModule.topmost().android.activity;
-                
+
                 //Add scope
                 if(this.options.scope){
                     var scopeItems = this.options.scope.join(" ");
@@ -42,13 +42,18 @@ export class Auth0Lock extends common.Auth0Lock{
                     builder.withAuthenticationParameters(authenticationParameters)
                 }
 
+                //Add audience
+                if (this.options.audience) {
+                    builder.withAudience(this.options.audience);
+                }
+
                 this._lock = builder.build(activity);
 
                 var context = util.ad.getApplicationContext();
                 var lockIntent = this._lock.newIntent(activity);
-                
+
                 if (lockIntent.resolveActivity(context.getPackageManager()) != null) {
-                    application.android.foregroundActivity.startActivity(lockIntent);	
+                    application.android.foregroundActivity.startActivity(lockIntent);
                 }
             }
             catch(args){
@@ -59,7 +64,7 @@ export class Auth0Lock extends common.Auth0Lock{
 }
 
 var AuthCallback = com.auth0.android.lock.AuthenticationCallback.extend({
-  onAuthentication: function(credentials){
+    onAuthentication: function(credentials){
         console.log("Authentication Success");
         debugger;
         var accessToken = credentials.getAccessToken();
@@ -79,17 +84,17 @@ var AuthCallback = com.auth0.android.lock.AuthenticationCallback.extend({
             credentials: creds,
             android: credentials
         });
-  },
-  onCanceled: function(){
-    console.log("Cancelled, user pressed back!!!");
-    localReject(new Error("Cancelled"));
-  },
-  onError: function(error){
-    console.log("Exception occurred!!! " + error.getMessage());
-    localReject(new Error(error.getMessage()));
-  },
-  onDestroy: function(){
-    console.log("DESTROY");
-  }
+    },
+    onCanceled: function(){
+        console.log("Cancelled, user pressed back!!!");
+        localReject(new Error("Cancelled"));
+    },
+    onError: function(error){
+        console.log("Exception occurred!!! " + error.getMessage());
+        localReject(new Error(error.getMessage()));
+    },
+    onDestroy: function(){
+        console.log("DESTROY");
+    }
 });
 exports.AuthCallback = AuthCallback;

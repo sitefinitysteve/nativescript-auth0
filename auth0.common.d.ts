@@ -1,6 +1,7 @@
 export interface Options {
     domain: string;
     clientId: string;
+    audience?: string;
     scope?: Array<string>;
 }
 export interface Credentials {
