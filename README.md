@@ -160,6 +160,9 @@ Show the lock screen, returns a promise
 
 
 ## Version Notes
+### 1.2.7
+
+Merged in some PRs, NG2 demo, audience property
 
 ### 1.2.6
 
