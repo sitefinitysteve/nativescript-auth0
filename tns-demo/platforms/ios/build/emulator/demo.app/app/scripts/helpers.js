@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var auth0Module = require("nativescript-auth0");
+function getAuthLock() {
+    return new auth0Module.Auth0Lock({
+        clientId: 'q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp',
+        domain: 'nativescript.auth0.com',
+    });
+}
+exports.getAuthLock = getAuthLock;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaGVscGVycy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbImhlbHBlcnMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxnREFBa0Q7QUFHbEQ7SUFDSSxNQUFNLENBQUMsSUFBSSxXQUFXLENBQUMsU0FBUyxDQUFDO1FBQzdCLFFBQVEsRUFBRSxrQ0FBa0M7UUFDNUMsTUFBTSxFQUFDLHdCQUF3QjtLQUVsQyxDQUFDLENBQUM7QUFDUCxDQUFDO0FBTkQsa0NBTUMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgKiBhcyBhdXRoME1vZHVsZSBmcm9tIFwibmF0aXZlc2NyaXB0LWF1dGgwXCI7XG5cbi8vU2luZ2xlIHBvaW50IG9mIGVudHJ5IHRvIGdldCB0aGUgTG9jayBvYmplY3QsIG9ubHkgaGF2ZSB0byBzZXQgdGhlIGtleXMgb25jZVxuZXhwb3J0IGZ1bmN0aW9uIGdldEF1dGhMb2NrKCk6IGF1dGgwTW9kdWxlLkF1dGgwTG9ja3tcbiAgICByZXR1cm4gbmV3IGF1dGgwTW9kdWxlLkF1dGgwTG9jayh7XG4gICAgICAgIGNsaWVudElkOiAncTVhdFF6aTZEZ21XQnBIV1JKYmQ3TUJOYTVlTEJQUnAnLFxuICAgICAgICBkb21haW46J25hdGl2ZXNjcmlwdC5hdXRoMC5jb20nLFxuICAgICAgICAvL3Njb3BlOiBbXCJvZmZsaW5lX2FjY2VzcyBvcGVuaWRcIl1cbiAgICB9KTtcbn0iXX0=

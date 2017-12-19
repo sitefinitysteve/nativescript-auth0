@@ -1,0 +1,36 @@
+
+.btn {
+    font-size: 16;
+    background-color: #358ccb;
+    color: #FFF;
+    border-radius: 10;
+    padding: 10 20;
+    margin-bottom: 10;
+}
+
+.data{ 
+    vertical-align: top;
+    text-align: left;
+    font-size: 12;
+    border: 1 solid #c0c0c0;
+    margin: 10;
+}
+
+.header{
+    font-size: 16;
+    font-weight: bold;
+    margin-top: 20;
+}
+
+.commands{
+    horizontal-align: center;
+    
+}
+
+.commands .btn{
+    width: 300;
+}
+
+Label{
+    margin-bottom: 10;
+}

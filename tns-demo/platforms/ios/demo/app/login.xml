@@ -1,0 +1,5 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="onPageLoaded">
+  <StackLayout>
+    <ActivityIndicator width="50" height="50" busy="true" style="vertical-align: center" />
+  </StackLayout>
+</Page>

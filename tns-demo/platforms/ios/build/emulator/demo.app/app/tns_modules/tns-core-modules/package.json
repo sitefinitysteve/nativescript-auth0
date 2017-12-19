@@ -1,0 +1,63 @@
+{
+  "_from": "tns-core-modules@^2.5.2",
+  "_id": "tns-core-modules@2.5.3",
+  "_inBundle": false,
+  "_integrity": "sha1-Yu61SDVskdx0AjpClygxJkYSO4A=",
+  "_location": "/tns-core-modules",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "tns-core-modules@^2.5.2",
+    "name": "tns-core-modules",
+    "escapedName": "tns-core-modules",
+    "rawSpec": "^2.5.2",
+    "saveSpec": null,
+    "fetchSpec": "^2.5.2"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/tns-core-modules/-/tns-core-modules-2.5.3.tgz",
+  "_shasum": "62eeb548356c91dc74023a429728312646123b80",
+  "_spec": "tns-core-modules@^2.5.2",
+  "_where": "/Users/williamwheeler/sandbox/nativescript/nativescript-auth0/demo",
+  "bundleDependencies": false,
+  "dependencies": {
+    "tns-core-modules-widgets": "2.5.0"
+  },
+  "deprecated": false,
+  "description": "Telerik NativeScript Core Modules",
+  "devDependencies": {
+    "tns-platform-declarations": "*"
+  },
+  "files": [
+    "**/*.d.ts",
+    "**/*.js",
+    "!android17.d.ts",
+    "!ios.d.ts",
+    "!bin/",
+    "!apps/",
+    "!build/",
+    "!node-tests/",
+    "!declarations.android.d.ts",
+    "!declarations.ios.d.ts",
+    "!gruntfile.js",
+    "!org.nativescript.widgets.d.ts"
+  ],
+  "homepage": "https://www.nativescript.org",
+  "license": "Apache-2.0",
+  "name": "tns-core-modules",
+  "nativescript": {
+    "platforms": {
+      "ios": "2.1.1",
+      "android": "2.1.1"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NativeScript/NativeScript/commit/519dd6374face0b3e3b9aa94ec55b7c290526d0e"
+  },
+  "typings": "tns-core-modules.d.ts",
+  "version": "2.5.3"
+}
