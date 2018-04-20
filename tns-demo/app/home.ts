@@ -2,12 +2,12 @@ import * as appSettings from "application-settings";
 import * as frameModule from "ui/frame";
 import * as observableModule from "data/observable";
 import * as helpers from "./scripts/helpers";
-import { Auth0Lock } from "nativescript-auth0";
+import { Auth0Core } from "nativescript-auth0";
 var init = false;
 var auth0Tokens = {};
 
 declare var JSON: any;
-let lock: Auth0Lock = null;
+let lock: Auth0Core = null;
 let auth0Data: observableModule.Observable;
 
 exports.onPageLoaded = function (args) {
@@ -36,7 +36,7 @@ exports.onPageLoaded = function (args) {
 
 exports.onLogout = function (args) {
     console.log("Logout");
-    appSettings.remove(Auth0Lock._tokenKey);
+    appSettings.remove(Auth0Core._tokenKey);
          
   var navOptions = {
       moduleName: "login",

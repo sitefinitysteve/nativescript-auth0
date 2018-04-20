@@ -7,8 +7,9 @@ import * as appSettings from 'application-settings';
 var localResolve;
 var localReject;
 var $this;
+declare var com;
 
-export class Auth0Lock extends common.Auth0Lock{
+export class Auth0Core extends common.Auth0Core{
     public _lock: any;
     public _callback: any;
 
@@ -77,7 +78,7 @@ var AuthCallback = com.auth0.android.lock.AuthenticationCallback.extend({
             refreshToken: refreshToken,
         };
 
-        appSettings.setString(common.Auth0Lock._tokenKey, JSON.stringify(creds));
+        appSettings.setString(common.Auth0Core._tokenKey, JSON.stringify(creds));
         $this.refresh(); //hydrate the local object, sounds fancy
 
         localResolve({

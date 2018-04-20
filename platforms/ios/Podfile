@@ -1,7 +1,5 @@
-platform :ios, '9.0'
-
-pod "Lock", "~> 2.2"
-pod "Auth0", "~> 1.5"
+use_frameworks!
+pod 'Auth0', '~> 1.10'
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

@@ -5,7 +5,7 @@
 declare var assert: Chai.AssertStatic; 
 import * as helpers from "../scripts/helpers";
 import * as appSetttings from "application-settings"
-import { Auth0Lock, Credentials } from "nativescript-auth0";
+import { Auth0Core, Credentials } from "nativescript-auth0";
 import * as j from "jasmine-core";
 
 declare var JSON;
@@ -24,7 +24,7 @@ describe('Auth0Lock', () => {
                         refreshToken: refreshToken,
                     };
 
-      appSetttings.setString(Auth0Lock._tokenKey, JSON.stringify(creds));
+      appSetttings.setString(Auth0Core._tokenKey, JSON.stringify(creds));
   });
   
   it("Can validate expiry", () =>{

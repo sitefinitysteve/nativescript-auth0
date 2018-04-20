@@ -11,7 +11,7 @@ export interface Credentials {
     refreshToken: string;
 }
 
-export class Auth0Lock{
+export class Auth0Core{
     public static readonly _tokenKey: string
 
     constructor(options: Options)

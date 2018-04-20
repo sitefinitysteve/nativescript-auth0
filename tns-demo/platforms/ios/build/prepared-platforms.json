@@ -1,6 +1,0 @@
-{
-    "nativescript-auth0": true,
-    "nativescript-unit-test-runner": true,
-    "tns-core-modules": true,
-    "tns-core-modules-widgets": true
-}

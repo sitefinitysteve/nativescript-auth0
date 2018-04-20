@@ -1,9 +1,9 @@
 import * as appSettings from "application-settings";
 import * as frameModule from "ui/frame";
 import * as helpers from "./scripts/helpers";
-import { Auth0Lock } from "nativescript-auth0";
+import { Auth0Core } from "nativescript-auth0";
 
-let lock: Auth0Lock = null;
+let lock: Auth0Core = null;
 
 exports.onPageLoaded = function (args) {
     lock = helpers.getAuthLock();

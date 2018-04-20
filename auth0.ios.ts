@@ -1,8 +1,3 @@
-/// <reference path="./typings/Auth0.ios.d.ts" />
-/// <reference path="./typings/Lock.ios.d.ts" />
-
-
-
 import common = require("./auth0.common");
 
 import * as appSettings from "application-settings";
@@ -10,7 +5,7 @@ import * as frameModule from "ui/frame";
 import * as util from "utils/utils";
 import * as application from "application";
 
-export class Auth0Lock extends common.Auth0Lock{
+export class Auth0Core extends common.Auth0Core{
     constructor(options: common.Options){
         super(options);
     }
@@ -18,7 +13,8 @@ export class Auth0Lock extends common.Auth0Lock{
     public show() : Promise<any>{
         return new Promise((resolve, reject) =>  {
             var page = frameModule.topmost().ios.controller;
-
+            debugger;
+/*
             let lock: Lock = Lock.classic();
 
             //Add scope
@@ -39,7 +35,7 @@ export class Auth0Lock extends common.Auth0Lock{
                     refreshToken: credientials.refreshToken,
                 };
 
-                appSettings.setString(common.Auth0Lock._tokenKey, JSON.stringify(creds));
+                appSettings.setString(common.Auth0Core._tokenKey, JSON.stringify(creds));
                 this.refresh(); //hydrate the local object, sounds fancy
 
                 resolve({
@@ -48,7 +44,7 @@ export class Auth0Lock extends common.Auth0Lock{
             });
 
             lock.presentFrom(page);
-            console.log("PRESENT");
+            console.log("PRESENT");*/
         });
     }
 }

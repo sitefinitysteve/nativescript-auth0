@@ -4,9 +4,12 @@
         "module": "commonjs",
         "declaration": true,
         "removeComments": true,
-        "noLib": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "sourceMap": true,
         "pretty": true,
         "allowUnreachableCode": false,
@@ -28,5 +31,5 @@
         "demo",
         "node_modules"
     ],
-    "compileOnSave": false
+    "compileOnSave": true
 }

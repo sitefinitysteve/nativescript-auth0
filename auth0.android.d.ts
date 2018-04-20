@@ -1,5 +1,5 @@
 import common = require("./auth0.common");
-export declare class Auth0Lock extends common.Auth0Lock {
+export declare class Auth0Core extends common.Auth0Core {
     _lock: any;
     _callback: any;
     constructor(options: common.Options);

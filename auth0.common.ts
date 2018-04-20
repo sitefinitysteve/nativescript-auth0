@@ -16,7 +16,7 @@ export interface Credentials {
     refreshToken: string;
 }
 
-export class Auth0Lock {
+export class Auth0Core {
   public static readonly _tokenKey: string = "auth0Tokens";
   public static readonly _nullCredsMessage: string = "Unknown or invalid credientials";
 
@@ -37,9 +37,9 @@ export class Auth0Lock {
   }
 
   public refresh(): void{
-    if(appSetttings.hasKey(Auth0Lock._tokenKey)){
+    if(appSetttings.hasKey(Auth0Core._tokenKey)){
       //Flesh out the object
-      let data: Credentials = JSON.parse(appSetttings.getString(Auth0Lock._tokenKey));
+      let data: Credentials = JSON.parse(appSetttings.getString(Auth0Core._tokenKey));
       this.credientials = {
         accessToken: data.accessToken,
         idToken: data.idToken,
@@ -117,7 +117,7 @@ export class Auth0Lock {
   }
 
   public clearTokens(): void{
-    appSetttings.remove(Auth0Lock._tokenKey);
+    appSetttings.remove(Auth0Core._tokenKey);
   }
 }
 

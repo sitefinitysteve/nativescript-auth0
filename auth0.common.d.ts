@@ -9,7 +9,7 @@ export interface Credentials {
     idToken: string;
     refreshToken: string;
 }
-export declare class Auth0Lock {
+export declare class Auth0Core {
     static readonly _tokenKey: string;
     static readonly _nullCredsMessage: string;
     protected options: Options;

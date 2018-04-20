@@ -11,12 +11,12 @@ export class CustomAppDelegate extends UIResponder implements UIApplicationDeleg
         return CustomAppDelegate._promise("applicationDidFinishLaunchingWithOptions", { application, launchOptions });
     }
 
-	applicationOpenURLOptions(application: typeof UIApplication, url: string, options: typeof NSDictionary) {
+	applicationOpenURLOptions?(application: UIApplication, url: NSURL, options: NSDictionary<string, any>){
         console.log("applicationOpenURLOptions");
 		return CustomAppDelegate._promise("applicationOpenURLOptions", { application, url, options });
 	}
 
-    applicationContinueUserActivityRestorationHandler(application: typeof UIApplication, userActivity, restorationHandler) {
+	applicationContinueUserActivityRestorationHandler?(application: UIApplication, userActivity: NSUserActivity, restorationHandler: (p1: NSArray<any>) => void){
         console.log("applicationContinueUserActivityRestorationHandler");
 		return CustomAppDelegate._promise("applicationContinueUserActivityRestorationHandler", { application, userActivity, restorationHandler });
 	}
