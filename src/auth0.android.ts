@@ -44,12 +44,10 @@ export class Auth0 extends Auth0Common {
         this.authenticationApi = new AuthenticationAPIClient(this.account);
         this.sharedPreferencesStorage = new SharedPreferencesStorage(application.android.context);
         this.credentialsManager = new CredentialsManager(this.authenticationApi, this.sharedPreferencesStorage);
-        console.log('init complete');
     }
 
     public webAuthentication(options: WebAuthOptions): Promise<Credentials> {
         const webAuth = WebAuthProvider.init(this.account);
-        console.log('webauth start');
 
         if (options.audience != null) {
             webAuth.withAudience(options.audience);
@@ -76,12 +74,9 @@ export class Auth0 extends Auth0Common {
             webAuth.parameters(toHashMap(options.parameters));
         }
 
-        console.log('options complete');
-
         return new Promise((resolve, reject) => {
             try {
-                console.log('start auth');
-                const cb = new AuthCallback({
+                webAuth.start(application.android.foregroundActivity, new AuthCallback({
                     onFailure: function () {
                         console.log('failed');
                         const dialogOrException: android.app.Dialog | AuthenticationException = arguments[0];
@@ -92,21 +87,19 @@ export class Auth0 extends Auth0Common {
                         }
                     },
                     onSuccess: function (credentials: A0Credentials) {
-                        console.log('succeeded');
+                        const expiresIn = credentials.getExpiresIn();
+                        const expiresAt = credentials.getExpiresAt();
                         resolve({
                             accessToken: credentials.getAccessToken(),
                             idToken: credentials.getIdToken(),
                             refreshToken: credentials.getRefreshToken(),
                             type: credentials.getType(),
-                            expiresIn: credentials.getExpiresIn(),
+                            expiresIn: (expiresIn != null) ? Number(expiresIn) : null,
                             scope: credentials.getScope(),
-                            expiresAt: credentials.getExpiresAt()
+                            expiresAt: (expiresAt != null) ? new Date(expiresAt) : null
                         });
                     }
-                });
-                const c = application.android.foregroundActivity;
-                console.log('cb done');
-                webAuth.start(c, cb);
+                }));
             } catch (e) {
                 reject(e);
             }

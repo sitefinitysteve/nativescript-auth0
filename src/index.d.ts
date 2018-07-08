@@ -2,8 +2,17 @@
 export interface WebAuthOptions {
     audience?: string;
     connection?: string;
+    /**
+     * Not supported by iOS yet.
+     */
     nonce?: string;
+    /**
+     * Not supported by iOS yet.
+     */
     responseType?: ResponseType;
+    /**
+     * Not supported by iOS yet.
+     */
     scheme?: string;
     scope?: string;
     state?: string;
