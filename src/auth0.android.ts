@@ -44,10 +44,12 @@ export class Auth0 extends Auth0Common {
         this.authenticationApi = new AuthenticationAPIClient(this.account);
         this.sharedPreferencesStorage = new SharedPreferencesStorage(application.android.context);
         this.credentialsManager = new CredentialsManager(this.authenticationApi, this.sharedPreferencesStorage);
+        console.log('init complete');
     }
 
     public webAuthentication(options: WebAuthOptions): Promise<Credentials> {
         const webAuth = WebAuthProvider.init(this.account);
+        console.log('webauth start');
 
         if (options.audience != null) {
             webAuth.withAudience(options.audience);
@@ -74,10 +76,15 @@ export class Auth0 extends Auth0Common {
             webAuth.parameters(toHashMap(options.parameters));
         }
 
+        console.log('options complete');
+
         return new Promise((resolve, reject) => {
             try {
-                webAuth.start(application.android.context, new AuthCallback({
-                    onFailure: function (dialogOrException: android.app.Dialog | AuthenticationException) {
+                console.log('start auth');
+                const cb = new AuthCallback({
+                    onFailure: function () {
+                        console.log('failed');
+                        const dialogOrException: android.app.Dialog | AuthenticationException = arguments[0];
                         if (dialogOrException instanceof android.app.Dialog) {
                             reject(new WebAuthException(dialogOrException.toString()));
                         } else {
@@ -85,6 +92,7 @@ export class Auth0 extends Auth0Common {
                         }
                     },
                     onSuccess: function (credentials: A0Credentials) {
+                        console.log('succeeded');
                         resolve({
                             accessToken: credentials.getAccessToken(),
                             idToken: credentials.getIdToken(),
@@ -95,7 +103,10 @@ export class Auth0 extends Auth0Common {
                             expiresAt: credentials.getExpiresAt()
                         });
                     }
-                }));
+                });
+                const c = application.android.foregroundActivity;
+                console.log('cb done');
+                webAuth.start(c, cb);
             } catch (e) {
                 reject(e);
             }

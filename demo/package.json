@@ -1,11 +1,14 @@
 {
   "nativescript": {
-    "id": "org.nativescript.auth0demo"
+    "id": "org.nativescript.auth0demo",
+    "tns-android": {
+      "version": "4.1.3"
+    }
   },
   "dependencies": {
+    "nativescript-auth0": "../src",
     "nativescript-theme-core": "^1.0.4",
     "nativescript-unit-test-runner": "^0.3.4",
-    "nativescript-auth0": "../src",
     "tns-core-modules": "^4.1.0"
   },
   "devDependencies": {

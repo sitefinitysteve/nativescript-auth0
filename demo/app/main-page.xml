@@ -2,6 +2,6 @@
   xmlns:ui="nativescript-auth0">
   <StackLayout class="p-20">
     <Label text="{{ message }}" class="t-20 text-center c-black" textWrap="true"/>
-    <Button text="Login" tap="{{ onTap }}">
+    <Button text="Login" tap="{{ onTap }}"></Button>
   </StackLayout>
 </Page>

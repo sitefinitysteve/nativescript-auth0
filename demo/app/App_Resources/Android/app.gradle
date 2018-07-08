@@ -5,7 +5,10 @@
 //	compile 'com.android.support:recyclerview-v7:+'
 //}
 
-android {  
+android {
+  project.ext {
+    supportVersion = "27.1.1"
+  }
   defaultConfig {  
     generatedDensities = []
     applicationId = "org.nativescript.auth0demo"  
