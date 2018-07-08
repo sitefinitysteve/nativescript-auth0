@@ -1,6 +1,6 @@
 # Nativescript Auth0Lock
 
-[Auth0](https://auth0.com) is a social login provider for Nativescript allowing you to choose between [50 different providers](https://auth0.com/docs/identityproviders).  Use the Auth0 portal to select and configure the providers you would like to make available in your NativeScript application. The Auth0 NativeScript plugin will dynamically load your chosen providers into your application.
+[Auth0](https://auth0.com) is a social login provider for NativeScript allowing you to choose between [50 different providers](https://auth0.com/docs/identityproviders).  Use the Auth0 portal to select and configure the providers you would like to make available in your NativeScript application. The Auth0 NativeScript plugin will dynamically load your chosen providers into your application.
 
 The dynamically loading feature reduces the amount of dependencies you’ll have in your application. You also don’t have to worry about loading and managing Cocoapods or Android Jars specific to each implementation.
 
@@ -15,95 +15,74 @@ In addition to managing many login providers, Auth0 also has solutions for appli
 tns plugin add nativescript-auth0
 ```
 
-OPTIONAL: Add this to your references.d.ts (if you use typescript)
-``` xml
-/// <reference path="./node_modules/nativescript-auth0/typings/Auth0.ios.d.ts" />
-/// <reference path="./node_modules/nativescript-auth0/typings/Lock.ios.d.ts" />
-```
-
 Go to your Auth0.com backend and configure your CallbackUrls, *DO NOT USE THE KEYS IN THE DEMO*
 [Configure Callback URLs](https://auth0.com/docs/quickstart/native/ios-swift/00-getting-started#configure-callback-urls)
 
-Syntax should be: {YOURBUNDLEID}://{DOMAIN}.auth0.com/ios/{YOURBUNDLEID}/callback
+Syntax should be:
+```
+<!-- iOS -->
+{YOUR_BUNDLE_IDENTIFIER}://${YOUR_AUTH0_DOMAIN}/ios/{YOUR_BUNDLE_IDENTIFIER}/callback
+
+<!-- Android -->
+https://{YOUR_AUTH0_DOMAIN}/android/{YOUR_APP_PACKAGE_NAME}/callback
+```
 
 
 
 ### iOS
 
-Make a new file called Auth0.plist, add this into it, clearly replacing the temp clientids and domain.  Note to keep a0 infront of the scheme.
+Add this to your Info.plist
 
-[Info.plist](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/App_Resources/iOS/Info.plist#L46-L62)
+[Info.plist](./demo/app/App_Resources/iOS/Info.plist#L46-L62)
 ``` xml
+<!-- Info.plist -->
+
 <key>CFBundleURLTypes</key>
 <array>
-	<dict>
-		<key>CFBundleTypeRole</key>
-		<string>None</string>
-		<key>CFBundleURLName</key>
-		<string>auth0</string>
-		<key>CFBundleURLSchemes</key>
-		<array>
-			<string>org.nativescript.auth0demo</string>
-		</array>
-	</dict>
+    <dict>
+        <key>CFBundleTypeRole</key>
+        <string>None</string>
+        <key>CFBundleURLName</key>
+        <string>auth0</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+        </array>
+    </dict>
 </array>
-  ```
-  
+```
 
-[Auth0.plist](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/App_Resources/iOS/Auth0.plist)
-``` xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-  <dict>
-    <key>ClientId</key>
-    <string>q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp</string>
-    <key>Domain</key>
-    <string>nativescript.auth0.com</string>
-  </dict>
-</plist>
-  ```
 
-  #### Impliement Delegate ####
+#### Implement Delegate ####
 
-  [Sample Delegate](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/custom-app-delegate.ts)
+[Sample Delegate](./demo/app/custom-app-delegate.ts)
 
-  [How to initalize it in app.ts](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/app.ts#L5-L17)
+[How to initalize it in app.ts](./demo/app/app.ts#L5-L17)
 
-  
+
 
 ### Android
 
 Add this to your AndroidManifest.xml
 
 ``` xml
-<!--Auth0 Lock-->
-      <activity
-          android:name="com.auth0.android.lock.LockActivity"
-          android:label="Classic Lock"
-          android:launchMode="singleTask"
-          android:screenOrientation="portrait"
-          android:theme="@style/Lock.Theme">
-          <intent-filter>
-              <action android:name="android.intent.action.VIEW" />
+        <activity
+            android:name="com.auth0.android.provider.RedirectActivity"
+            tools:node="replace">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
-              <category android:name="android.intent.category.DEFAULT" />
-              <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-              <data
-                  android:host="nativescript.auth0.com"
-                  android:pathPrefix="/android/__PACKAGE__/callback"
-                  android:scheme="https" />
-          </intent-filter>
-      </activity>
-      <!--Auth0 Lock End-->
-
-  <!--Auth0 Lock Embedded WebView-->
-      <activity
-          android:name="com.auth0.android.provider.WebAuthActivity" />
-      <!--Auth0 Lock Embedded WebView End-->
+                <data
+                    android:host="YOUR_AUTH0_DOMAIN"
+                    android:pathPrefix="/android/${applicationId}/callback"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
 ```
-[Sample from demo](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/App_Resources/Android/AndroidManifest.xml#L39-L63)
+[Sample from demo](./demo/app/App_Resources/Android/AndroidManifest.xml#L39-L63)
 
 ## Usage
 
@@ -113,7 +92,7 @@ Initalize at the top of your view
 import { Auth0Lock } from "nativescript-auth0";
 ```
 
-Create your lock object, I like to do this in a [shared helper or something](https://github.com/sitefinitysteve/nativescript-auth0/blob/master/demo/app/scripts/helpers.ts#L4)
+Create your lock object, I like to do this in a [shared helper or something](./demo/app/scripts/helpers.ts#L4)
 ``` js
   var lock = new Auth0Lock({
         clientId: '<your clientid>',
@@ -156,10 +135,14 @@ Show the lock screen, returns a promise
 
 
 ## ISSUES
-- iOS: Login success, but iOS says unable to open page and doesn't return you to your app.  Please replace the ${PRODUCT_BUNDLE_IDENTIFIER} in the info.plist with actual bundle ID.
+- No known issues.
 
 
 ## Version Notes
+### 2.0.0
+
+Rewrite to using Auth0 Universal Login
+
 ### 1.2.7
 
 Merged in some PRs, NG2 demo, audience property
