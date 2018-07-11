@@ -15,17 +15,20 @@ export {
     WebAuthOptions
 };
 
-declare const A0WebAuth: any;
-
 export class Auth0 extends Auth0Common {
     constructor(clientId: string, domain: string) {
         super(clientId, domain);
     }
 
     public webAuthentication(options: WebAuthOptions): Promise<Credentials> {
-        const webAuth = A0WebAuth.alloc().init(this.clientId, this.domain);
+        console.log('start');
+        const webAuth = A0WebAuth.alloc().initWithClientIdUrl(
+            this.clientId,
+            NSURL.alloc().initWithString(this.domain)
+        );
         const keys = [], values = [];
 
+        console.log('params');
         if (options.audience != null) {
             keys.push('audience');
             values.push(options.audience);
@@ -64,27 +67,34 @@ export class Auth0 extends Auth0Common {
             }
         }
 
-        const parameters = new (NSDictionary as any)(values, keys);
+        const parameters: NSDictionary<string, string> = new (NSDictionary as any)(values, keys);
         webAuth.addParameters(parameters);
 
+        console.log('ready');
         return new Promise((resolve, reject) => {
-            webAuth.startWithCallback((error: NSError | null, credentials: any | null) => {
-                if (error != null) {
-                    reject(new WebAuthException(error.description));
-                } else {
-                    // iOS library has the wrong name, and also doesn't explicitly provide real expiresIn
-                    const expiresAt = credentials.expiresIn;
-                    resolve({
-                        accessToken: credentials.accessToken,
-                        idToken: credentials.idToken,
-                        refreshToken: credentials.refreshToken,
-                        type: credentials.tokenType,
-                        expiresIn: (expiresAt != null) ? Number(expiresAt.timeIntervalSinceNow) : null,
-                        scope: credentials.scope,
-                        expiresAt: (expiresAt != null) ? new Date(expiresAt) : null
-                    });
-                }
-            });
+            try {
+                webAuth.start((error: NSError | null, credentials: any | null) => {
+                    console.log('finish');
+                    if (error != null) {
+                        reject(new WebAuthException(error.description));
+                    } else {
+                        // iOS library has the wrong name, and also doesn't explicitly provide real expiresIn
+                        const expiresAt = credentials.expiresIn;
+                        resolve({
+                            accessToken: credentials.accessToken,
+                            idToken: credentials.idToken,
+                            refreshToken: credentials.refreshToken,
+                            type: credentials.tokenType,
+                            expiresIn: (expiresAt != null) ? Number(expiresAt.timeIntervalSinceNow) : null,
+                            scope: credentials.scope,
+                            expiresAt: (expiresAt != null) ? new Date(expiresAt) : null
+                        });
+                    }
+                });
+            } catch (e) {
+                console.log('fail');
+                reject(e);
+            }
         });
     }
 }
