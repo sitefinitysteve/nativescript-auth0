@@ -53,9 +53,9 @@ import { Result } from './result';
 
  - returns: Auth0 WebAuth component
  */
-export function webAuth(clientId: string, domain: string): WebAuth {
+/*export function webAuth(clientId: string, domain: string): WebAuth {
     return SafariWebAuth.init(clientId, a0_url(domain));
-}
+}*/
 
 /**
  Resumes the current Auth session (if any).

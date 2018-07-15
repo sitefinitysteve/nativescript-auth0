@@ -6,13 +6,11 @@ import { OAuth2Grant } from './oauth2Grant';
 import { AuthenticationError } from './authenticationError';
 import { WebAuthError } from './webAuthError';
 
-type FinishSession = (result: Result<Credentials>) => void;
-
 export class AuthSession implements AuthTransaction {
 
     readonly redirectURL: NSURL;
     readonly state: string | undefined;
-    readonly finish: FinishSession;
+    readonly finish: (result: Result<Credentials>) => void;
     readonly handler: OAuth2Grant;
     readonly logger: Logger | undefined;
 
@@ -20,7 +18,7 @@ export class AuthSession implements AuthTransaction {
         redirectURL: NSURL,
         state: string | undefined = undefined,
         handler: OAuth2Grant,
-        finish: FinishSession,
+        finish: (result: Result<Credentials>) => void,
         logger: Logger | undefined
     ) {
         this.redirectURL = redirectURL;

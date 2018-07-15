@@ -1,6 +1,6 @@
 platform :ios, '9.0'
 
-pod 'CryptoUtils', :path => '../../node_modules/nativescript-crypto/platforms/ios/CryptoUtils'
+pod 'CryptoUtils', :path => '../../node_modules/nativescript-auth0/platforms/ios/CryptoUtils'
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

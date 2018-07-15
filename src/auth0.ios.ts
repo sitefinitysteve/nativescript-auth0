@@ -7,8 +7,9 @@ import {
     WebAuthException,
     WebAuthOptions
 } from './auth0-common';
-import { webAuth } from './ios/webAuth';
+import { SafariWebAuth } from './ios/safariWebAuth';
 import { ResponseType as iOSResponseType } from './ios/responseType';
+import { a0_url } from './ios/utils';
 
 export {
     Credentials,
@@ -24,7 +25,7 @@ export class Auth0 extends Auth0Common {
 
     public webAuthentication(options: WebAuthOptions): Promise<Credentials> {
         console.log('start');
-        const auth = webAuth(this.clientId, this.domain);
+        const auth = SafariWebAuth.init(this.clientId, a0_url(this.domain));
 
         console.log('params');
         if (options.audience != null) {
@@ -86,7 +87,7 @@ export class Auth0 extends Auth0Common {
                     }
                 });
             } catch (e) {
-                console.log('fail');
+                console.log('fail', e);
                 reject(e);
             }
         });
