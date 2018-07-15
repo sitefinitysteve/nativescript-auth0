@@ -3,7 +3,7 @@ import { HttpRequestOptions, HttpResponse, HttpResponseEncoding } from 'tns-core
 export interface Logger {
     trace(request: HttpRequestOptions);
     trace(response: HttpResponse);
-    trace(url: URL, source: string);
+    trace(url: NSURL, source: string);
 }
 
 export interface LoggerOutput {
@@ -26,9 +26,9 @@ export class DefaultLogger implements Logger {
 
     public trace(request: HttpRequestOptions);
     public trace(response: HttpResponse);
-    public trace(url: URL, source: string | undefined);
+    public trace(url: NSURL, source: string | undefined);
     public trace() {
-        if (arguments[0] instanceof URL) {
+        if (arguments[0] instanceof NSURL) {
             this.traceUrl(arguments[0], arguments[1]);
         } else if (arguments[0].url != null) {
             this.traceRequest(arguments[0]);
@@ -73,7 +73,7 @@ export class DefaultLogger implements Logger {
         this.output.newLine();
     }
 
-    private traceUrl(url: URL, source: string | undefined) {
+    private traceUrl(url: NSURL, source: string | undefined) {
         this.output.log(`${source || 'URL'}: ${url.toString()}`);
     }
 }

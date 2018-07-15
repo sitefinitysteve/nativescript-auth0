@@ -6,6 +6,7 @@ import { TransactionStore } from './transactionStore';
 import { a0_url } from './utils';
 import { Trackable, Telemetry } from './telemetry';
 import { Credentials } from './credentials';
+import { Result } from './result';
 
 /**
  Auth0 iOS component for authenticating with web-based flow
@@ -64,14 +65,14 @@ export function webAuth(clientId: string, domain: string): WebAuth {
 
  - returns: if the url was handled by an on going session or not.
  */
-export function resumeAuth(url: URL, options: NSDictionary<string, string>): boolean {
+export function resumeAuth(url: NSURL, options: NSDictionary<string, string>): boolean {
     return TransactionStore.shared.resume(url, options);
 }
 
 /// WebAuth Authentication using Auth0
 export abstract class WebAuth implements Trackable, Loggable {
     public abstract readonly clientId: string;
-    public abstract readonly url: URL;
+    public abstract readonly url: NSURL;
     public abstract telemetry: Telemetry;
 
     public abstract logger: Logger | undefined;
@@ -139,7 +140,7 @@ export abstract class WebAuth implements Trackable, Loggable {
     ///
     /// - Parameter response: Array of ResponseOptions
     /// - Returns: the same WebAuth instance to allow method chaining
-    public abstract setResponseType(response: [ResponseType]): this;
+    public abstract setResponseType(response: ResponseType[]): this;
 
     /// Add nonce paramater for authentication, this is a requirement for
     /// when response type .id_token is specified.

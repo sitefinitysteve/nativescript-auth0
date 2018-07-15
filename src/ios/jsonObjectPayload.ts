@@ -1,3 +1,3 @@
-export interface JSONObjectPayload {
-    initWithJson(json: { [key: string]: any });
+export interface JSONObjectPayload<T> {
+    initWithJson(json: { [key: string]: any }): T;
 }

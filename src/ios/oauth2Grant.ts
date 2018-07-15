@@ -1,8 +1,11 @@
 import { Credentials } from './credentials';
 import { ResponseType } from './responseType';
 import { Result } from './result';
-import { a0_fragmentValues } from './utils';
+import { a0_fragmentValues, a0_queryValues } from './utils';
 import { WebAuthError } from './webAuthError';
+import { AuthenticationError } from './authenticationError';
+import { Authentication } from './authentication';
+import { SHA256ChallengeGenerator } from './sha256ChallengeGenerator';
 
 export interface OAuth2Grant {
     defaults: { [key: string]: string };
@@ -13,9 +16,9 @@ export interface OAuth2Grant {
 export class ImplicitGrant implements OAuth2Grant {
 
     readonly defaults: { [key: string]: string };
-    readonly responseType: [ResponseType];
+    readonly responseType: ResponseType[];
 
-    constructor(responseType: [ResponseType] = [ResponseType.token], nonce: string | undefined = undefined) {
+    constructor(responseType: ResponseType[] = [ResponseType.token], nonce: string | undefined = undefined) {
         this.responseType = responseType;
         if (nonce != null) {
             this.defaults = { "nonce": nonce };
@@ -39,7 +42,7 @@ export class ImplicitGrant implements OAuth2Grant {
         }
 
         callback({
-            success: new Credentials().initWithJson(values)
+            success: Credentials.initWithJson(values)
         });
     }
 
@@ -51,65 +54,96 @@ export class ImplicitGrant implements OAuth2Grant {
 export class PKCE implements OAuth2Grant {
 
     readonly authentication: Authentication;
-    readonly redirectURL: URL;
+    readonly redirectURL: NSURL;
     readonly defaults: { [key: string]: string };
     readonly verifier: string;
-    readonly responseType: [ResponseType];
+    readonly responseType: ResponseType[];
 
-    init(authentication: Authentication, redirectURL: URL, generator: A0SHA256ChallengeGenerator = A0SHA256ChallengeGenerator(), reponseType: [ResponseType] = [.code], nonce: String? = nil) {
-        self.init(authentication: authentication, redirectURL: redirectURL, verifier: generator.verifier, challenge: generator.challenge, method: generator.method, responseType: reponseType, nonce: nonce)
+    public static init(
+        authentication: Authentication,
+        redirectURL: NSURL,
+        reponseType: ResponseType[] = [ResponseType.code],
+        nonce: string | undefined = undefined,
+        generator: SHA256ChallengeGenerator = SHA256ChallengeGenerator.init(),
+    ): PKCE {
+        return new PKCE(
+            authentication,
+            redirectURL,
+            generator.verifier,
+            generator.challenge,
+            generator.method,
+            reponseType,
+            nonce
+        );
     }
 
-    init(authentication: Authentication, redirectURL: URL, verifier: String, challenge: String, method: String, responseType: [ResponseType], nonce: String? = nil) {
-        self.authentication = authentication
-        self.redirectURL = redirectURL
-        self.verifier = verifier
-        self.responseType = responseType
+    constructor(
+        authentication: Authentication,
+        redirectURL: NSURL,
+        verifier: string,
+        challenge: string,
+        method: string,
+        responseType: ResponseType[],
+        nonce: string | undefined = undefined
+    ) {
+        this.authentication = authentication;
+        this.redirectURL = redirectURL;
+        this.verifier = verifier;
+        this.responseType = responseType;
 
-        var newDefaults: [String: String] = [
+        const newDefaults: { [key: string]: string } = {
             "code_challenge": challenge,
             "code_challenge_method": method
-        ]
+        };
 
-        if let nonce = nonce {
-            newDefaults["nonce"] = nonce
+        if (nonce != null) {
+            newDefaults["nonce"] = nonce;
         }
 
-        self.defaults = newDefaults
+        this.defaults = newDefaults;
     }
 
-    public credentials(from values: [String: String], callback: @escaping (Result<Credentials>) -> Void) {
-        guard
-            let code = values["code"]
-            else {
-                let string = "No code found in parameters \(values)"
-                return callback(.failure(error: AuthenticationError(string: string)))
+    public credentials(values: { [key: string]: string }, callback: (result: Result<Credentials>) => void) {
+        const code = values["code"];
+        if (code == null) {
+            let _string = "No code found in parameters \(values)";
+            return callback({
+                failure: new AuthenticationError(_string)
+            });
         }
-        guard validate(responseType: self.responseType, token: values["id_token"], nonce: self.defaults["nonce"]) else {
-            return callback(.failure(error: WebAuthError.invalidIdTokenNonce))
+        const valid = validate(this.responseType, values["id_token"], this.defaults["nonce"]);
+        if (valid === false) {
+            return callback({
+                failure: WebAuthError.invalidIdTokenNonce
+            });
         }
-        let clientId = self.authentication.clientId
-        self.authentication
-            .tokenExchange(withCode: code, codeVerifier: verifier, redirectURI: redirectURL.absoluteString)
-            .start { result in
+        const clientId = this.authentication.clientId;
+        this.authentication
+            .tokenExchangeWithCode(code, this.verifier, this.redirectURL.toString())
+            .start((result) => {
                 // Special case for PKCE when the correct method for token endpoint authentication is not set (it should be None)
-                if case .failure(let cause as AuthenticationError) = result, cause.description == "Unauthorized" {
-                    let error = WebAuthError.pkceNotAllowed("Please go to 'https://manage.auth0.com/#/applications/\(clientId)/settings' and make sure 'Client Type' is 'Native' to enable PKCE.")
-                    callback(Result.failure(error: error))
+                if (result.failure != null && result.failure.message === "Unauthorized") {
+                    let error = WebAuthError.pkceNotAllowed(`Please go to 'https://manage.auth0.com/#/applications/${clientId}/settings' and make sure 'Client Type' is 'Native' to enable PKCE.`);
+                    callback({
+                        failure: error
+                    });
                 } else {
-                    callback(result)
+                    callback(result);
                 }
-        }
+            });
     }
 
-    pubic values(fromComponents components: URLComponents) -> [String: String] {
-        var items = components.a0_fragmentValues
-        components.a0_queryValues.forEach { items[$0] = $1 }
-        return items
+    public values(components: NSURLComponents): { [key: string]: string } {
+        let items = a0_fragmentValues(components);
+        const values = a0_queryValues(components);
+        for (const key in values) {
+            items[key] = values[key];
+        }
+        return items;
     }
 }
 
-function validate(responseType: [ResponseType], token: string | undefined, nonce: string | undefined): boolean {
+function validate(responseType: ResponseType[], token: string | undefined, nonce: string | undefined): boolean {
     const index = responseType.indexOf(ResponseType.idToken);
     if (index === -1) {
         return true;

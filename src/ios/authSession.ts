@@ -2,19 +2,22 @@ import { AuthTransaction } from './authTransaction';
 import { Credentials } from './credentials';
 import { Logger } from './logger';
 import { Result } from './result';
+import { OAuth2Grant } from './oauth2Grant';
+import { AuthenticationError } from './authenticationError';
+import { WebAuthError } from './webAuthError';
 
 type FinishSession = (result: Result<Credentials>) => void;
 
 export class AuthSession implements AuthTransaction {
 
-    readonly redirectURL: URL;
+    readonly redirectURL: NSURL;
     readonly state: string | undefined;
     readonly finish: FinishSession;
     readonly handler: OAuth2Grant;
     readonly logger: Logger | undefined;
 
     constructor(
-        redirectURL: URL,
+        redirectURL: NSURL,
         state: string | undefined = undefined,
         handler: OAuth2Grant,
         finish: FinishSession,
@@ -35,31 +38,44 @@ export class AuthSession implements AuthTransaction {
 
      - returns: `true` if the url completed (successfuly or not) this session, `false` otherwise
      */
-    func resume(_ url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
-        this.logger?.trace(url: url, source: "iOS Safari")
-        guard url.absoluteString.lowercased().hasPrefix(this.redirectURL.absoluteString.lowercased()) else { return false }
-
-        guard
-            let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
-            else {
-                this.finish(.failure(error: AuthenticationError(string: url.absoluteString, statusCode: 200)))
-                return false
-            }
-        var items = this.handler.values(fromComponents: components)
-        guard has(state: this.state, inItems: items) else { return false }
-        if items["error"] != nil {
-            this.finish(.failure(error: AuthenticationError(info: items, statusCode: 0)))
-        } else {
-            this.handler.credentials(from: items, callback: this.finish)
+    public resume(url: NSURL, options: NSDictionary<string, any> = NSDictionary.alloc<string, any>()): boolean {
+        if (this.logger != null) {
+            this.logger.trace(url, "iOS Safari");
         }
-        return true
+        const hasPrefix = url.absoluteString.toLowerCase().startsWith(this.redirectURL.absoluteString.toLowerCase());
+        if (hasPrefix === false) {
+            return false;
+        }
+
+        const components = new NSURLComponents({ URL: url, resolvingAgainstBaseURL: true });
+        if (components == null) {
+            this.finish({
+                failure: new AuthenticationError(url.absoluteString, 200)
+            });
+            return false;
+        }
+        let items = this.handler.values(components);
+        const has = this.has(this.state, items);
+        if (has === false) {
+            return false;
+        }
+        if (items["error"] != null) {
+            this.finish({
+                failure: new AuthenticationError(items, 0)
+            });
+        } else {
+            this.handler.credentials(items, this.finish);
+        }
+        return true;
     }
 
-    func cancel() {
-        this.finish(Result.failure(error: WebAuthError.userCancelled))
+    public cancel() {
+        this.finish({
+            failure: WebAuthError.userCancelled
+        });
     }
 
-    private func has(state: String?, inItems items: [String: String]) -> Bool {
-        return state == nil || items["state"] == state
+    private has(state: string | undefined, items: { [key: string]: string }): boolean {
+        return state === null || items["state"] === state;
     }
 }

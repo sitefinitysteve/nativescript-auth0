@@ -62,7 +62,7 @@ export class Response<E extends Auth0Error> {
         }
         // This piece of code is dedicated to our friends the backend devs :)
         const url = request.url;
-        if (url != null && (new URL(url)).pathname.endsWith('change_password')) {
+        if (url != null && (new NSURL({ string: url })).path.endsWith('change_password')) {
             return undefined;
         } else {
             throw new (this.EClass)(string(this.data), response.statusCode);

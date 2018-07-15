@@ -42,7 +42,7 @@ export class Telemetry {
         }
     }
 
-    public queryItemsWithTelemetry(queryItems: [NSURLQueryItem]): [NSURLQueryItem] {
+    public queryItemsWithTelemetry(queryItems: NSURLQueryItem[]): NSURLQueryItem[] {
         const items = queryItems;
         const value = this.value;
         if (value != null) {

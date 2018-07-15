@@ -28,7 +28,7 @@ export interface AuthTransaction {
      - parameter options: options recieved in the openUrl method of the `AppDelegate`
      - returns: if the url was expected and properly formatted otherwise it will return false.
     */
-    resume(url: URL, options: NSDictionary<string, any>): boolean;
+    resume(url: NSURL, options: NSDictionary<string, any>): boolean;
 
     /**
      Terminates the transaction and reports back that it was cancelled.

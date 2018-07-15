@@ -13,7 +13,9 @@ export class WebAuthError extends Error {
     public static noBundleIdentifierFound = new WebAuthError("Failed to perform webAuth");
     public static cannotDismissWebAuthController = new WebAuthError("Failed to perform webAuth");
     public static userCancelled = new WebAuthError("User Cancelled Web Authentication");
-    public static pkceNotAllowed = new WebAuthError("Failed to perform webAuth");
+    public static pkceNotAllowed(message: string): WebAuthError {
+        return new WebAuthError(message);
+    }
     public static noNonceProvided = new WebAuthError("A nonce value must be supplied when response_type includes id_token in order to prevent replay attacks");
     public static missingResponseParam = new WebAuthError("Failed to perform webAuth");
     public static invalidIdTokenNonce = new WebAuthError("Could not validate the id_token");

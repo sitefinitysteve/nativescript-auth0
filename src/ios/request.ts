@@ -19,22 +19,24 @@ import { Telemetry } from './telemetry';
  */
 export class Request<T, E extends Auth0Error> implements Requestable<T> {
 
-    readonly url: URL;
+    readonly url: NSURL;
     readonly method: string;
     readonly handle: (response: Response<E>, callback: (result: Result<T>) => void) => void;
     readonly payload: { [key: string]: any };
     readonly headers: { [key: string]: string };
     readonly logger: Logger | undefined;
     readonly telemetry: Telemetry | undefined;
+    readonly EClass: typeof Auth0Error;
 
     constructor(
-        url: URL,
+        url: NSURL,
         method: string,
         handle: (response: Response<E>, callback: (result: Result<T>) => void) => void,
         payload: { [key: string]: any } = {},
         headers: { [key: string]: string } = {},
         logger: Logger | undefined,
-        telemetry: Telemetry
+        telemetry: Telemetry,
+        EClass: typeof Auth0Error
     ) {
         this.url = url;
         this.method = method;
@@ -43,6 +45,7 @@ export class Request<T, E extends Auth0Error> implements Requestable<T> {
         this.headers = headers;
         this.logger = logger;
         this.telemetry = telemetry;
+        this.EClass = EClass;
     }
 
     get request(): HttpRequestOptions {
@@ -80,9 +83,9 @@ export class Request<T, E extends Auth0Error> implements Requestable<T> {
             if (logger != null) {
                 logger.trace(response);
             }
-            handler(new Response(response.content, request, response, undefined, this.eclass), callback);
+            handler(new Response(response.content, request, response, undefined, this.EClass), callback);
         }).catch((error) => {
-            handler(new Response(undefined, request, undefined, error, this.eclass), callback);
+            handler(new Response(undefined, request, undefined, error, this.EClass), callback);
         });
     }
 }

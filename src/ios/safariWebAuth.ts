@@ -7,13 +7,22 @@ import { ResponseType } from './responseType';
 import { Telemetry } from './telemetry';
 import { TransactionStore } from './transactionStore';
 import { WebAuth } from './webAuth';
+import { a0_encodeBase64URLSafe, invokeOnRunLoop, jsArrayToNSArray, nsArrayToJSArray } from './utils';
+import { WebAuthError } from './webAuthError';
+import { Result } from './result';
+import { SafariAuthenticationSession } from './safariAuthenticationSession';
+import { SafariSession } from './safariSession';
+import { OAuth2Grant, PKCE, ImplicitGrant } from './oauth2Grant';
+import { SafariAuthenticationSessionCallback } from './safariAuthenticationSessionCallback';
+import { SilentSafariViewController } from './silentSafariViewController';
+import { Auth0Authentication } from './auth0Authentication';
 
 export class SafariWebAuth extends WebAuth {
 
     static NoBundleIdentifier = 'com.auth0.this-is-no-bundle';
 
     public readonly clientId: string;
-    public readonly url: URL;
+    public readonly url: NSURL;
     public telemetry: Telemetry;
 
     public readonly presenter: ControllerModalPresenter;
@@ -21,15 +30,15 @@ export class SafariWebAuth extends WebAuth {
     public logger: Logger | undefined;
     public parameters: { [param: string]: string } = {};
     public universalLink = false;
-    public responseType: [ResponseType] = [ResponseType.code];
+    public responseType: ResponseType[] = [ResponseType.code];
     public nonce: string | undefined;
     private authenticationSession: boolean = true;
 
-    public static init(clientId: string, url: URL, presenter: ControllerModalPresenter = new ControllerModalPresenter(), telemetry: Telemetry = new Telemetry()): SafariWebAuth {
+    public static init(clientId: string, url: NSURL, presenter: ControllerModalPresenter = new ControllerModalPresenter(), telemetry: Telemetry = new Telemetry()): SafariWebAuth {
         return new SafariWebAuth(clientId, url, presenter, TransactionStore.shared, telemetry);
     }
 
-    constructor(clientId: string, url: URL, presenter: ControllerModalPresenter, storage: TransactionStore, telemetry: Telemetry) {
+    constructor(clientId: string, url: NSURL, presenter: ControllerModalPresenter, storage: TransactionStore, telemetry: Telemetry) {
         super();
         this.clientId = clientId;
         this.url = url;
@@ -70,7 +79,7 @@ export class SafariWebAuth extends WebAuth {
         return this;
     }
 
-    public setResponseType(responseType: [ResponseType]): this {
+    public setResponseType(responseType: ResponseType[]): this {
         this.responseType = responseType;
         return this;
     }
@@ -95,125 +104,147 @@ export class SafariWebAuth extends WebAuth {
     }
 
     public start(callback: (result: Result<Credentials>) => void) {
-        guard
-            let redirectURL = this.redirectURL, !redirectURL.absoluteString.hasPrefix(SafariWebAuth.NoBundleIdentifier)
-            else {
-                return callback(Result.failure(error: WebAuthError.noBundleIdentifierFound))
+        const redirectURL = this.redirectURL;
+        if (redirectURL == null || redirectURL.absoluteString.startsWith(SafariWebAuth.NoBundleIdentifier)) {
+            return callback({
+                failure: WebAuthError.noBundleIdentifierFound
+            });
         }
-        if this.responseType.contains(.idToken) {
-            guard this.nonce != nil else { return callback(Result.failure(error: WebAuthError.noNonceProvided)) }
+        if (this.responseType.indexOf(ResponseType.idToken) > -1) {
+            if (this.nonce == null) {
+                return callback({
+                    failure: WebAuthError.noNonceProvided
+                });
+            }
         }
-        let handler = this.handler(redirectURL)
-        let state = this.parameters["state"] ?? generateDefaultState()
-        let authorizeURL = this.buildAuthorizeURL(withRedirectURL: redirectURL, defaults: handler.defaults, state: state)
+        let handler = this.handler(redirectURL);
+        let state = this.parameters["state"] || generateDefaultState();
+        let authorizeURL = this.buildAuthorizeURL(redirectURL, handler.defaults, state);
 
         if (Number(device.osVersion) >= 11.0 && this.authenticationSession) {
-            let session = SafariAuthenticationSession(authorizeURL: authorizeURL, redirectURL: redirectURL, state: state, handler: handler, finish: callback, logger: logger)
-            logger?.trace(url: authorizeURL, source: "SafariAuthenticationSession")
-            this.storage.store(session)
+            let session = new SafariAuthenticationSession(authorizeURL, redirectURL, state, handler, callback, this.logger);
+            if (this.logger != null) {
+                this.logger.trace(authorizeURL, "SafariAuthenticationSession");
+            }
+            this.storage.store(session);
         } else {
-            const [controller, finish] = newSafari(authorizeURL, callback);
-            let session = SafariSession(controller: controller, redirectURL: redirectURL, state: state, handler: handler, finish: finish, logger: this.logger)
-            controller.delegate = session
-            this.presenter.present(controller: controller)
-            logger?.trace(url: authorizeURL, source: "Safari")
-            this.storage.store(session)
+            const { controller, finish } = this.newSafari(authorizeURL, callback);
+            const session = new SafariSession(controller, redirectURL, state, handler, finish, this.logger);
+            this.presenter.present(controller);
+            if (this.logger != null) {
+                this.logger.trace(authorizeURL, "Safari");
+            }
+            this.storage.store(session);
         }
     }
 
-    public newSafari(_ authorizeURL: URL, callback: @escaping (Result<Credentials>) -> Void) -> (SFSafariViewController, (Result<Credentials>) -> Void) {
-        let controller = SFSafariViewController(url: authorizeURL)
-        let finish: (Result<Credentials>) -> Void = { [weak controller] (result: Result<Credentials>) -> Void in
-            guard let presenting = controller?.presentingViewController else {
-                return callback(Result.failure(error: WebAuthError.cannotDismissWebAuthController))
+    public newSafari(authorizeURL: NSURL, callback: (result: Result<Credentials>) => void): { controller: SFSafariViewController, finish: (result: Result<Credentials>) => void } {
+        let controller = new SFSafariViewController({ URL: authorizeURL });
+        let finish: (result: Result<Credentials>) => void = (result: Result<Credentials>) => {
+            const presenting = (controller != null) ? controller.presentingViewController : undefined;
+            if (presenting == null) {
+                return callback({
+                    failure: WebAuthError.cannotDismissWebAuthController
+                });
             }
 
-            if case .failure(let cause as WebAuthError) = result, case .userCancelled = cause {
-                DispatchQueue.main.async {
-                    callback(result)
-                }
+            if (result.failure != null && result.failure === WebAuthError.userCancelled) {
+                invokeOnRunLoop(() => {
+                    callback(result);
+                });
             } else {
-                DispatchQueue.main.async {
-                    presenting.dismiss(animated: true) {
-                        callback(result)
-                    }
-                }
+                invokeOnRunLoop(() => {
+                    presenting.dismissViewControllerAnimatedCompletion(true, () => {
+                        callback(result);
+                    });
+                });
             }
-        }
-        return (controller, finish)
+        };
+        return { controller, finish };
     }
 
-    public buildAuthorizeURL(withRedirectURL redirectURL: URL, defaults: [String: String], state: String?) -> URL {
-        let authorize = URL(string: "/authorize", relativeTo: this.url)!
-        var components = URLComponents(url: authorize, resolvingAgainstBaseURL: true)!
-        var items: [URLQueryItem] = []
-        var entries = defaults
-        entries["client_id"] = this.clientId
-        entries["redirect_uri"] = redirectURL.absoluteString
-        entries["scope"] = "openid"
-        entries["state"] = state
-        entries["response_type"] = this.responseType.map { $0.label! }.joined(separator: " ")
-        if this.responseType.contains(.idToken) {
-            entries["nonce"] = this.nonce
+    public buildAuthorizeURL(redirectURL: NSURL, defaults: { [key: string]: string }, state: string | undefined): NSURL {
+        const authorize = new NSURL({ string: "/authorize", relativeToURL: this.url });
+        let components = new NSURLComponents({ URL: authorize, resolvingAgainstBaseURL: true });
+        let items: NSURLQueryItem[] = [];
+        let entries = defaults;
+        entries["client_id"] = this.clientId;
+        entries["redirect_uri"] = redirectURL.absoluteString;
+        entries["scope"] = "openid";
+        entries["state"] = state;
+        entries["response_type"] = this.responseType.map((x) => x.label).join(" ");
+        if (this.responseType.indexOf(ResponseType.idToken) > -1) {
+            entries["nonce"] = this.nonce;
         }
-        this.parameters.forEach { entries[$0] = $1 }
+        for (const key in this.parameters) {
+            entries[key] = this.parameters[key];
+        }
 
-        entries.forEach { items.append(URLQueryItem(name: $0, value: $1)) }
-        components.queryItems = this.telemetry.queryItemsWithTelemetry(queryItems: items)
-        return components.url!
+        for (const key in entries) {
+            items.push(new NSURLQueryItem({ name: key, value: entries[key] }));
+        }
+
+        components.queryItems = jsArrayToNSArray(this.telemetry.queryItemsWithTelemetry(items));
+        return components.URL;
     }
 
-    public handler(redirectURL: URL): OAuth2Grant {
-        if this.responseType.contains([.code]) {
-            var authentication = Auth0Authentication(clientId: this.clientId, url: this.url, telemetry: this.telemetry)
-            authentication.logger = this.logger
-            return PKCE(authentication: authentication, redirectURL: redirectURL, reponseType: this.responseType, nonce: this.nonce)
+    public handler(redirectURL: NSURL): OAuth2Grant {
+        if (this.responseType.indexOf(ResponseType.code) > -1) {
+            const authentication = new Auth0Authentication(this.clientId, this.url, this.telemetry);
+            authentication.logger = this.logger;
+            return PKCE.init(authentication, redirectURL, this.responseType, this.nonce);
         } else {
-            return ImplicitGrant(responseType: this.responseType, nonce: this.nonce)
+            return new ImplicitGrant(this.responseType, this.nonce);
         }
     }
 
-    var redirectURL: URL? {
-        let bundleIdentifier = Bundle.main.bundleIdentifier ?? SafariWebAuth.NoBundleIdentifier
-        var components = URLComponents(url: this.url, resolvingAgainstBaseURL: true)
-        components?.scheme = this.universalLink ? "https" : bundleIdentifier
-        return components?.url?
-            .appendingPathComponent("ios")
-            .appendingPathComponent(bundleIdentifier)
-            .appendingPathComponent("callback")
+    public get redirectURL(): NSURL | undefined {
+        const bundleIdentifier = NSBundle.mainBundle.bundleIdentifier || SafariWebAuth.NoBundleIdentifier;
+        const components = new NSURLComponents({ URL: this.url, resolvingAgainstBaseURL: true });
+        if (components != null && components.URL != null) {
+        components.scheme = this.universalLink ? "https" : bundleIdentifier;
+        return components.URL
+            .URLByAppendingPathComponent("ios")
+            .URLByAppendingPathComponent(bundleIdentifier)
+            .URLByAppendingPathComponent("callback");
+        } else {
+            return undefined;
+        }
     }
 
     public clearSession(federated: boolean, callback: (success: boolean) => void) {
-        let logoutURL = federated ? URL(string: "/v2/logout?federated", relativeTo: this.url)! : URL(string: "/v2/logout", relativeTo: this.url)!
+        const logoutURL = federated
+            ? new NSURL({ string: "/v2/logout?federated", relativeToURL: this.url })
+            : new NSURL({ string: "/v2/logout", relativeToURL: this.url });
         if (Number(device.osVersion) >= 11.0 && this.authenticationSession) {
-            let returnTo = URLQueryItem(name: "returnTo", value: this.redirectURL?.absoluteString)
-            let clientId = URLQueryItem(name: "client_id", value: this.clientId)
-            var components = URLComponents(url: logoutURL, resolvingAgainstBaseURL: true)
-            let queryItems = components?.queryItems ?? []
-            components?.queryItems = queryItems + [returnTo, clientId]
-            guard let clearSessionURL = components?.url, let redirectURL = returnTo.value else {
-                return callback(false)
+            const returnTo = new NSURLQueryItem({ name: "returnTo", value: (this.redirectURL != null) ? this.redirectURL.absoluteString : undefined });
+            const clientId = new NSURLQueryItem({ name: "client_id", value: this.clientId });
+            const components = new NSURLComponents({ URL: logoutURL, resolvingAgainstBaseURL: true });
+            const queryItems = (components.queryItems != null) ? nsArrayToJSArray(components.queryItems) : [];
+            components.queryItems = jsArrayToNSArray([...queryItems, returnTo, clientId]);
+            const clearSessionURL = components.URL;
+            const redirectURL = returnTo.value;
+            if (clearSessionURL == null || redirectURL == null) {
+                return callback(false);
             }
-            let clearSession = SafariAuthenticationSessionCallback(url: clearSessionURL, schemeURL: redirectURL, callback: callback)
-            this.storage.store(clearSession)
+            const clearSession = new SafariAuthenticationSessionCallback(clearSessionURL, redirectURL, callback);
+            this.storage.store(clearSession);
         } else {
-            let controller = SilentSafariViewController(url: logoutURL) { callback($0) }
-            logger?.trace(url: logoutURL, source: "Safari")
-            this.presenter.present(controller: controller)
+            let controller = SilentSafariViewController.alloc().initWithURLCallback(logoutURL, (result) => callback(result));
+            if (this.logger != null) {
+                this.logger.trace(logoutURL, "Safari");
+            }
+            this.presenter.present(controller);
         }
     }
 }
 
 function generateDefaultState(): string | undefined {
-    let data = Data(count: 32)
-    let tempData = data
+    let data = new NSMutableData({ length: 32 });
+    const result = SecRandomCopyBytes(kSecRandomDefault, data.length, data.mutableBytes);
 
-    let result = tempData.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<UInt8>) -> Int in
-        return Int(SecRandomCopyBytes(kSecRandomDefault, data.count, bytes))
-    }
-
-    if (result != 0) {
+    if (result !== 0) {
         return undefined;
     }
-    return tempData.a0_encodeBase64URLSafe()
+    return a0_encodeBase64URLSafe(data);
 }

@@ -10,7 +10,7 @@ export class TransactionStore {
         return this._current;
     }
 
-    public resume(url: URL, options: NSDictionary<string, any>): boolean {
+    public resume(url: NSURL, options: NSDictionary<string, any>): boolean {
         let resumed = (this._current != null) ? this._current.resume(url, options) : false;
         if (resumed != null) {
             this._current = undefined;

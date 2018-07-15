@@ -1,12 +1,9 @@
-import { JSONObjectPayload } from './jsonObjectPayload';
-export { JSONObjectPayload } from './jsonObjectPayload';
-
 /**
  User's credentials obtained from Auth0.
  What values are available depends on what type of Auth request you perfomed,
  so if you used WebAuth (`/authorize` call) the `response_type` and `scope` will determine what tokens you get
  */
-export class Credentials extends NSObject implements JSONObjectPayload, NSSecureCoding {
+export class Credentials {
 
     /// Token used that allows calling to the requested APIs (audience sent on Auth)
     private _accessToken?: string;
@@ -45,7 +42,7 @@ export class Credentials extends NSObject implements JSONObjectPayload, NSSecure
         return this._scope;
     }
 
-    public initWithAccessTokenTokenTypeIdTokenRefreshTokenExpiresInScope(
+    constructor(
         accessToken: string | undefined = null,
         tokenType: string | undefined = null,
         idToken: string | undefined = null,
@@ -53,7 +50,7 @@ export class Credentials extends NSObject implements JSONObjectPayload, NSSecure
         expiresIn: number | undefined = null,
         expiresAt: Date | undefined = null,
         scope: string | undefined = null
-    ): this {
+    ) {
         this._accessToken = accessToken;
         this._tokenType = tokenType;
         this._idToken = idToken;
@@ -68,18 +65,16 @@ export class Credentials extends NSObject implements JSONObjectPayload, NSSecure
         if (expiresIn == null && expiresAt != null) {
             this._expiresIn = (expiresAt.getTime() - Date.now()) / 1000;
         }
-
-        return this;
     }
 
-    public initWithJson(json: { [key: string]: any }): this {
+    public static initWithJson(json: { [key: string]: any }): Credentials {
         const accessToken = json["accessToken"];
         const tokenType = json["tokenType"];
         const idToken = json["idToken"];
         const refreshToken = json["refreshToken"];
         const expiresIn = json["expiresIn"];
         const scope = json["scope"];
-        return this.initWithAccessTokenTokenTypeIdTokenRefreshTokenExpiresInScope(
+        return new Credentials(
             (accessToken != null) ? String(accessToken) : undefined,
             (tokenType != null) ? String(tokenType) : undefined,
             (idToken != null) ? String(idToken) : undefined,
@@ -92,7 +87,7 @@ export class Credentials extends NSObject implements JSONObjectPayload, NSSecure
 
     // MARK: - NSSecureCoding
 
-    public initWithCoder(aDecoder: NSCoder): this {
+    public static initWithCoder(aDecoder: NSCoder): Credentials {
         const accessToken = aDecoder.decodeObjectForKey("accessToken");
         const tokenType = aDecoder.decodeObjectForKey("tokenType");
         const idToken = aDecoder.decodeObjectForKey("idToken");
@@ -101,7 +96,7 @@ export class Credentials extends NSObject implements JSONObjectPayload, NSSecure
         const expiresAt = aDecoder.decodeObjectForKey("expiresAt");
         const scope = aDecoder.decodeObjectForKey("scope");
 
-        return this.initWithAccessTokenTokenTypeIdTokenRefreshTokenExpiresInScope(
+        return new Credentials(
             (accessToken != null) ? String(accessToken) : undefined,
             (tokenType != null) ? String(tokenType) : undefined,
             (idToken != null) ? String(idToken) : undefined,
@@ -121,15 +116,4 @@ export class Credentials extends NSObject implements JSONObjectPayload, NSSecure
         aCoder.encodeObjectForKey((this._expiresAt != null) ? this._expiresAt.getTime() : undefined, "expiresAt");
         aCoder.encodeObjectForKey(this._scope, "scope");
     }
-
-    public static supportsSecureCoding: boolean = true;
-
-    // An array of protocols to be implemented by the native class
-    public static ObjCProtocols = [ NSSecureCoding ];
-
-    // A selector will be exposed so it can be called from native.
-    public static ObjCExposedMethods = {
-        "initWithCoder": { returns: Credentials, params: [ NSCoder ] },
-        "encodeWithCoder": { returns: interop.types.void, params: [ NSCoder ] }
-    };
 }

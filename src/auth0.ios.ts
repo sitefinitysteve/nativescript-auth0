@@ -7,6 +7,8 @@ import {
     WebAuthException,
     WebAuthOptions
 } from './auth0-common';
+import { webAuth } from './ios/webAuth';
+import { ResponseType as iOSResponseType } from './ios/responseType';
 
 export {
     Credentials,
@@ -22,72 +24,64 @@ export class Auth0 extends Auth0Common {
 
     public webAuthentication(options: WebAuthOptions): Promise<Credentials> {
         console.log('start');
-        const webAuth = A0WebAuth.alloc().initWithClientIdUrl(
-            this.clientId,
-            NSURL.alloc().initWithString(this.domain)
-        );
-        const keys = [], values = [];
+        const auth = webAuth(this.clientId, this.domain);
 
         console.log('params');
         if (options.audience != null) {
-            keys.push('audience');
-            values.push(options.audience);
+            auth.setAudience(options.audience);
         }
         if (options.connection != null) {
-            keys.push('connection');
-            values.push(options.connection);
+            auth.setConnection(options.connection);
         }
-        /** Not supported by iOS at this time */
-        /*if (options.nonce != null) {
-            keys.push('nonce');
-            values.push(options.nonce);
-        }*/
-        /** Not supported by iOS as this time */
-        /*if (options.responseType != null) {
-            keys.push('responseType');
-            values.push(options.responseType);
-        }*/
-        /** Not supported by iOS as this time */
-        /*if (options.scheme != null) {
-            keys.push('scheme');
-            values.push(options.scheme);
-        }*/
-        if (options.scope != null) {
-            keys.push('scope');
-            values.push(options.scope);
+        if (options.nonce != null) {
+            auth.setNonce(options.nonce);
         }
-        if (options.state != null) {
-            keys.push('state');
-            values.push(options.state);
-        }
-        if (options.parameters != null) {
-            for (const key in options.parameters) {
-                keys.push(key);
-                values.push(options.parameters[key]);
+        if (options.responseType != null) {
+            switch (options.responseType) {
+                case ResponseType.CODE:
+                    auth.setResponseType([iOSResponseType.code]);
+                    break;
+                case ResponseType.TOKEN:
+                    auth.setResponseType([iOSResponseType.token]);
+                    break;
+                case ResponseType.ID_TOKEN:
+                    auth.setResponseType([iOSResponseType.idToken]);
+                    break;
             }
         }
-
-        const parameters: NSDictionary<string, string> = new (NSDictionary as any)(values, keys);
-        webAuth.addParameters(parameters);
+        /**
+         * Not supported by iOS at this time
+         */
+        /*if (options.scheme != null) {
+            auth.setScheme(options.scheme);
+        }*/
+        if (options.scope != null) {
+            auth.setScope(options.scope);
+        }
+        if (options.state != null) {
+            auth.setState(options.state);
+        }
+        if (options.parameters != null) {
+            auth.setParameters(options.parameters);
+        }
 
         console.log('ready');
         return new Promise((resolve, reject) => {
             try {
-                webAuth.start((error: NSError | null, credentials: any | null) => {
+                auth.start((result) => {
                     console.log('finish');
-                    if (error != null) {
-                        reject(new WebAuthException(error.description));
+                    if (result.failure != null) {
+                        reject(new WebAuthException(result.failure.message));
                     } else {
-                        // iOS library has the wrong name, and also doesn't explicitly provide real expiresIn
-                        const expiresAt = credentials.expiresIn;
+                        const credentials = result.success;
                         resolve({
                             accessToken: credentials.accessToken,
                             idToken: credentials.idToken,
                             refreshToken: credentials.refreshToken,
                             type: credentials.tokenType,
-                            expiresIn: (expiresAt != null) ? Number(expiresAt.timeIntervalSinceNow) : null,
+                            expiresIn: credentials.expiresIn,
                             scope: credentials.scope,
-                            expiresAt: (expiresAt != null) ? new Date(expiresAt) : null
+                            expiresAt: credentials.expiresAt
                         });
                     }
                 });
