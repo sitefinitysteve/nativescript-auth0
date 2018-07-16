@@ -1,0 +1,62 @@
+{
+    "name": "nativescript-auth0",
+    "version": "2.0.0",
+    "description": "Auth0 NativeScript SDK",
+    "main": "auth0",
+    "typings": "index.d.ts",
+    "nativescript": {
+        "platforms": {
+            "android": "4.0.0",
+            "ios": "4.0.0"
+        }
+    },
+    "scripts": {
+        "tsc": "tsc -skipLibCheck",
+        "build": "npm i && tsc && npm run build.native",
+        "build.native": "node scripts/build-native.js",
+        "postclone": "npm i && node scripts/postclone.js && cd ../demo && npm i && cd ../src && npm run plugin.link",
+        "test.android": "npm i && npm run tsc && npm run tslint && cd ../demo && tns build android && tns test android --justlaunch",
+        "test.ios": "npm i && npm run tsc && npm run tslint && cd ../demo && tns build ios && tns test ios --justlaunch",
+        "tslint": "cd .. && tslint \"**/*.ts\" --config tslint.json --exclude \"**/node_modules/**\"",
+        "plugin.link": "npm link && cd ../demo && npm link nativescript-auth0 && cd ../src",
+        "plugin.tscwatch": "npm run tsc -- -w",
+        "demo.ios": "npm i && npm run tsc && cd ../demo && tns run ios --syncAllFiles",
+        "demo.android": "npm i && npm run tsc && cd ../demo && tns run android --syncAllFiles",
+        "demo.reset": "cd ../demo && rimraf platforms",
+        "plugin.prepare": "npm run build && cd ../demo && tns plugin remove nativescript-auth0 && tns plugin add ../src",
+        "clean": "cd ../demo && rimraf hooks node_modules platforms && cd ../src && rimraf node_modules && npm run plugin.link",
+        "ci.tslint": "npm i && tslint '**/*.ts' --config '../tslint.json' --exclude '**/node_modules/**'",
+        "prepack": "npm run build.native"
+    },
+    "keywords": [
+        "NativeScript",
+        "Auth0",
+        "oAuth",
+        "Social Login",
+        "Social",
+        "iOS",
+        "Android",
+        "Javascript"
+    ],
+    "author": {
+        "name": "Steve McNiven-Scott",
+        "email": "steve@sitefinitysteve.com"
+    },
+    "bugs": {
+        "url": "https://github.com/sitefinitysteve/nativescript-auth0/issues"
+    },
+    "license": "MIT",
+    "homepage": "https://github.com/sitefinitysteve/nativescript-auth0",
+    "readmeFilename": "README.md",
+    "devDependencies": {
+        "tns-core-modules": "^4.0.0",
+        "tns-platform-declarations": "^4.0.0",
+        "typescript": "~2.7.2",
+        "prompt": "^1.0.0",
+        "rimraf": "^2.5.0",
+        "tslint": "^5.0.0",
+        "semver": "^5.5.0"
+    },
+    "dependencies": {},
+    "bootstrapper": "nativescript-plugin-seed"
+}
