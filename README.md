@@ -67,7 +67,7 @@ Add this to your AndroidManifest.xml
 
 ``` xml
         <activity
-            android:name="com.auth0.android.provider.RedirectActivity"
+            android:name="org.nativescript.auth0.RedirectActivity"
             tools:node="replace">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
