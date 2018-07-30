@@ -1,4 +1,4 @@
-import { HttpRequestOptions, HttpResponse, HttpResponseEncoding, HttpContent } from 'tns-core-modules/http';
+import { HttpRequestOptions, HttpResponse, HttpResponseEncoding, HttpContent } from 'tns-core-modules/http/http';
 
 import { Auth0Error } from './auth0Error';
 

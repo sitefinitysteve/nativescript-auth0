@@ -1,7 +1,7 @@
-import { device } from 'tns-core-modules/platform';
+import { device } from 'tns-core-modules/platform/platform';
 
 import { ControllerModalPresenter } from './controllerModalPresenter';
-import { Credentials } from './credentials';
+import { Credentials } from '../common/credentials';
 import { Logger } from './logger';
 import { ResponseType } from './responseType';
 import { Telemetry } from './telemetry';

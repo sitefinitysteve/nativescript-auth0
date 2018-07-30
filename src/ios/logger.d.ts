@@ -1,4 +1,4 @@
-import { HttpRequestOptions, HttpResponse } from 'tns-core-modules/http';
+import { HttpRequestOptions, HttpResponse } from 'tns-core-modules/http/http';
 export interface Logger {
     trace(request: HttpRequestOptions): any;
     trace(response: HttpResponse): any;

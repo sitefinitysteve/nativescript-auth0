@@ -1,13 +1,12 @@
 import { Loggable } from './loggable';
 import { Trackable, Telemetry } from './telemetry';
-import { Credentials } from './credentials';
+import { Credentials } from '../common/credentials';
 import { Request } from './request';
 import { AuthenticationError } from './authenticationError';
-import { UserInfo } from './userInfo';
+import { UserInfo } from '../common/userInfo';
 import { WebAuth } from './webAuth';
 import { Logger } from './logger';
-
-export type DatabaseUser = { email: string, username: string | undefined, verified: boolean };
+import { DatabaseUser } from '../common/databaseUser';
 
 /**
  Auth endpoints of Auth0
@@ -209,14 +208,6 @@ export abstract class Authentication implements Trackable, Loggable {
      - returns: a request
      */
     public abstract revoke(refreshToken: string): Request<void, AuthenticationError>;
-
-    /**
-     Calls delegation endpoint with the given parameters.
-     The only parameters it adds by default are `grant_type` and `client_id`.
-     - parameter parametes: dictionary with delegation parameters to send in the request.
-     - returns: a request that will yield the result of delegation
-    */
-    public abstract delegation(parameters: { [key: string]: any }): Request<{ [key: string]: any }, AuthenticationError>;
 
     /**
      Creates a new WebAuth request to authenticate using Safari browser and OAuth authorize flow.

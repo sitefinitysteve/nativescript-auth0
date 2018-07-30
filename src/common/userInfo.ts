@@ -34,9 +34,9 @@ export class UserInfo {
     public readonly nickname: string | undefined;
     public readonly preferredUsername: string | undefined;
 
-    public readonly profile: NSURL | undefined;
-    public readonly picture: NSURL | undefined;
-    public readonly website: NSURL | undefined;
+    public readonly profileURL: string | undefined;
+    public readonly pictureURL: string | undefined;
+    public readonly websiteURL: string | undefined;
 
     public readonly email: string | undefined;
     public readonly emailVerified: boolean | undefined;
@@ -63,9 +63,9 @@ export class UserInfo {
         middleName: string | undefined,
         nickname: string | undefined,
         preferredUsername: string | undefined,
-        profile: NSURL | undefined,
-        picture: NSURL | undefined,
-        website: NSURL | undefined,
+        profileURL: string | undefined,
+        pictureURL: string | undefined,
+        websiteURL: string | undefined,
         email: string | undefined,
         emailVerified: boolean | undefined,
         gender: string | undefined,
@@ -87,9 +87,9 @@ export class UserInfo {
         this.nickname = nickname;
         this.preferredUsername = preferredUsername;
 
-        this.profile = profile;
-        this.picture = picture;
-        this.website = website;
+        this.profileURL = profileURL;
+        this.pictureURL = pictureURL;
+        this.websiteURL = websiteURL;
 
         this.email = email;
         this.emailVerified = emailVerified;
@@ -122,29 +122,17 @@ export class UserInfo {
         const nickname = json["nickname"];
         const preferredUsername = json["preferred_username"];
 
-        let profile: NSURL | undefined;
         const profileURL = json["profile"];
-        if (profileURL != null) {
-            profile = new NSURL({ string: profileURL });
-        }
-
-        let picture: NSURL | undefined;
         const pictureURL = json["picture"];
-        if (pictureURL != null) {
-            picture = new NSURL({ string: pictureURL });
-        }
-
-        let website: NSURL | undefined;
         const websiteURL = json["website"];
-        if (websiteURL != null) {
-            website = new NSURL({ string: websiteURL });
-        }
 
         const email = json["email"];
         let emailVerified: boolean | undefined;
         const emailVerifiedRaw = json["email_verified"];
-        if (typeof emailVerifiedRaw !== 'boolean' && emailVerifiedRaw != null) {
-            emailVerified = emailVerifiedRaw === 'true';
+        if (emailVerifiedRaw != null) {
+            emailVerified = (typeof emailVerifiedRaw === 'boolean')
+                ? emailVerifiedRaw
+                : emailVerifiedRaw === 'true';
         }
 
         const gender = json["gender"];
@@ -156,8 +144,10 @@ export class UserInfo {
         const phoneNumber = json["phone_number"];
         let phoneNumberVerified: boolean | undefined;
         const phoneNumberVerifiedRaw = json["phone_number_verified"];
-        if (typeof phoneNumberVerifiedRaw !== 'boolean' && phoneNumberVerifiedRaw != null) {
-            phoneNumberVerified = phoneNumberVerifiedRaw === 'true';
+        if (phoneNumberVerifiedRaw != null) {
+            phoneNumberVerified = (typeof phoneNumberVerifiedRaw === 'boolean')
+                ? phoneNumberVerifiedRaw
+                : phoneNumberVerifiedRaw === 'true';
         }
         const address = json["address"] as { [key: string]: string } | undefined;
 
@@ -184,9 +174,9 @@ export class UserInfo {
             middleName,
             nickname,
             preferredUsername,
-            profile,
-            picture,
-            website,
+            profileURL,
+            pictureURL,
+            websiteURL,
             email,
             emailVerified,
             gender,

@@ -7,4 +7,30 @@
 
 	<uses-permission android:name="android.permission.INTERNET" />
 
+    <application>
+        <activity
+            android:name="org.nativescript.auth0.AuthenticationActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+            android:name="org.nativescript.auth0.RedirectActivity"
+            android:exported="true">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="${auth0Domain}"
+                    android:pathPrefix="/android/${applicationId}/callback"
+                    android:scheme="${auth0Scheme}" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="org.nativescript.auth0.WebAuthActivity" />
+    </application>
+
 </manifest>

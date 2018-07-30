@@ -1,4 +1,4 @@
-import * as application from 'tns-core-modules/application';
+import * as application from 'tns-core-modules/application/application';
 
 import {
     Auth0Common,

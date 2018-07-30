@@ -1,4 +1,4 @@
-import { HttpRequestOptions, HttpResponse } from 'tns-core-modules/http';
+import { HttpRequestOptions, HttpResponse } from 'tns-core-modules/http/http';
 
 import { a0_encodeBase64URLSafe } from './utils';
 

@@ -1,11 +1,12 @@
-import { Authentication, DatabaseUser } from './authentication';
+import { Authentication } from './authentication';
 import { Telemetry } from './telemetry';
 import { Logger } from './logger';
-import { Credentials } from './credentials';
+import { Credentials } from '../common/credentials';
 import { AuthenticationError } from './authenticationError';
 import { Request } from './request';
-import { UserInfo } from './userInfo';
+import { UserInfo } from '../common/userInfo';
 import { WebAuth } from './webAuth';
+import { DatabaseUser } from '../common/databaseUser';
 export declare class Auth0Authentication extends Authentication {
     readonly clientId: string;
     readonly url: NSURL;
@@ -27,10 +28,5 @@ export declare class Auth0Authentication extends Authentication {
     tokenExchangeWithCode(code: string, codeVerifier: string, redirectURI: string): Request<Credentials, AuthenticationError>;
     renew(refreshToken: string, scope?: string | undefined): Request<Credentials, AuthenticationError>;
     revoke(refreshToken: string): Request<void, AuthenticationError>;
-    delegation(parameters: {
-        [key: string]: any;
-    }): Request<{
-        [key: string]: any;
-    }, AuthenticationError>;
     webAuth(connection: string): WebAuth;
 }

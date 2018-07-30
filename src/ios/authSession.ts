@@ -1,5 +1,5 @@
 import { AuthTransaction } from './authTransaction';
-import { Credentials } from './credentials';
+import { Credentials } from '../common/credentials';
 import { Logger } from './logger';
 import { Result } from './result';
 import { OAuth2Grant } from './oauth2Grant';

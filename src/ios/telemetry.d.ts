@@ -1,4 +1,4 @@
-import { HttpRequestOptions } from 'tns-core-modules/http';
+import { HttpRequestOptions } from 'tns-core-modules/http/http';
 export declare class Telemetry {
     static readonly NameKey: string;
     static readonly VersionKey: string;
