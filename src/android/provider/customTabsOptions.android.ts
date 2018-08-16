@@ -10,21 +10,24 @@ import ContextCompat = android.support.v4.content.ContextCompat;
 /**
  * Holder for Custom Tabs customization options. Use {@link CustomTabsOptions#newBuilder()} to begin.
  */
+// @Interfaces([Parcelable])
 @JavaProxy('org.nativescript.auth0.CustomTabsOptions')
-@Interfaces([Parcelable])
-export class CustomTabsOptions extends java.lang.Object implements Parcelable {
+export class CustomTabsOptions extends java.lang.Object {
 
-    private readonly showTitle: boolean;
-    private readonly toolbarColor: number;
+    private showTitle: boolean;
+    private toolbarColor: number;
 
-    constructor(showTitle: boolean = false, toolbarColor: number = 0) {
+    constructor() {
         super();
-        this.showTitle = showTitle;
-        this.toolbarColor = toolbarColor;
-
         return global.__native(this);
     }
 
+    public static init(showTitle: boolean = false, toolbarColor: number = 0): CustomTabsOptions {
+        const options = new CustomTabsOptions();
+        options.showTitle = showTitle;
+        options.toolbarColor = toolbarColor;
+        return options;
+    }
 
     public toIntent(context: Context, session: CustomTabsSession): Intent {
         const builder: CustomTabsIntent.Builder = new CustomTabsIntent.Builder(session)
@@ -49,7 +52,7 @@ export class CustomTabsOptions extends java.lang.Object implements Parcelable {
         createFromParcel: function(parcel: Parcel): CustomTabsOptions {
             const showTitle = parcel.readByte() !== 0x00;
             const toolbarColor = parcel.readInt();
-            return new CustomTabsOptions(showTitle, toolbarColor);
+            return CustomTabsOptions.init(showTitle, toolbarColor);
         },
         newArray: function(size: number): CustomTabsOptions[] {
             return Array.create(CustomTabsOptions, size);

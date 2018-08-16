@@ -6,7 +6,7 @@ import Bundle = android.os.Bundle;
 import { AuthenticationActivity } from './authenticationActivity';
 
 @JavaProxy('org.nativescript.auth0.RedirectActivity')
-export class RedirectActivity extends Activity {
+export class RedirectActivity extends android.app.Activity {
 
     constructor() {
         super();

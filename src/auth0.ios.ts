@@ -18,6 +18,8 @@ export {
     WebAuthOptions
 };
 
+export { resumeAuth } from './ios/webAuth';
+
 export class Auth0 extends Auth0Common {
     constructor(clientId: string, domain: string) {
         super(clientId, domain);

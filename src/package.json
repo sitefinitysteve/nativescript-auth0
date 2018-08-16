@@ -8,6 +8,16 @@
         "platforms": {
             "android": "4.0.0",
             "ios": "4.0.0"
+        },
+        "recursive-static-bindings": true
+    },
+    "snapshot": {
+        "android": {
+            "tns-java-classes": {
+                "modules": [
+                    "nativescript-auth0/android/provider/customTabsOptions"
+                ]
+            }
         }
     },
     "scripts": {
@@ -53,7 +63,7 @@
         "rimraf": "^2.5.0",
         "semver": "^5.5.0",
         "tns-core-modules": "^4.1.1",
-        "tns-platform-declarations": "^4.2.0-2018-07-25-01",
+        "tns-platform-declarations": "^4.1.0",
         "tslint": "^5.11.0",
         "typescript": "~2.7.2"
     },

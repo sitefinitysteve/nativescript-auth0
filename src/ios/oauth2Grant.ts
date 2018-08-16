@@ -119,7 +119,7 @@ export class PKCE implements OAuth2Grant {
         }
         const clientId = this.authentication.clientId;
         this.authentication
-            .tokenExchangeWithCode(code, this.verifier, this.redirectURL.toString())
+            .tokenExchangeWithCode(code, this.verifier, this.redirectURL.absoluteString)
             .start((result) => {
                 // Special case for PKCE when the correct method for token endpoint authentication is not set (it should be None)
                 if (result.failure != null && result.failure.message === "Unauthorized") {

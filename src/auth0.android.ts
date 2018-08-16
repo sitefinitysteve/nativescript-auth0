@@ -12,6 +12,7 @@ import { WebAuthProvider } from './android/provider/webAuthProvider';
 import { AuthenticationException } from './android/authentication/authenticationException';
 import { Auth0 as Auth0Android } from './android/auth0';
 import { Credentials as AndroidCredentials } from './common/credentials';
+import { CustomTabsOptions } from './android/provider/customTabsOptions';
 
 export {
     Credentials,

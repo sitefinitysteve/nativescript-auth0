@@ -17,6 +17,6 @@ export class HelloWorldModel extends Observable {
         this.auth0.webAuthentication({}).then((result) => {
             this.message = JSON.stringify(result);
             console.log(result);
-        });
+        }).catch((e: Error) => console.log(e, e.stack));
     }
 }

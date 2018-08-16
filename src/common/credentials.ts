@@ -47,12 +47,12 @@ export class Credentials {
     }
 
     public static initWithJson(json: { [key: string]: any }): Credentials {
-        const accessToken = json["accessToken"];
-        const tokenType = json["tokenType"];
-        const idToken = json["idToken"];
-        const refreshToken = json["refreshToken"];
-        const expiresIn = json["expiresIn"];
-        const expiresAt = json["expiresAt"];
+        const accessToken = json["access_token"];
+        const tokenType = json["token_type"];
+        const idToken = json["id_token"];
+        const refreshToken = json["refresh_token"];
+        const expiresIn = json["expires_in"];
+        const expiresAt = json["expires_at"];
         const scope = json["scope"];
         return new Credentials(
             accessToken,
