@@ -1,6 +1,5 @@
-import { Observable } from 'tns-core-modules/data/observable/observable';
-import * as app from 'tns-core-modules/application/application';
-import * as dialogs from 'tns-core-modules/ui/dialogs/dialogs';
+import { Credentials } from './common/credentials';
+import { UserInfo } from './common/userInfo';
 
 export enum ResponseType {
     CODE = 1,
@@ -19,19 +18,10 @@ export interface WebAuthOptions {
     parameters?: { [param: string]: string; };
 }
 
-export interface Credentials {
-    readonly accessToken?: string;
-    readonly idToken?: string;
-    readonly refreshToken?: string;
-    readonly type?: string;
-    readonly expiresIn?: number;
-    readonly scope?: string;
-    readonly expiresAt?: Date;
-}
-
 export class WebAuthException extends Error {
     constructor(message) {
         super(message);
+        Object.setPrototypeOf(this, new.target.prototype);
     }
 }
 
@@ -43,4 +33,7 @@ export abstract class Auth0Common {
     ) {}
 
     public abstract webAuthentication(options: WebAuthOptions): Promise<Credentials>;
+    public abstract renewCredentials(refreshToken: string): Promise<Credentials>;
+    public abstract revokeRefreshToken(refreshToken: string): Promise<void>;
+    public abstract getUserInfo(accessToken: string): Promise<UserInfo>;
 }

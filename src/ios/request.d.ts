@@ -1,4 +1,4 @@
-import { HttpRequestOptions } from 'tns-core-modules/http';
+import { HttpRequestOptions } from 'tns-core-modules/http/http';
 import { Auth0Error } from './auth0Error';
 import { Requestable } from './requestable';
 import { Response } from './response';

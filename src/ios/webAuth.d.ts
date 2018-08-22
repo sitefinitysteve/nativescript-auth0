@@ -2,12 +2,12 @@ import { Loggable } from './loggable';
 import { Logger } from './logger';
 import { ResponseType } from './responseType';
 import { Trackable, Telemetry } from './telemetry';
-import { Credentials } from './credentials';
+import { Credentials } from '../common/credentials';
 import { Result } from './result';
 export declare function resumeAuth(url: NSURL, options: NSDictionary<string, string>): boolean;
 export declare abstract class WebAuth implements Trackable, Loggable {
-    readonly abstract clientId: string;
-    readonly abstract url: NSURL;
+    abstract readonly clientId: string;
+    abstract readonly url: NSURL;
     abstract telemetry: Telemetry;
     abstract logger: Logger | undefined;
     abstract useUniversalLink(): this;

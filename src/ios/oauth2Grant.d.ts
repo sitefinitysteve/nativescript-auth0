@@ -1,4 +1,4 @@
-import { Credentials } from './credentials';
+import { Credentials } from '../common/credentials';
 import { ResponseType } from './responseType';
 import { Result } from './result';
 import { Authentication } from './authentication';

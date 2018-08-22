@@ -1,21 +1,17 @@
 import { Loggable } from './loggable';
 import { Trackable, Telemetry } from './telemetry';
-import { Credentials } from './credentials';
+import { Credentials } from '../common/credentials';
 import { Request } from './request';
 import { AuthenticationError } from './authenticationError';
-import { UserInfo } from './userInfo';
+import { UserInfo } from '../common/userInfo';
 import { WebAuth } from './webAuth';
 import { Logger } from './logger';
-export declare type DatabaseUser = {
-    email: string;
-    username: string | undefined;
-    verified: boolean;
-};
+import { DatabaseUser } from '../common/databaseUser';
 export declare abstract class Authentication implements Trackable, Loggable {
-    readonly abstract clientId: string;
-    readonly abstract url: NSURL;
-    readonly abstract telemetry: Telemetry;
-    readonly abstract logger: Logger | undefined;
+    abstract readonly clientId: string;
+    abstract readonly url: NSURL;
+    abstract readonly telemetry: Telemetry;
+    abstract readonly logger: Logger | undefined;
     abstract login(username: string, password: string, realm: string, audience?: string | undefined, scope?: string | undefined, parameters?: {
         [param: string]: any;
     } | undefined): Request<Credentials, AuthenticationError>;
@@ -31,10 +27,5 @@ export declare abstract class Authentication implements Trackable, Loggable {
     abstract tokenExchangeWithCode(code: string, codeVerifier: string, redirectURI: string): Request<Credentials, AuthenticationError>;
     abstract renew(refreshToken: string, scope?: string | undefined): Request<Credentials, AuthenticationError>;
     abstract revoke(refreshToken: string): Request<void, AuthenticationError>;
-    abstract delegation(parameters: {
-        [key: string]: any;
-    }): Request<{
-        [key: string]: any;
-    }, AuthenticationError>;
     abstract webAuth(connection: string): WebAuth;
 }

@@ -5,41 +5,8 @@ import { SafariWebAuth } from './safariWebAuth';
 import { TransactionStore } from './transactionStore';
 import { a0_url } from './utils';
 import { Trackable, Telemetry } from './telemetry';
-import { Credentials } from './credentials';
+import { Credentials } from '../common/credentials';
 import { Result } from './result';
-
-/**
- Auth0 iOS component for authenticating with web-based flow
-
- ```
- Auth0.webAuth()
- ```
-
- Auth0 domain is loaded from the file `Auth0.plist` in your main bundle with the following content:
-
- ```
- <?xml version="1.0" encoding="UTF-8"?>
- <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
- <plist version="1.0">
- <dict>
-	<key>ClientId</key>
-	<string>{YOUR_CLIENT_ID}</string>
-	<key>Domain</key>
-	<string>{YOUR_DOMAIN}</string>
- </dict>
- </plist>
- ```
-
- - parameter bundle:    bundle used to locate the `Auth0.plist` file. By default is the main bundle
-
- - returns: Auth0 WebAuth component
- - important: Calling this method without a valid `Auth0.plist` will crash your application
- */
-// TODO: see if we should bother supporting this method
-// export function webAuth(bundle: NSBundle = NSBundle.mainBundle): WebAuth {
-//     let values = plistValues(bundle: bundle);
-//     return webAuth(values.clientId, values.domain);
-// }
 
 /**
  Auth0 iOS component for authenticating with web-based flow

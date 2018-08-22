@@ -1,15 +1,16 @@
-import { Authentication, DatabaseUser } from './authentication';
+import { Authentication } from './authentication';
 import { Telemetry } from './telemetry';
 import { Logger } from './logger';
-import { Credentials } from './credentials';
+import { Credentials } from '../common/credentials';
 import { AuthenticationError } from './authenticationError';
 import { Request } from './request';
-import { authenticationObject, databaseUser, noBody, plainJson } from './handlers';
-import { UserInfo } from './userInfo';
+import { authenticationObject, noBody, plainJson } from './handlers';
+import { UserInfo } from '../common/userInfo';
 import { SafariWebAuth } from './safariWebAuth';
 import { ControllerModalPresenter } from './controllerModalPresenter';
 import { LoggableExtension } from './loggable';
 import { WebAuth } from './webAuth';
+import { DatabaseUser } from '../common/databaseUser';
 
 export class Auth0Authentication extends Authentication {
 
@@ -66,7 +67,7 @@ export class Auth0Authentication extends Authentication {
         payload["user_metadata"] = userMetadata;
 
         const createUser = new NSURL({ string: "/dbconnections/signup", relativeToURL: this.url });
-        return new Request(createUser, "POST", databaseUser, payload, {}, this.logger, this.telemetry, AuthenticationError);
+        return new Request(createUser, "POST", authenticationObject(DatabaseUser), payload, {}, this.logger, this.telemetry, AuthenticationError);
     }
 
     public resetPassword(email: string, connection: string): Request<void, AuthenticationError> {
@@ -104,13 +105,12 @@ export class Auth0Authentication extends Authentication {
         });
     }
 
-    public renew(refreshToken: string, scope: string | undefined = undefined): Request<Credentials, AuthenticationError> {
+    public renew(refreshToken: string): Request<Credentials, AuthenticationError> {
         const payload: { [key: string]: any } = {
             "refresh_token": refreshToken,
             "grant_type": "refresh_token",
             "client_id": this.clientId
         };
-        payload["scope"] = scope;
         let oauthToken = new NSURL({ string: "/oauth/token", relativeToURL: this.url });
         return new Request(oauthToken, "POST", authenticationObject(Credentials), payload, {}, this.logger, this.telemetry, AuthenticationError);
     }
@@ -122,18 +122,6 @@ export class Auth0Authentication extends Authentication {
         };
         let oauthToken = new NSURL({ string: "/oauth/revoke", relativeToURL: this.url });
         return new Request(oauthToken, "POST", noBody, payload, {}, this.logger, this.telemetry, AuthenticationError);
-    }
-
-    public delegation(parameters: { [key: string]: any }): Request<{ [key: string]: any }, AuthenticationError> {
-        const payload: { [key: string]: any } = {
-            "client_id": this.clientId,
-            "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer"
-        };
-        for (const key in parameters) {
-            payload[key] = parameters[key];
-        }
-        let delegation = new NSURL({ string: "/delegation", relativeToURL: this.url });
-        return new Request(delegation, "POST", plainJson, payload, {}, this.logger, this.telemetry, AuthenticationError);
     }
 
     public webAuth(connection: string): WebAuth {

@@ -7,12 +7,14 @@ To help the rest of the community review your change, please follow the instruct
 <!-- PULL REQUEST TEMPLATE -->
 <!-- (Update "[ ]" to "[x]" to check a box) -->
 
+<!-- UNUSED FOR NOW
 ## PR Checklist
 
 - [ ] The PR title follows our guidelines: https://github.com/NativeScript/NativeScript/blob/master/CONTRIBUTING.md#commit-messages.
 - [ ] There is an issue for the bug/feature this PR is for. To avoid wasting your time, it's best to open a suggestion issue first and wait for approval before working on it.
 - [ ] All existing tests are passing
 - [ ] Tests for the changes are included
+-->
 
 ## What is the current behavior?
 <!-- Please describe the current behavior that you are modifying, or link to a relevant issue. -->

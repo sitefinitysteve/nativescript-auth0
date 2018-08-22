@@ -1,4 +1,4 @@
-import { HttpRequestOptions, HttpResponse, HttpContent } from 'tns-core-modules/http';
+import { HttpRequestOptions, HttpResponse, HttpContent } from 'tns-core-modules/http/http';
 import { Auth0Error } from './auth0Error';
 export declare function json<T>(data: HttpContent | undefined): T | undefined;
 export declare function string(data: HttpContent | undefined): string | undefined;

@@ -1,7 +1,7 @@
 import { OAuth2Grant } from './oauth2Grant';
 import { AuthSession } from './authSession';
 import { Result } from './result';
-import { Credentials } from './credentials';
+import { Credentials } from '../common/credentials';
 import { Logger } from './logger';
 import { TransactionStore } from './transactionStore';
 

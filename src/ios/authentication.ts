@@ -1,13 +1,12 @@
 import { Loggable } from './loggable';
 import { Trackable, Telemetry } from './telemetry';
-import { Credentials } from './credentials';
+import { Credentials } from '../common/credentials';
 import { Request } from './request';
 import { AuthenticationError } from './authenticationError';
-import { UserInfo } from './userInfo';
+import { UserInfo } from '../common/userInfo';
 import { WebAuth } from './webAuth';
 import { Logger } from './logger';
-
-export type DatabaseUser = { email: string, username: string | undefined, verified: boolean };
+import { DatabaseUser } from '../common/databaseUser';
 
 /**
  Auth endpoints of Auth0
@@ -189,11 +188,10 @@ export abstract class Authentication implements Trackable, Loggable {
      Renew user's credentials with a refresh_token grant for `/oauth/token`
      If you are not using OAuth 2.0 API Authorization please use `delegation(parameters:)`
      - parameter refreshToken: the client's refresh token obtained on auth
-     - parameter scope: scopes to request for the new tokens. By default is null which will ask for the same ones requested during Auth.
      - important: This method only works for a refresh token obtained after auth with OAuth 2.0 API Authorization.
      - returns: a request that will yield Auth0 user's credentials
      */
-    public abstract renew(refreshToken: string, scope?: string | undefined): Request<Credentials, AuthenticationError>;
+    public abstract renew(refreshToken: string): Request<Credentials, AuthenticationError>;
 
     /**
      Revoke a user's refresh_token with a call to `/oauth/revoke`
@@ -209,14 +207,6 @@ export abstract class Authentication implements Trackable, Loggable {
      - returns: a request
      */
     public abstract revoke(refreshToken: string): Request<void, AuthenticationError>;
-
-    /**
-     Calls delegation endpoint with the given parameters.
-     The only parameters it adds by default are `grant_type` and `client_id`.
-     - parameter parametes: dictionary with delegation parameters to send in the request.
-     - returns: a request that will yield the result of delegation
-    */
-    public abstract delegation(parameters: { [key: string]: any }): Request<{ [key: string]: any }, AuthenticationError>;
 
     /**
      Creates a new WebAuth request to authenticate using Safari browser and OAuth authorize flow.

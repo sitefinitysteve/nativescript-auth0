@@ -7,9 +7,9 @@ export declare class UserInfo {
     readonly middleName: string | undefined;
     readonly nickname: string | undefined;
     readonly preferredUsername: string | undefined;
-    readonly profile: NSURL | undefined;
-    readonly picture: NSURL | undefined;
-    readonly website: NSURL | undefined;
+    readonly profileURL: string | undefined;
+    readonly pictureURL: string | undefined;
+    readonly websiteURL: string | undefined;
     readonly email: string | undefined;
     readonly emailVerified: boolean | undefined;
     readonly gender: string | undefined;
@@ -25,7 +25,7 @@ export declare class UserInfo {
     readonly customClaims: {
         [key: string]: any;
     } | undefined;
-    constructor(sub: string, name: string | undefined, givenName: string | undefined, familyName: string | undefined, middleName: string | undefined, nickname: string | undefined, preferredUsername: string | undefined, profile: NSURL | undefined, picture: NSURL | undefined, website: NSURL | undefined, email: string | undefined, emailVerified: boolean | undefined, gender: string | undefined, birthdate: string | undefined, zoneinfo: string | undefined, locale: string | undefined, phoneNumber: string | undefined, phoneNumberVerified: boolean | undefined, address: {
+    constructor(sub: string, name: string | undefined, givenName: string | undefined, familyName: string | undefined, middleName: string | undefined, nickname: string | undefined, preferredUsername: string | undefined, profileURL: string | undefined, pictureURL: string | undefined, websiteURL: string | undefined, email: string | undefined, emailVerified: boolean | undefined, gender: string | undefined, birthdate: string | undefined, zoneinfo: string | undefined, locale: string | undefined, phoneNumber: string | undefined, phoneNumberVerified: boolean | undefined, address: {
         [key: string]: string;
     } | undefined, updatedAt: Date | undefined, customClaims: {
         [key: string]: any;

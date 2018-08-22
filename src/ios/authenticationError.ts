@@ -30,6 +30,7 @@ export class AuthenticationError extends Auth0Error {
             infoOrString['description'] = infoOrString['description'] || infoOrString['error_description'];
         }
         super(infoOrString, statusCode);
+        Object.setPrototypeOf(this, new.target.prototype);
     }
 
     /// When MFA code is required to authenticate

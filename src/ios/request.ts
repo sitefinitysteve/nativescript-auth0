@@ -1,4 +1,4 @@
-import { request as httpRequest, HttpRequestOptions, HttpResponse } from 'tns-core-modules/http';
+import { request as httpRequest, HttpRequestOptions, HttpResponse } from 'tns-core-modules/http/http';
 
 import { Auth0Error } from './auth0Error';
 import { Requestable } from './requestable';
@@ -50,7 +50,7 @@ export class Request<T, E extends Auth0Error> implements Requestable<T> {
 
     get request(): HttpRequestOptions {
         const request: HttpRequestOptions = {
-            url: this.url.toString(),
+            url: this.url.absoluteString,
             method: this.method,
             headers: {
                 'Content-Type': 'application/json'
