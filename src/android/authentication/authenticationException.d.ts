@@ -16,7 +16,7 @@ export declare class AuthenticationException extends Auth0Exception {
     constructor(info: {
         [key: string]: any;
     }, statusCode: number);
-    private warnIfOIDCError();
+    private warnIfOIDCError;
     getCode(): string;
     getStatusCode(): number;
     getDescription(): string;

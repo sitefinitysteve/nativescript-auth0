@@ -6,7 +6,7 @@ import { ParameterizableRequest } from '../parameterizableRequest';
 import { AuthorizableRequest } from '../authorizableRequest';
 import { BaseCallback } from '../../callback/baseCallback';
 import { ErrorBuilder } from '../errorBuilder';
-import { JSONObjectPayload } from './jsonObjectPayload';
+import { JSONObjectPayload } from '../../../common/jsonObjectPayload';
 export declare abstract class BaseRequest<T, U extends Auth0Exception> implements ParameterizableRequest<T, U>, AuthorizableRequest<T, U> {
     private readonly headers;
     protected readonly url: Uri;

@@ -7,7 +7,7 @@ export declare class CustomTabsOptions extends java.lang.Object {
     private showTitle;
     private toolbarColor;
     constructor();
-    static init(showTitle?: boolean, toolbarColor?: number): CustomTabsOptions;
+    static create(showTitle?: boolean, toolbarColor?: number): CustomTabsOptions;
     toIntent(context: Context, session: CustomTabsSession): Intent;
     describeContents(): number;
     writeToParcel(dest: Parcel, flags: number): void;

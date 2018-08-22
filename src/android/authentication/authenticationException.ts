@@ -45,6 +45,7 @@ export class AuthenticationException extends Auth0Exception {
 
     constructor(infoOrString: { [key: string]: any } | string | undefined = undefined, statusCode: number = 0) {
         super(AuthenticationException.DEFAULT_MESSAGE);
+        Object.setPrototypeOf(this, new.target.prototype);
         if (typeof infoOrString === 'object') {
             this.values = {};
 

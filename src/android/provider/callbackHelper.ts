@@ -40,7 +40,7 @@ export abstract class CallbackHelper {
         }
         const entries = valueString.length > 0 ? valueString.split('&') : <string[]>[];
         const values = {};
-        for (const entry in entries) {
+        for (const entry of entries) {
             const value = entry.split('=');
             if (value.length === 2) {
                 values[value[0]] = value[1];

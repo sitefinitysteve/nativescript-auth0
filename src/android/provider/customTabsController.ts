@@ -16,7 +16,7 @@ import AtomicReference = java.util.concurrent.atomic.AtomicReference;
 
 import { CustomTabsOptions } from './customTabsOptions';
 
-@JavaProxy('org.nativescript.auth0.CustomTabsController')
+// @JavaProxy('org.nativescript.auth0.CustomTabsController')
 export class CustomTabsController extends CustomTabsServiceConnection {
 
     private static readonly TAG: string = 'CustomTabsController';
@@ -120,7 +120,7 @@ export class CustomTabsController extends CustomTabsServiceConnection {
         }
 
         if (this.customTabsOptions == null) {
-            this.customTabsOptions = CustomTabsOptions.init();
+            this.customTabsOptions = CustomTabsOptions.create();
         }
 
         if (this.preferredPackage != null) {

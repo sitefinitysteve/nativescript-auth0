@@ -1,7 +1,7 @@
 import { Response } from './response';
 import { AuthenticationError } from './authenticationError';
 import { Result } from './result';
-import { JSONObjectPayload } from './jsonObjectPayload';
+import { JSONObjectPayload } from '../common/jsonObjectPayload';
 import { HttpResponseEncoding } from 'tns-core-modules/http/http';
 import { emptyBodyError, Auth0Error } from './auth0Error';
 

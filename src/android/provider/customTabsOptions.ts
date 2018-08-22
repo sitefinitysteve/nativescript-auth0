@@ -10,8 +10,8 @@ import ContextCompat = android.support.v4.content.ContextCompat;
 /**
  * Holder for Custom Tabs customization options. Use {@link CustomTabsOptions#newBuilder()} to begin.
  */
-// @Interfaces([Parcelable])
-@JavaProxy('org.nativescript.auth0.CustomTabsOptions')
+@Interfaces([Parcelable])
+// @JavaProxy('org.nativescript.auth0.CustomTabsOptions')
 export class CustomTabsOptions extends java.lang.Object {
 
     private showTitle: boolean;
@@ -22,7 +22,7 @@ export class CustomTabsOptions extends java.lang.Object {
         return global.__native(this);
     }
 
-    public static init(showTitle: boolean = false, toolbarColor: number = 0): CustomTabsOptions {
+    public static create(showTitle: boolean = false, toolbarColor: number = 0): CustomTabsOptions {
         const options = new CustomTabsOptions();
         options.showTitle = showTitle;
         options.toolbarColor = toolbarColor;
@@ -52,7 +52,7 @@ export class CustomTabsOptions extends java.lang.Object {
         createFromParcel: function(parcel: Parcel): CustomTabsOptions {
             const showTitle = parcel.readByte() !== 0x00;
             const toolbarColor = parcel.readInt();
-            return CustomTabsOptions.init(showTitle, toolbarColor);
+            return CustomTabsOptions.create(showTitle, toolbarColor);
         },
         newArray: function(size: number): CustomTabsOptions[] {
             return Array.create(CustomTabsOptions, size);

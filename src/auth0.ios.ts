@@ -26,10 +26,8 @@ export class Auth0 extends Auth0Common {
     }
 
     public webAuthentication(options: WebAuthOptions): Promise<Credentials> {
-        console.log('start');
         const auth = SafariWebAuth.init(this.clientId, a0_url(this.domain));
 
-        console.log('params');
         if (options.audience != null) {
             auth.setAudience(options.audience);
         }
@@ -68,11 +66,9 @@ export class Auth0 extends Auth0Common {
             auth.setParameters(options.parameters);
         }
 
-        console.log('ready');
         return new Promise((resolve, reject) => {
             try {
                 auth.start((result) => {
-                    console.log('finish');
                     if (result.failure != null) {
                         reject(new WebAuthException(result.failure.message));
                     } else {
@@ -89,7 +85,6 @@ export class Auth0 extends Auth0Common {
                     }
                 });
             } catch (e) {
-                console.log('fail', e);
                 reject(e);
             }
         });

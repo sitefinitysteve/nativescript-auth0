@@ -4,7 +4,7 @@ import { BaseRequest } from './baseRequest';
 import { Auth0Exception } from '../../auth0Exception';
 import { ErrorBuilder } from '../errorBuilder';
 import { ParameterizableRequest } from '../parameterizableRequest';
-import { JSONObjectPayload } from './jsonObjectPayload';
+import { JSONObjectPayload } from '../../../common/jsonObjectPayload';
 export declare class SimpleRequest<T, U extends Auth0Exception> extends BaseRequest<T, U> implements ParameterizableRequest<T, U> {
     private readonly method;
     constructor(url: Uri, httpMethod: string, clazz: JSONObjectPayload<T>, errorBuilder: ErrorBuilder<U>);

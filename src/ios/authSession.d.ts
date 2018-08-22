@@ -12,5 +12,5 @@ export declare class AuthSession implements AuthTransaction {
     constructor(redirectURL: NSURL, state: string | undefined, handler: OAuth2Grant, finish: (result: Result<Credentials>) => void, logger: Logger | undefined);
     resume(url: NSURL, options?: NSDictionary<string, any>): boolean;
     cancel(): void;
-    private has(state, items);
+    private has;
 }

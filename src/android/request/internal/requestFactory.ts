@@ -8,7 +8,7 @@ import { AuthenticationRequest } from '../authenticationRequest';
 import { ErrorBuilder } from '../errorBuilder';
 import { ParameterizableRequest } from '../parameterizableRequest';
 import { Credentials } from '../../../common/credentials';
-import { JSONObjectPayload } from './jsonObjectPayload';
+import { JSONObjectPayload } from '../../../common/jsonObjectPayload';
 import { SimpleRequest } from './simpleRequest';
 import { BaseAuthenticationRequest } from './baseAuthenticationRequest';
 

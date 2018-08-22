@@ -4,7 +4,7 @@ import { SimpleRequest } from './simpleRequest';
 import { Credentials } from '../../../common/credentials';
 import { AuthenticationException } from '../../authentication/authenticationException';
 import { AuthenticationRequest } from '../authenticationRequest';
-import { JSONObjectPayload } from './jsonObjectPayload';
+import { JSONObjectPayload } from '../../../common/jsonObjectPayload';
 import { AuthenticationErrorBuilder } from './authenticationErrorBuilder';
 import { ParameterBuilder } from '../../authentication/parameterBuilder';
 

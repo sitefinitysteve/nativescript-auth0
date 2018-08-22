@@ -26,6 +26,7 @@ export class Auth0Error extends Error {
                 'statusCode': statusCode
             };
         }
+        Object.setPrototypeOf(this, new.target.prototype);
     }
 
     /// The code of the error as a String

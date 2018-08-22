@@ -9,7 +9,6 @@
 
 
 
-
 android {
   project.ext {
     supportVersion = "27.1.1"

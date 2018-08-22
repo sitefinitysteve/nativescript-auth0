@@ -45,6 +45,6 @@ export declare class AuthenticationAPIClient {
     renewAuth(refreshToken: string): ParameterizableRequest<Credentials, AuthenticationException>;
     getProfileAfter(authenticationRequest: AuthenticationRequest): ProfileRequest;
     token(authorizationCode: string, redirectUri: string): TokenRequest;
-    private loginWithToken(parameters);
-    private profileRequest();
+    private loginWithToken;
+    private profileRequest;
 }

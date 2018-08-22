@@ -31,8 +31,8 @@ export class Telemetry {
 
     public getValue(): string {
         const values: { [key: string]: any } = {};
-        if (name != null) {
-            values[Telemetry.NAME_KEY] = name;
+        if (this.name != null) {
+            values[Telemetry.NAME_KEY] = this.name;
         }
         if (this.version != null) {
             values[Telemetry.VERSION_KEY] = this.version;

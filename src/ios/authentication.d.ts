@@ -8,10 +8,10 @@ import { WebAuth } from './webAuth';
 import { Logger } from './logger';
 import { DatabaseUser } from '../common/databaseUser';
 export declare abstract class Authentication implements Trackable, Loggable {
-    readonly abstract clientId: string;
-    readonly abstract url: NSURL;
-    readonly abstract telemetry: Telemetry;
-    readonly abstract logger: Logger | undefined;
+    abstract readonly clientId: string;
+    abstract readonly url: NSURL;
+    abstract readonly telemetry: Telemetry;
+    abstract readonly logger: Logger | undefined;
     abstract login(username: string, password: string, realm: string, audience?: string | undefined, scope?: string | undefined, parameters?: {
         [param: string]: any;
     } | undefined): Request<Credentials, AuthenticationError>;

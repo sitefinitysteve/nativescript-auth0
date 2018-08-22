@@ -5,5 +5,5 @@ export declare abstract class CallbackHelper {
     static getValuesFromUri(uri: Uri): {
         [key: string]: string;
     };
-    private static asMap(valueString);
+    private static asMap;
 }

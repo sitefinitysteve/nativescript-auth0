@@ -20,7 +20,7 @@ export declare class Auth0 {
     setLoggingEnabled(enabled: boolean): void;
     isTLS12Enforced(): boolean;
     setTLS12Enforced(enforced: boolean): void;
-    private resolveConfiguration(configurationDomain, domainUrl);
-    private ensureValidUrl(url);
-    private static getResourceFromContext(context, resName);
+    private resolveConfiguration;
+    private ensureValidUrl;
+    private static getResourceFromContext;
 }

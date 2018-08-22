@@ -29,6 +29,7 @@ export class WebAuthError extends Error {
 
     constructor(message: string) {
         super(message);
+        Object.setPrototypeOf(this, new.target.prototype);
     }
 
     public get errorCode(): number {

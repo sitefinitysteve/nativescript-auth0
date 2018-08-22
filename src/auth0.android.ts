@@ -70,14 +70,13 @@ export class Auth0 extends Auth0Common {
             try {
                 webAuth.start(application.android.foregroundActivity, {
                     onFailure: (dialogOrException: android.app.Dialog | AuthenticationException) => {
-                        console.log('failed');
                         if (dialogOrException instanceof android.app.Dialog) {
                             reject(new WebAuthException(dialogOrException.toString()));
                         } else {
                             reject(new WebAuthException(dialogOrException.getDescription()));
                         }
                     },
-                    onSuccess: function (credentials: AndroidCredentials) {
+                    onSuccess: (credentials: AndroidCredentials) => {
                         const expiresIn = credentials.expiresIn;
                         const expiresAt = credentials.expiresAt;
                         resolve({

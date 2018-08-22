@@ -14,7 +14,7 @@ import { ParameterizableRequest } from '../parameterizableRequest';
 import { AuthorizableRequest } from '../authorizableRequest';
 import { BaseCallback } from '../../callback/baseCallback';
 import { ErrorBuilder } from '../errorBuilder';
-import { JSONObjectPayload } from './jsonObjectPayload';
+import { JSONObjectPayload } from '../../../common/jsonObjectPayload';
 
 export abstract class BaseRequest<T, U extends Auth0Exception> implements ParameterizableRequest<T, U>, AuthorizableRequest<T, U> {
 
@@ -50,7 +50,9 @@ export abstract class BaseRequest<T, U extends Auth0Exception> implements Parame
         const options: HttpRequestOptions = {
             url: this.url.toString(),
             method: method,
-            headers: {}
+            headers: {
+                'Content-Type': 'application/json'
+            }
         };
         for (const entry in this.headers) {
             options.headers[entry] = this.headers[entry];

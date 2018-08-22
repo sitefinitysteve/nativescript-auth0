@@ -11,7 +11,7 @@ import { BaseRequest } from './baseRequest';
 import { Auth0Exception } from '../../auth0Exception';
 import { ErrorBuilder } from '../errorBuilder';
 import { ParameterizableRequest } from '../parameterizableRequest';
-import { JSONObjectPayload } from './jsonObjectPayload';
+import { JSONObjectPayload } from '../../../common/jsonObjectPayload';
 
 export class SimpleRequest<T, U extends Auth0Exception> extends BaseRequest<T, U> implements ParameterizableRequest<T, U> {
 
@@ -55,9 +55,12 @@ export class SimpleRequest<T, U extends Auth0Exception> extends BaseRequest<T, U
 
     protected doBuildRequest(): HttpRequestOptions {
         const sendBody = this.method === "HEAD" || this.method === "GET";
-        return {
-            ...this.newRequestOptions(this.method),
-            content: sendBody ? undefined : this.buildBody()
-        };
+        return Object.assign(
+            {},
+            this.newRequestOptions(this.method),
+            {
+                content: sendBody ? undefined : this.buildBody()
+            }
+        );
     }
 }

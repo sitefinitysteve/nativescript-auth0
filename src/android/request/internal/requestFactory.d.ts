@@ -3,7 +3,7 @@ import { Auth0Exception } from '../../auth0Exception';
 import { AuthenticationRequest } from '../authenticationRequest';
 import { ErrorBuilder } from '../errorBuilder';
 import { ParameterizableRequest } from '../parameterizableRequest';
-import { JSONObjectPayload } from './jsonObjectPayload';
+import { JSONObjectPayload } from '../../../common/jsonObjectPayload';
 export declare class RequestFactory {
     static readonly DEFAULT_LOCALE_IF_MISSING: string;
     private static readonly AUTHORIZATION_HEADER;
@@ -20,7 +20,7 @@ export declare class RequestFactory {
     PATCH<T, U extends Auth0Exception>(url: Uri, adapter: JSONObjectPayload<T>, errorBuilder: ErrorBuilder<U>): ParameterizableRequest<T, U>;
     DELETE<T, U extends Auth0Exception>(url: Uri, adapter: JSONObjectPayload<T>, errorBuilder: ErrorBuilder<U>): ParameterizableRequest<T, U>;
     GET<T, U extends Auth0Exception>(url: Uri, adapter: JSONObjectPayload<T>, errorBuilder: ErrorBuilder<U>): ParameterizableRequest<T, U>;
-    private addMetrics<T, U>(request);
+    private addMetrics;
     createSimpleRequest<T, U extends Auth0Exception>(url: Uri, method: string, adapter: JSONObjectPayload<T>, errorBuilder: ErrorBuilder<U>): ParameterizableRequest<T, U>;
     createAuthenticationRequest(url: Uri, method: string): AuthenticationRequest;
     createVoidRequest<U extends Auth0Exception>(url: Uri, method: string, errorBuilder: ErrorBuilder<U>): ParameterizableRequest<void, U>;

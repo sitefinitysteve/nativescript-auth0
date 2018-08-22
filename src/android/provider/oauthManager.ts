@@ -21,7 +21,7 @@ import { Credentials } from '../../common/credentials';
 import { PKCE } from './pkce';
 import { Auth0 } from '../auth0';
 import { AuthenticationAPIClient } from '../authentication/authenticationAPIClient';
-import { AuthenticationActivity } from './authenticationActivity';
+import { authenticateUsingBrowser } from './authenticationActivity';
 
 
 export class OAuthManager {
@@ -80,11 +80,14 @@ export class OAuthManager {
     public startAuthorization(activity: Activity, redirectUri: string, requestCode: number) {
         this.addPKCEParameters(this.parameters, redirectUri);
         this.addClientParameters(this.parameters, redirectUri);
+        Log.d(OAuthManager.TAG, 'Added client parameters');
         this.addValidationParameters(this.parameters);
+        Log.d(OAuthManager.TAG, 'Added validation parameters');
         const uri = this.buildAuthorizeUri();
+        Log.d(OAuthManager.TAG, 'Built authorize uri');
         this.requestCode = requestCode;
 
-        AuthenticationActivity.authenticateUsingBrowser(activity, uri, this.ctOptions);
+        authenticateUsingBrowser(activity, uri, this.ctOptions);
     }
 
     public resumeAuthorization(data: AuthorizeResult): boolean {
@@ -125,10 +128,10 @@ export class OAuthManager {
                 this.pkce.getToken(
                     values[OAuthManager.KEY_CODE],
                     {
-                        onFailure: function() {
-                            this.callback.onFailure(arguments[0]);
+                        onFailure: (...args) => {
+                            this.callback.onFailure(args[0]);
                         },
-                        onSuccess: function(codeCredentials: Credentials) {
+                        onSuccess: (codeCredentials: Credentials) => {
                             this.callback.onSuccess(OAuthManager.mergeCredentials(urlCredentials, codeCredentials));
                         }
                     }

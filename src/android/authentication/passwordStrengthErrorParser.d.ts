@@ -14,8 +14,8 @@ export declare class PasswordStrengthErrorParser {
         [key: string]: any;
     });
     getDescription(): string;
-    private parseRules(rules);
-    private asLengthAtLeast(rule);
-    private asContainsCharset(rule);
-    private asIdenticalChars(rule);
+    private parseRules;
+    private asLengthAtLeast;
+    private asContainsCharset;
+    private asIdenticalChars;
 }

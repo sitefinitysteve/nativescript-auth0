@@ -1,5 +1,4 @@
 
-import Activity = android.app.Activity;
 import Intent = android.content.Intent;
 import Bundle = android.os.Bundle;
 

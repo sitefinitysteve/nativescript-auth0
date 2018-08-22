@@ -29,9 +29,12 @@ export class VoidRequest<U extends Auth0Exception> extends BaseRequest<void, U> 
 
     protected doBuildRequest(): HttpRequestOptions {
         const body = this.buildBody();
-        return {
-            ...this.newRequestOptions(this.httpMethod),
-            content: body
-        };
+        return Object.assign(
+            {},
+            this.newRequestOptions(this.httpMethod),
+            {
+                content: body
+            }
+        );
     }
 }
