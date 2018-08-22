@@ -1,3 +1,9 @@
+import { Credentials } from './common/credentials';
+import { UserInfo } from './common/userInfo';
+export {
+    Credentials,
+    UserInfo
+};
 
 export interface WebAuthOptions {
     audience?: string;
@@ -19,16 +25,6 @@ export interface WebAuthOptions {
     parameters?: { [param: string]: string; };
 }
 
-export interface Credentials {
-    readonly accessToken?: string;
-    readonly idToken?: string;
-    readonly refreshToken?: string;
-    readonly type?: string;
-    readonly expiresIn?: number;
-    readonly scope?: string;
-    readonly expiresAt?: Date;
-}
-
 export class WebAuthException extends Error {
     constructor(message);
 }
@@ -36,5 +32,8 @@ export class WebAuthException extends Error {
 export class Auth0 {
     constructor(clientId: string, domain: string);
 
-    public webAuthentication(options: WebAuthOptions): Promise<Credentials>
+    public webAuthentication(options: WebAuthOptions): Promise<Credentials>;
+    public renewCredentials(refreshToken: string): Promise<Credentials>;
+    public revokeRefreshToken(refreshToken: string): Promise<void>;
+    public getUserInfo(accessToken: string): Promise<UserInfo>;
 }

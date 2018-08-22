@@ -2,7 +2,6 @@ import * as application from 'tns-core-modules/application/application';
 
 import {
     Auth0Common,
-    Credentials,
     ResponseType,
     WebAuthException,
     WebAuthOptions
@@ -11,11 +10,12 @@ import { AuthenticationAPIClient } from './android/authentication/authentication
 import { WebAuthProvider } from './android/provider/webAuthProvider';
 import { AuthenticationException } from './android/authentication/authenticationException';
 import { Auth0 as Auth0Android } from './android/auth0';
-import { Credentials as AndroidCredentials } from './common/credentials';
-import { CustomTabsOptions } from './android/provider/customTabsOptions';
+import { Credentials } from './common/credentials';
+import { UserInfo } from './common/userInfo';
 
 export {
     Credentials,
+    UserInfo,
     ResponseType,
     WebAuthException,
     WebAuthOptions
@@ -25,8 +25,6 @@ export class Auth0 extends Auth0Common {
 
     private account: Auth0Android;
     private authenticationApi: AuthenticationAPIClient;
-    // private sharedPreferencesStorage: SharedPreferencesStorage;
-    // private credentialsManager: CredentialsManager;
 
     constructor(clientId: string, domain: string) {
         super(clientId, domain);
@@ -34,8 +32,6 @@ export class Auth0 extends Auth0Common {
         this.account = new Auth0Android(clientId, domain);
 
         this.authenticationApi = new AuthenticationAPIClient(this.account);
-        // this.sharedPreferencesStorage = new SharedPreferencesStorage(application.android.context);
-        // this.credentialsManager = new CredentialsManager(this.authenticationApi, this.sharedPreferencesStorage);
     }
 
     public webAuthentication(options: WebAuthOptions): Promise<Credentials> {
@@ -76,20 +72,67 @@ export class Auth0 extends Auth0Common {
                             reject(new WebAuthException(dialogOrException.getDescription()));
                         }
                     },
-                    onSuccess: (credentials: AndroidCredentials) => {
-                        const expiresIn = credentials.expiresIn;
-                        const expiresAt = credentials.expiresAt;
-                        resolve({
-                            accessToken: credentials.accessToken,
-                            idToken: credentials.idToken,
-                            refreshToken: credentials.refreshToken,
-                            type: credentials.tokenType,
-                            expiresIn: (expiresIn != null) ? Number(expiresIn) : null,
-                            scope: credentials.scope,
-                            expiresAt: (expiresAt != null) ? new Date(expiresAt) : null
-                        });
+                    onSuccess: (credentials: Credentials) => {
+                        resolve(credentials);
                     }
                 });
+            } catch (e) {
+                reject(e);
+            }
+        });
+    }
+
+    public renewCredentials(refreshToken: string): Promise<Credentials> {
+        return new Promise((resolve, reject) => {
+            try {
+                this.authenticationApi
+                    .renewAuth(refreshToken)
+                    .start({
+                        onFailure: (error: AuthenticationException) => {
+                            reject(error);
+                        },
+                        onSuccess: (credentials: Credentials) => {
+                            resolve(credentials);
+                        }
+                    });
+            } catch (e) {
+                reject(e);
+            }
+        });
+    }
+
+    public revokeRefreshToken(refreshToken: string): Promise<void> {
+        return new Promise((resolve, reject) => {
+            try {
+                this.authenticationApi
+                    .revokeToken(refreshToken)
+                    .start({
+                        onFailure: (error: AuthenticationException) => {
+                            reject(error);
+                        },
+                        onSuccess: () => {
+                            resolve();
+                        }
+                    });
+            } catch (e) {
+                reject(e);
+            }
+        });
+    }
+
+    public getUserInfo(accessToken: string): Promise<UserInfo> {
+        return new Promise((resolve, reject) => {
+            try {
+                this.authenticationApi
+                    .userInfo(accessToken)
+                    .start({
+                        onFailure: (error: AuthenticationException) => {
+                            reject(error);
+                        },
+                        onSuccess: (userInfo: UserInfo) => {
+                            resolve(userInfo);
+                        }
+                    });
             } catch (e) {
                 reject(e);
             }

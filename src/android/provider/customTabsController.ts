@@ -16,7 +16,6 @@ import AtomicReference = java.util.concurrent.atomic.AtomicReference;
 
 import { CustomTabsOptions } from './customTabsOptions';
 
-// @JavaProxy('org.nativescript.auth0.CustomTabsController')
 export class CustomTabsController extends CustomTabsServiceConnection {
 
     private static readonly TAG: string = 'CustomTabsController';
@@ -156,7 +155,7 @@ export class CustomTabsController extends CustomTabsServiceConnection {
         const browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.example.com"));
         const webHandler: ResolveInfo = pm.resolveActivity(
             browserIntent,
-            Build.VERSION.SDK_INT >= 23 /*M*/ ? 0x00020000 /*PackageManager.MATCH_ALL*/ : PackageManager.MATCH_DEFAULT_ONLY
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PackageManager.MATCH_ALL : PackageManager.MATCH_DEFAULT_ONLY
         );
         let defaultBrowser: string | undefined;
         if (webHandler != null) {

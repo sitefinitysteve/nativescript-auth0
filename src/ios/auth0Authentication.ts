@@ -105,13 +105,12 @@ export class Auth0Authentication extends Authentication {
         });
     }
 
-    public renew(refreshToken: string, scope: string | undefined = undefined): Request<Credentials, AuthenticationError> {
+    public renew(refreshToken: string): Request<Credentials, AuthenticationError> {
         const payload: { [key: string]: any } = {
             "refresh_token": refreshToken,
             "grant_type": "refresh_token",
             "client_id": this.clientId
         };
-        payload["scope"] = scope;
         let oauthToken = new NSURL({ string: "/oauth/token", relativeToURL: this.url });
         return new Request(oauthToken, "POST", authenticationObject(Credentials), payload, {}, this.logger, this.telemetry, AuthenticationError);
     }

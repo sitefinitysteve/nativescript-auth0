@@ -8,6 +8,8 @@ Auth0 is a freemium service. The free tier supports up to 7,000 active users. [A
 
 In addition to managing many login providers, Auth0 also has solutions for application analytics, logging, web tasks and more. [Take a look at all of the Auth0 features](https://auth0.com/why-auth0) and services.
 
+Requires NativeScript version `^4.2.0`.
+
 
 ## Installation
 
@@ -46,7 +48,7 @@ Add this to your Info.plist
         <string>auth0</string>
         <key>CFBundleURLSchemes</key>
         <array>
-            <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+            <string>YOUR_APP_BUNDLE_IDENTIFIER</string>
         </array>
     </dict>
 </array>
@@ -84,6 +86,8 @@ Add this to your AndroidManifest.xml
 ```
 [Sample from demo](./demo/app/App_Resources/Android/AndroidManifest.xml#L39-L63)
 
+Requires your references.d.ts file to have android pointing to 
+
 ## Usage
 
 Initalize at the top of your view
@@ -92,8 +96,9 @@ Initalize at the top of your view
 import { Auth0Lock } from "nativescript-auth0";
 ```
 
-Create your lock object, I like to do this in a [shared helper or something](./demo/app/scripts/helpers.ts#L4)
+Create your Auth0 object in a shared helper or something
 ``` js
+    this.auth0 = new Auth0('<your clientid>', '<your domain>');
   var lock = new Auth0Lock({
         clientId: '<your clientid>',
         domain:'<your domain>',
@@ -101,37 +106,25 @@ Create your lock object, I like to do this in a [shared helper or something](./d
     });
 ```
 
-Show the lock screen, returns a promise
+Start the web authentication flow, returns a promise
 ```js
-    /// Promise returns
-    /// {
-    ///        credentials: {
-    ///           accessToken
-    ///           idToken
-    ///           refreshToken
-    ///        },
-    ///        ios: {
-    ///           profile,
-    ///           token
-    ///        },
-    ///        android: {}
-    /// }
-    lock.show().then((res) => {
-        //goToHomeOrWhatevs(); 
-    }, function (error) {
-        //console.log(error);
+    /// Promise returns credentials object
+    this.auth0.webAuthentication({
+        scope: 'openid offline_access'
+    }).then((res) => {
+        // goToHomeOrWhatevs(); 
+    }, (error) => {
+        // console.log(error);
     });
 ```
 
 ## Methods
-| Name             | Description                                                                                                   | Docs                                                             | Returns |
-|------------------|---------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|--------:|
-| refresh()        | reloads the saved credentials from app-settings                                                               |                                                                  |    void |
-| hasValidToken()  | Is the token still good, is there a token set, is it expired, couple checks                                   |                                                                  |    bool |
-| isTokenExpired() | Decodes the token to check it's expiry                                                                        |                                                                  |    bool |
-| clearToken()     | Removes the appsettings key that stores the tokens locally                                                    |                                                                  |    void |
-| getUserInfo()    | Returns the current user details, this is an internal http callback to auth0, might want to cache the results | [Link](https://auth0.com/docs/api/authentication#get-user-info)  | Promise |
-| getTokenInfo()   | Token details, this is an internal http callback to auth0, might want to cache the results                    | [Link](https://auth0.com/docs/api/authentication#get-token-info) | Promise |
+| Name                             | Description                                                                 | Docs                                                                    | Returns              |
+|----------------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------------------|---------------------:|
+| webAuthentication(options)       | Starts the web authentication flow to login a user                          | [Link](https://auth0.com/docs/api/authentication#login)                 | Promise\<Credentials> |
+| renewCredentials(refreshToken)   | Renews credentials using refresh token                                      | [Link](https://auth0.com/docs/api/authentication#refresh-token)         | Promise\<Credentials> |
+| revokeRefreshToken(refreshToken) | Revokes refresh token                                                       | [Link](https://auth0.com/docs/api/authentication#revoke-refresh-token)  |        Promise\<void> |
+| getUserInfo(accessToken)         | Returns the current user details, might want to cache the results           | [Link](https://auth0.com/docs/api/authentication#get-user-info)         |    Promise\<UserInfo> |
 
 
 ## ISSUES

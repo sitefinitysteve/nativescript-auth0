@@ -11,7 +11,6 @@ import ContextCompat = android.support.v4.content.ContextCompat;
  * Holder for Custom Tabs customization options. Use {@link CustomTabsOptions#newBuilder()} to begin.
  */
 @Interfaces([Parcelable])
-// @JavaProxy('org.nativescript.auth0.CustomTabsOptions')
 export class CustomTabsOptions extends java.lang.Object {
 
     private showTitle: boolean;

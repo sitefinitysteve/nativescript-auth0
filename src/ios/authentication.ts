@@ -188,11 +188,10 @@ export abstract class Authentication implements Trackable, Loggable {
      Renew user's credentials with a refresh_token grant for `/oauth/token`
      If you are not using OAuth 2.0 API Authorization please use `delegation(parameters:)`
      - parameter refreshToken: the client's refresh token obtained on auth
-     - parameter scope: scopes to request for the new tokens. By default is null which will ask for the same ones requested during Auth.
      - important: This method only works for a refresh token obtained after auth with OAuth 2.0 API Authorization.
      - returns: a request that will yield Auth0 user's credentials
      */
-    public abstract renew(refreshToken: string, scope?: string | undefined): Request<Credentials, AuthenticationError>;
+    public abstract renew(refreshToken: string): Request<Credentials, AuthenticationError>;
 
     /**
      Revoke a user's refresh_token with a call to `/oauth/revoke`
