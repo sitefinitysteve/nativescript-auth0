@@ -13,7 +13,7 @@ Requires NativeScript version `^4.2.0`.
 
 ## Installation
 
-``` terminal
+```terminal
 tns plugin add nativescript-auth0
 ```
 
@@ -35,8 +35,8 @@ https://{YOUR_AUTH0_DOMAIN}/android/{YOUR_APP_PACKAGE_NAME}/callback
 
 Add this to your Info.plist
 
-[Info.plist](./demo/app/App_Resources/iOS/Info.plist#L46-L62)
-``` xml
+[Info.plist](./demo/app/App_Resources/iOS/Info.plist#L46-L58)
+```xml
 <!-- Info.plist -->
 
 <key>CFBundleURLTypes</key>
@@ -59,7 +59,7 @@ Add this to your Info.plist
 
 [Sample Delegate](./demo/app/custom-app-delegate.ts)
 
-[How to initalize it in app.ts](./demo/app/app.ts#L5-L17)
+[How to initalize it in app.ts](./demo/app/app.ts#L3-L13)
 
 
 
@@ -67,7 +67,7 @@ Add this to your Info.plist
 
 Add this to your AndroidManifest.xml
 
-``` xml
+```xml
         <activity
             android:name="org.nativescript.auth0.RedirectActivity"
             tools:node="replace">
@@ -84,30 +84,28 @@ Add this to your AndroidManifest.xml
             </intent-filter>
         </activity>
 ```
-[Sample from demo](./demo/app/App_Resources/Android/AndroidManifest.xml#L39-L63)
+[Sample from demo](./demo/app/App_Resources/Android/src/AndroidManifest.xml#L44-L60)
 
-Requires your references.d.ts file to have android pointing to 
+If you use the android platform type declarations then your `references.d.ts` file needs to have android pointing to `android-27.d.ts` otherwise you may encounter compilation errors.
+```ts
+/// <reference path="./node_modules/tns-platform-declarations/android-27.d.ts" />
+```
 
 ## Usage
 
-Initalize at the top of your view
+Import Auth0 in a shared helper or something
 
-``` js
-import { Auth0Lock } from "nativescript-auth0";
+```ts
+import { Auth0 } from 'nativescript-auth0';
 ```
 
-Create your Auth0 object in a shared helper or something
-``` js
+Create your Auth0 object
+```ts
     this.auth0 = new Auth0('<your clientid>', '<your domain>');
-  var lock = new Auth0Lock({
-        clientId: '<your clientid>',
-        domain:'<your domain>',
-        scopes: [ "offline_access openid"] //Optional param, check the auth0 docs
-    });
 ```
 
 Start the web authentication flow, returns a promise
-```js
+```ts
     /// Promise returns credentials object
     this.auth0.webAuthentication({
         scope: 'openid offline_access'
