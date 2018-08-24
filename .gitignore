@@ -22,5 +22,6 @@ demo/platforms
 node_modules
 publish/src
 publish/package
+publish/package-lock.json
 demo/report/report.html
 demo/report/stats.json
