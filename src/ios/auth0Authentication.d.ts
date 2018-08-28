@@ -26,7 +26,7 @@ export declare class Auth0Authentication extends Authentication {
         [key: string]: any;
     }): Request<Credentials, AuthenticationError>;
     tokenExchangeWithCode(code: string, codeVerifier: string, redirectURI: string): Request<Credentials, AuthenticationError>;
-    renew(refreshToken: string, scope?: string | undefined): Request<Credentials, AuthenticationError>;
+    renew(refreshToken: string): Request<Credentials, AuthenticationError>;
     revoke(refreshToken: string): Request<void, AuthenticationError>;
     webAuth(connection: string): WebAuth;
 }

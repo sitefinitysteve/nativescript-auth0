@@ -25,7 +25,7 @@ export declare abstract class Authentication implements Trackable, Loggable {
         [key: string]: any;
     }): Request<Credentials, AuthenticationError>;
     abstract tokenExchangeWithCode(code: string, codeVerifier: string, redirectURI: string): Request<Credentials, AuthenticationError>;
-    abstract renew(refreshToken: string, scope?: string | undefined): Request<Credentials, AuthenticationError>;
+    abstract renew(refreshToken: string): Request<Credentials, AuthenticationError>;
     abstract revoke(refreshToken: string): Request<void, AuthenticationError>;
     abstract webAuth(connection: string): WebAuth;
 }
