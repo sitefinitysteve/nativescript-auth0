@@ -33,4 +33,12 @@ export class DatabaseUser {
         }
         return new DatabaseUser(email, username, emailVerified);
     }
+
+    public toJSON() {
+        return {
+            email: this.email,
+            username: this.username,
+            email_verified: this.emailVerified
+        };
+    }
 }

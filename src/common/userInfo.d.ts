@@ -33,4 +33,5 @@ export declare class UserInfo {
     static initWithJson(json: {
         [key: string]: any;
     }): UserInfo | undefined;
+    toJSON(): void;
 }

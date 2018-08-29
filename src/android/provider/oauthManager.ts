@@ -113,9 +113,9 @@ export class OAuthManager {
             Log.d(OAuthManager.TAG, "Authenticated using web flow");
             const expiresAt: Date = values[OAuthManager.KEY_EXPIRES_IN] == null ? null : new Date(this.getCurrentTimeInMillis() + Number(values[OAuthManager.KEY_EXPIRES_IN]) * 1000);
             const urlCredentials: Credentials = new Credentials(
-                values[OAuthManager.KEY_ID_TOKEN],
                 values[OAuthManager.KEY_ACCESS_TOKEN],
                 values[OAuthManager.KEY_TOKEN_TYPE],
+                values[OAuthManager.KEY_ID_TOKEN],
                 values[OAuthManager.KEY_REFRESH_TOKEN],
                 undefined,
                 expiresAt,
@@ -281,14 +281,14 @@ export class OAuthManager {
     }
 
     public static mergeCredentials(urlCredentials: Credentials, codeCredentials: Credentials): Credentials {
-        const idToken: string = TextUtils.isEmpty(codeCredentials.idToken) ? urlCredentials.idToken : codeCredentials.idToken;
         const accessToken: string = TextUtils.isEmpty(codeCredentials.accessToken) ? urlCredentials.accessToken : codeCredentials.accessToken;
-        const type: string = TextUtils.isEmpty(codeCredentials.tokenType) ? urlCredentials.tokenType : codeCredentials.tokenType;
+        const tokenType: string = TextUtils.isEmpty(codeCredentials.tokenType) ? urlCredentials.tokenType : codeCredentials.tokenType;
+        const idToken: string = TextUtils.isEmpty(codeCredentials.idToken) ? urlCredentials.idToken : codeCredentials.idToken;
         const refreshToken: string = TextUtils.isEmpty(codeCredentials.refreshToken) ? urlCredentials.refreshToken : codeCredentials.refreshToken;
         const expiresAt: Date = codeCredentials.expiresAt != null ? codeCredentials.expiresAt : urlCredentials.expiresAt;
         const scope: string = TextUtils.isEmpty(codeCredentials.scope) ? urlCredentials.scope : codeCredentials.scope;
 
-        return new Credentials(idToken, accessToken, type, refreshToken, undefined, expiresAt, scope);
+        return new Credentials(accessToken, tokenType, idToken, refreshToken, undefined, expiresAt, scope);
     }
 
     public static getRandomString(defaultValue: string | undefined): string {

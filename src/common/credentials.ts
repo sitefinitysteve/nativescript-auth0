@@ -65,37 +65,15 @@ export class Credentials {
         );
     }
 
-    /*
-    // MARK: - NSSecureCoding
-
-    public static initWithCoder(aDecoder: NSCoder): Credentials {
-        const accessToken = aDecoder.decodeObjectForKey("accessToken");
-        const tokenType = aDecoder.decodeObjectForKey("tokenType");
-        const idToken = aDecoder.decodeObjectForKey("idToken");
-        const refreshToken = aDecoder.decodeObjectForKey("refreshToken");
-        const expiresIn = aDecoder.decodeObjectForKey("expiresIn");
-        const expiresAt = aDecoder.decodeObjectForKey("expiresAt");
-        const scope = aDecoder.decodeObjectForKey("scope");
-
-        return new Credentials(
-            (accessToken != null) ? String(accessToken) : undefined,
-            (tokenType != null) ? String(tokenType) : undefined,
-            (idToken != null) ? String(idToken) : undefined,
-            (refreshToken != null) ? String(refreshToken) : undefined,
-            (expiresIn != null) ? Number(expiresIn) : undefined,
-            (expiresAt != null) ? new Date(expiresAt) : undefined,
-            (scope != null) ? String(scope) : undefined
-        );
+    public toJSON() {
+        return {
+            access_token: this.accessToken,
+            token_type: this.tokenType,
+            id_token: this.idToken,
+            refresh_token: this.refreshToken,
+            expires_in: this.expiresIn,
+            expires_at: this.expiresAt,
+            scope: this.scope
+        };
     }
-
-    public encodeWithCoder(aCoder: NSCoder): void {
-        aCoder.encodeObjectForKey(this._accessToken, "accessToken");
-        aCoder.encodeObjectForKey(this._tokenType, "tokenType");
-        aCoder.encodeObjectForKey(this._idToken, "idToken");
-        aCoder.encodeObjectForKey(this._refreshToken, "refreshToken");
-        aCoder.encodeObjectForKey(this._expiresIn, "expiresIn");
-        aCoder.encodeObjectForKey((this._expiresAt != null) ? this._expiresAt.getTime() : undefined, "expiresAt");
-        aCoder.encodeObjectForKey(this._scope, "scope");
-    }
-    */
 }

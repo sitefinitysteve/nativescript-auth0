@@ -10,4 +10,13 @@ export declare class Credentials {
     static initWithJson(json: {
         [key: string]: any;
     }): Credentials;
+    toJSON(): {
+        access_token: string;
+        token_type: string;
+        id_token: string;
+        refresh_token: string;
+        expires_in: number;
+        expires_at: Date;
+        scope: string;
+    };
 }

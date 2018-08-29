@@ -1,6 +1,6 @@
 {
     "name": "nativescript-auth0",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "Auth0 NativeScript SDK",
     "main": "auth0",
     "typings": "index.d.ts",
@@ -10,15 +10,6 @@
             "ios": "4.2.0"
         },
         "recursive-static-bindings": true
-    },
-    "snapshot": {
-        "android": {
-            "tns-java-classes": {
-                "modules": [
-                    "nativescript-auth0/android/provider/customTabsOptions"
-                ]
-            }
-        }
     },
     "scripts": {
         "tsc": "tsc -skipLibCheck",

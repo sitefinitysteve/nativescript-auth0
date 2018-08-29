@@ -190,4 +190,32 @@ export class UserInfo {
             customClaims
         );
     }
+
+    public toJSON() {
+        const data = {
+            sub: this.sub,
+            name: this.name,
+            given_name: this.givenName,
+            family_name: this.familyName,
+            middle_name: this.middleName,
+            nickname: this.nickname,
+            preferred_username: this.preferredUsername,
+            profile: this.profileURL,
+            picture: this.pictureURL,
+            website: this.websiteURL,
+            email: this.email,
+            email_verified: this.emailVerified,
+            gender: this.gender,
+            birthdate: this.birthdate,
+            zoneinfo: this.zoneinfo,
+            locale: this.locale,
+            phone_number: this.phoneNumber,
+            phone_number_verified: this.phoneNumberVerified,
+            address: this.address,
+            updated_at: this.updatedAt
+        };
+        for (const key in this.customClaims) {
+            data[key] = this.customClaims[key];
+        }
+    }
 }

@@ -6,4 +6,9 @@ export declare class DatabaseUser {
     static initWithJson(json: {
         [key: string]: any;
     }): DatabaseUser;
+    toJSON(): {
+        email: string;
+        username: string;
+        email_verified: boolean;
+    };
 }
