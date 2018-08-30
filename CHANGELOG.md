@@ -1,10 +1,16 @@
 
 ## Version Notes
+### 2.0.3
+
+Fix crash occuring on devices running older than Android 6.0
+
 ### 2.0.2
+
 Fix Web Authentication flow on Android returning Credentials object with idToken and accessToken mixed around
 Fix JSON serialization for Credentials, DatabaseUser, and UserInfo objects 
 
 ### 2.0.1
+
 Fix publish
 
 ### 2.0.0

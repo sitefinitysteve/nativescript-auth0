@@ -86,10 +86,6 @@ Add this to your AndroidManifest.xml
 ```
 [Sample from demo](./demo/app/App_Resources/Android/src/AndroidManifest.xml#L44-L60)
 
-If you use the android platform type declarations then your `references.d.ts` file needs to have android pointing to `android-27.d.ts` otherwise you may encounter compilation errors.
-```ts
-/// <reference path="./node_modules/tns-platform-declarations/android-27.d.ts" />
-```
 
 ## Usage
 
