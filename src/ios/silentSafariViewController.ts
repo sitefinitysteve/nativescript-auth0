@@ -8,7 +8,7 @@ export class SilentSafariViewController extends SFSafariViewController implement
     }
 
     public initWithURLCallback(URL: NSURL, callback: (result: boolean) => void) {
-        if (Number(device.osVersion) >= 11.0) {
+        if (Number(device.osVersion.split('.')[0]) >= 11.0) {
             super.initWithURLConfiguration(URL, new SFSafariViewControllerConfiguration());
         } else {
             super.initWithURLEntersReaderIfAvailable(URL, false);
