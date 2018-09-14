@@ -1,5 +1,9 @@
 
 ## Version Notes
+### 2.0.4
+
+Fix bugged iOS version comparsion causing SafariAuthenticationSession to not be used.
+
 ### 2.0.3
 
 Fix crash occuring on devices running older than Android 6.0
