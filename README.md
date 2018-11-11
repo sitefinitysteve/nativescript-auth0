@@ -84,7 +84,7 @@ Add this to your AndroidManifest.xml
             </intent-filter>
         </activity>
 ```
-[Sample from demo](./demo/app/App_Resources/Android/src/AndroidManifest.xml#L44-L60)
+[Sample from demo](./demo/app/App_Resources/Android/src/main/AndroidManifest.xml#L44-L60)
 
 
 ## Usage
