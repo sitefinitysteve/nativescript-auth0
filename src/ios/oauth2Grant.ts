@@ -5,7 +5,6 @@ import { a0_fragmentValues, a0_queryValues } from './utils';
 import { WebAuthError } from './webAuthError';
 import { AuthenticationError } from './authenticationError';
 import { Authentication } from './authentication';
-import { SHA256ChallengeGenerator } from './sha256ChallengeGenerator';
 
 export interface OAuth2Grant {
     defaults: { [key: string]: string };
@@ -64,7 +63,7 @@ export class PKCE implements OAuth2Grant {
         redirectURL: NSURL,
         reponseType: ResponseType[] = [ResponseType.code],
         nonce: string | undefined = undefined,
-        generator: SHA256ChallengeGenerator = SHA256ChallengeGenerator.init(),
+        generator: A0SHA256ChallengeGenerator = A0SHA256ChallengeGenerator.alloc().init(),
     ): PKCE {
         return new PKCE(
             authentication,
