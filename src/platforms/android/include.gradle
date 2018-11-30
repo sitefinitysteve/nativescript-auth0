@@ -8,7 +8,7 @@ dependencies {
     // Describe plugin native Android dependencies like
 	// compile "groupName:pluginName:ver" 
     // EXAMPLE: compile "com.facebook.fresco:fresco:0.9.0+"
-    def supportVer = "27.1.1";
+    def supportVer = "26";
     if(project.hasProperty("supportVersion")) {
        supportVer = supportVersion
     }

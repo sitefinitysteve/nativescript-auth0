@@ -37,9 +37,11 @@ export class WebAuthProvider {
 
     private readonly account: Auth0;
     private readonly values: { [key: string]: string };
+    private useBrowser: boolean;
     private pkce: PKCE;
     private scheme: string;
     private ctOptions: CustomTabsOptions;
+    private hostedPageParams: { [key: string]: string };
 
     /**
      * Initialize the WebAuthProvider instance with an account. Additional settings can be configured,
@@ -54,6 +56,8 @@ export class WebAuthProvider {
 
         // Default values
         this.scheme = "https";
+        this.useBrowser = false;
+
         this.withResponseType(ResponseType.CODE);
         this.withScope(WebAuthProvider.SCOPE_TYPE_OPENID);
     }
@@ -66,6 +70,14 @@ export class WebAuthProvider {
      */
     public withState(state: string): WebAuthProvider {
         this.values[OAuthManager.KEY_STATE] = state;
+        return this;
+    }
+
+    /**
+     * useBrowser or webview
+     */
+    public withBrowser(withBrowser: boolean): WebAuthProvider {
+        this.useBrowser = withBrowser;
         return this;
     }
 
@@ -168,6 +180,11 @@ export class WebAuthProvider {
         return this;
     }
 
+    public withHostedPageParams(parameters: { [key: string]: string }): WebAuthProvider {
+        this.hostedPageParams = parameters;
+        return this;
+    }
+
     /**
      * Use the given connection. By default no connection is specified, so the login page will be displayed.
      *
@@ -207,7 +224,7 @@ export class WebAuthProvider {
      * @param activity context to run the authentication
      * @param callback to receive the parsed results
      */
-    public start(activity: Activity, callback: AuthCallback) {
+    public start(activity: Activity, callback: AuthCallback, requestCode: number) {
         WebAuthProvider.managerInstance = null;
         if (this.account.getAuthorizeUrl() == null) {
             const ex = new AuthenticationException({
@@ -218,7 +235,7 @@ export class WebAuthProvider {
             return;
         }
 
-        if (!WebAuthProvider.hasBrowserAppInstalled(activity.getPackageManager())) {
+        if ( this.useBrowser && !WebAuthProvider.hasBrowserAppInstalled(activity.getPackageManager())) {
             const ex = new AuthenticationException({
                 code: "a0.browser_not_available",
                 description: "No Browser application installed to perform web authentication."
@@ -229,12 +246,14 @@ export class WebAuthProvider {
 
         const manager: OAuthManager = new OAuthManager(this.account, callback, this.values);
         manager.setCustomTabsOptions(this.ctOptions);
+        manager.withBrowser(this.useBrowser);
         manager.setPKCE(this.pkce);
+        manager.setHostedPageParams(this.hostedPageParams);
 
         WebAuthProvider.managerInstance = manager;
 
         const redirectUri = CallbackHelper.getCallbackUri(this.scheme, activity.getApplicationContext().getPackageName(), this.account.getDomainUrl());
-        manager.startAuthorization(activity, redirectUri, 110);
+        manager.startAuthorization(activity, redirectUri, requestCode);
     }
 
     // Public methods
@@ -248,13 +267,48 @@ export class WebAuthProvider {
      * @param intent the data received on the onNewIntent() call
      * @return true if a result was expected and has a valid format, or false if not.
      */
-    public static resume(intent: Intent): boolean {
+    // public static resume(intent: Intent): boolean {
+    //     if (WebAuthProvider.managerInstance == null) {
+    //         Log.w(WebAuthProvider.TAG, "There is no previous instance of this provider.");
+    //         return false;
+    //     }
+    //     const data = new AuthorizeResult(intent);
+    //     const success = WebAuthProvider.managerInstance.resumeAuthorization(data);
+    //     if (success) {
+    //         WebAuthProvider.managerInstance = null;
+    //     }
+    //     return success;
+    // }
+
+    public static resume(requestCode: number, resultCode: number, intent: Intent): boolean {
         if (WebAuthProvider.managerInstance == null) {
             Log.w(WebAuthProvider.TAG, "There is no previous instance of this provider.");
             return false;
         }
-        const data = new AuthorizeResult(intent);
-        const success = WebAuthProvider.managerInstance.resumeAuthorization(data);
+        const data: AuthorizeResult = new AuthorizeResult(intent);
+        let success: boolean = WebAuthProvider.managerInstance.resumeAuthorization(data);
+        if (success) {
+            WebAuthProvider.managerInstance = null;
+        }
+        return success;
+    }
+
+        /**
+     * Finishes the authentication flow by passing the data received in the activity's onNewIntent() callback.
+     * The final authentication result will be delivered to the callback specified when calling start().
+     * <p>
+     * This is no longer required to be called, the authentication is handled internally as long as you've correctly setup the intent-filter.
+     *
+     * @param intent the data received on the onNewIntent() call
+     * @return true if a result was expected and has a valid format, or false if not.
+     */
+    public static resumes(intent: Intent): boolean {
+        if (WebAuthProvider.managerInstance == null) {
+            Log.w(this.TAG, "There is no previous instance of this provider.");
+            return false;
+        }
+        const data: AuthorizeResult = new AuthorizeResult(intent);
+        let success: boolean = WebAuthProvider.managerInstance.resumeAuthorization(data);
         if (success) {
             WebAuthProvider.managerInstance = null;
         }

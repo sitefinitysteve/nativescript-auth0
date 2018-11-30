@@ -36,13 +36,19 @@ export declare class OAuthManager {
     private readonly parameters;
     private requestCode;
     private pkce;
+    private hostedPageParams;
     private currentTimeInMillis;
     private ctOptions;
+    private useBrowser;
     constructor(account: Auth0, callback: AuthCallback, parameters: {
         [key: string]: string;
     });
     setCustomTabsOptions(options: CustomTabsOptions | undefined): void;
     setPKCE(pkce: PKCE): void;
+    setHostedPageParams(pageParams: {
+        [key: string]: string;
+    }): void;
+    withBrowser(withBrowser: boolean): void;
     startAuthorization(activity: Activity, redirectUri: string, requestCode: number): void;
     resumeAuthorization(data: AuthorizeResult): boolean;
     private getCurrentTimeInMillis;

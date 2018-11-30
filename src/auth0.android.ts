@@ -61,6 +61,9 @@ export class Auth0 extends Auth0Common {
         if (options.parameters != null) {
             webAuth.withParameters(options.parameters);
         }
+        if (options.hostedPageParameters) {
+            webAuth.withHostedPageParams(options.hostedPageParameters);
+        }
 
         return new Promise((resolve, reject) => {
             try {
@@ -75,7 +78,7 @@ export class Auth0 extends Auth0Common {
                     onSuccess: (credentials: Credentials) => {
                         resolve(credentials);
                     }
-                });
+                }, 123);
             } catch (e) {
                 reject(e);
             }

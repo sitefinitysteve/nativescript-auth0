@@ -29,6 +29,8 @@
                     android:scheme="${auth0Scheme}" />
             </intent-filter>
         </activity>
+        <activity 
+            android:name="org.nativescript.auth0.WebAuthActivity" />
     </application>
 
 </manifest>

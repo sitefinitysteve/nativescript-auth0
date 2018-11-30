@@ -23,6 +23,7 @@ export interface WebAuthOptions {
     scope?: string;
     state?: string;
     parameters?: { [param: string]: string; };
+    hostedPageParameters?: { [param: string]: string; };
 }
 
 export class WebAuthException extends Error {

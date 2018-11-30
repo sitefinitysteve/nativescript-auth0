@@ -3,6 +3,7 @@ import Intent = android.content.Intent;
 import Bundle = android.os.Bundle;
 
 import { AuthenticationActivity } from './authenticationActivity';
+import { WebAuthActivity } from './webAuthActivity';
 
 @JavaProxy('org.nativescript.auth0.RedirectActivity')
 export class RedirectActivity extends android.app.Activity {

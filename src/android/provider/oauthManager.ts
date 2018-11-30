@@ -21,7 +21,7 @@ import { Credentials } from '../../common/credentials';
 import { PKCE } from './pkce';
 import { Auth0 } from '../auth0';
 import { AuthenticationAPIClient } from '../authentication/authenticationAPIClient';
-import { authenticateUsingBrowser } from './authenticationActivity';
+import { authenticateUsingBrowser, authenticateUsingWebView } from './authenticationActivity';
 
 
 export class OAuthManager {
@@ -57,16 +57,19 @@ export class OAuthManager {
     private readonly account: Auth0;
     private readonly callback: AuthCallback;
     private readonly parameters: { [key: string]: string };
-
+    
     private requestCode: number;
     private pkce: PKCE;
+    private hostedPageParams: { [key: string]: string };
     private currentTimeInMillis: number;
     private ctOptions: CustomTabsOptions;
+    private useBrowser: boolean;
 
     constructor(account: Auth0, callback: AuthCallback, parameters: { [key: string]: string }) {
         this.account = account;
         this.callback = callback;
         this.parameters = parameters;
+        this.useBrowser = false;
     }
 
     public setCustomTabsOptions(options: CustomTabsOptions | undefined) {
@@ -75,6 +78,20 @@ export class OAuthManager {
 
     public setPKCE(pkce: PKCE) {
         this.pkce = pkce;
+    }
+
+    /**
+     * setHostedPageParams
+     */
+    public setHostedPageParams(pageParams: { [key: string]: string }) {
+        this.hostedPageParams = pageParams;
+    }
+
+    /**
+     * useBrowser
+     */
+    public withBrowser(withBrowser: boolean) {
+        this.useBrowser = withBrowser;
     }
 
     public startAuthorization(activity: Activity, redirectUri: string, requestCode: number) {
@@ -87,7 +104,11 @@ export class OAuthManager {
         Log.d(OAuthManager.TAG, 'Built authorize uri');
         this.requestCode = requestCode;
 
-        authenticateUsingBrowser(activity, uri, this.ctOptions);
+        if(this.useBrowser) {
+            authenticateUsingBrowser(activity, uri, this.ctOptions);
+        } else {
+            authenticateUsingWebView(activity, uri, requestCode, 'Login', true, this.hostedPageParams);
+        }
     }
 
     public resumeAuthorization(data: AuthorizeResult): boolean {
