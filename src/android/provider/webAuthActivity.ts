@@ -20,6 +20,8 @@ import Window = android.view.Window;
 import WindowManager = android.view.WindowManager;
 import ActionBar = android.support.v7.app.ActionBar;
 import ApplicationInfo = android.content.pm.ApplicationInfo;
+import ValueCallback = android.webkit.ValueCallback;
+
 import { EXTRA_PAGE_PARAMS, AuthenticationActivity } from "./authenticationActivity";
 
 const TAG: string = 'WebAuthActivity';
@@ -27,7 +29,6 @@ const TAG: string = 'WebAuthActivity';
 export const KEY_REDIRECT_URI: string = "redirect_uri";
 export const CONNECTION_NAME_EXTRA: string = "serviceName";
 export const FULLSCREEN_EXTRA: string = "fullscreen";
-
 @JavaProxy('org.nativescript.auth0.WebAuthActivity')
 export class WebAuthActivity extends android.support.v7.app.AppCompatActivity {
 
@@ -43,6 +44,7 @@ export class WebAuthActivity extends android.support.v7.app.AppCompatActivity {
 
     public killActivity(intent: Intent): void {
         this.setResult(android.app.Activity.RESULT_OK, intent);
+        this.webView.destroy();
         this.finish();
     }
 
@@ -122,17 +124,6 @@ export class WebAuthActivity extends android.support.v7.app.AppCompatActivity {
         const uri: Uri = intent.getData();
         const redirectUrl: string = uri.getQueryParameter(KEY_REDIRECT_URI);
 
-        // let thiz = this;
-        // this.webView.setWebChromeClient(new class extends WebChromeClient {
-        //     public onProgressChanged(view: WebView, newProgress: number): void {
-        //         super.onProgressChanged(view, newProgress);
-        //         if (newProgress > 0) {
-        //             thiz.progressBar.setIndeterminate(false);
-        //             thiz.progressBar.setProgress(newProgress);
-        //         }
-        //     }
-        // });
-
         this.webView.setWebViewClient(new class extends WebViewClient {
 
             private webAuth: WebAuthActivity = null;
@@ -148,14 +139,47 @@ export class WebAuthActivity extends android.support.v7.app.AppCompatActivity {
                 if (urlString.startsWith(redirectUrl)) {
                     Log.v(TAG, "Redirect URL was called");
                     const intent: Intent = new Intent();
-                    intent.setData(Uri.parse(urlString));
-                    this.webAuth.killActivity(intent);
+
+                    // if android api < 19 then remembered login is not supported
+                    if (android.os.Build.VERSION.SDK_INT >= 19) {
+                        let expresion = "$('#remember-data').is(':checked') ? { username: $('#login-username').val(), usercode: $('#login-usercode').val(), remember: true } : { remember: false }";
+                        view['evaluateJavascript'](expresion, new class extends ValueCallback<java.lang.String> {
+
+                            private webAuth: WebAuthActivity = null;
+                            private intent: Intent = null;
+                            private urlString: string = null;
+
+                            constructor(webAuth: WebAuthActivity, intent: Intent, url: string) {
+                                super();
+                                this.webAuth = webAuth;
+                                this.intent = intent;
+                                this.urlString = url;
+                            }
+
+                            onReceiveValue(data: java.lang.String): void {
+                                if (data && 
+                                    data.toString() != 'null') {
+
+                                    let formData = JSON.parse(data.toString());
+                                    if(formData.remember) {
+                                        this.urlString = this.urlString + "&uc=" + formData.usercode;
+                                        this.urlString = this.urlString + "&un=" + formData.username;
+                                        this.urlString = this.urlString + "&rem=" + formData.remember;
+                                    }
+                                }
+                                this.intent.setData(Uri.parse(this.urlString));
+                                this.webAuth.killActivity(this.intent);
+                            }
+                        }(this.webAuth, intent, urlString))
+                    } else {
+                        intent.setData(Uri.parse(urlString));
+                        this.webAuth.killActivity(intent);
+                    }
                     return true;
                 }
                 view.setVisibility(View.VISIBLE);
                 return false;
             }
-
 
             public onPageFinished(view: WebView, url: string) {
                 super.onPageFinished(view, url);

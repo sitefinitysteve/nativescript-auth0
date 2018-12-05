@@ -21,6 +21,9 @@ export class Credentials {
     // Granted scopes, only populated when a requested scope or scopes was not granted and Auth is OIDC Conformant
     public readonly scope: string | undefined;
 
+    // customs
+    public readonly extras: { [key:string]: string } | undefined;
+
     constructor(
         accessToken: string | undefined = undefined,
         tokenType: string | undefined = undefined,
@@ -28,7 +31,8 @@ export class Credentials {
         refreshToken: string | undefined = undefined,
         expiresIn: number | undefined = undefined,
         expiresAt: Date | undefined = undefined,
-        scope: string | undefined = undefined
+        scope: string | undefined = undefined,
+        extras: { [key:string]: string } | undefined = undefined
     ) {
         this.accessToken = accessToken;
         this.tokenType = tokenType;
@@ -37,6 +41,7 @@ export class Credentials {
         this.expiresIn = expiresIn;
         this.expiresAt = expiresAt;
         this.scope = scope;
+        this.extras = extras;
 
         if (expiresAt == null && expiresIn != null) {
             this.expiresAt = new Date(Date.now() + expiresIn * 1000);
