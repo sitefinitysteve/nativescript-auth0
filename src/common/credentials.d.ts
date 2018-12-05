@@ -6,7 +6,12 @@ export declare class Credentials {
     readonly refreshToken: string | undefined;
     readonly idToken: string | undefined;
     readonly scope: string | undefined;
-    constructor(accessToken?: string | undefined, tokenType?: string | undefined, idToken?: string | undefined, refreshToken?: string | undefined, expiresIn?: number | undefined, expiresAt?: Date | undefined, scope?: string | undefined);
+    readonly extras: {
+        [key: string]: string;
+    } | undefined;
+    constructor(accessToken?: string | undefined, tokenType?: string | undefined, idToken?: string | undefined, refreshToken?: string | undefined, expiresIn?: number | undefined, expiresAt?: Date | undefined, scope?: string | undefined, extras?: {
+        [key: string]: string;
+    } | undefined);
     static initWithJson(json: {
         [key: string]: any;
     }): Credentials;

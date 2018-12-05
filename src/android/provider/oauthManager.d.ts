@@ -13,6 +13,7 @@ export declare class OAuthManager {
     static readonly KEY_CONNECTION: string;
     static readonly RESPONSE_TYPE_ID_TOKEN: string;
     static readonly RESPONSE_TYPE_CODE: string;
+    static readonly KEY_USER_NAME: string;
     private static readonly ERROR_VALUE_ACCESS_DENIED;
     private static readonly ERROR_VALUE_UNAUTHORIZED;
     private static readonly ERROR_VALUE_LOGIN_REQUIRED;

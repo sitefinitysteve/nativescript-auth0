@@ -34,6 +34,7 @@ export class OAuthManager {
     public static readonly KEY_CONNECTION: string = "connection";
     public static readonly RESPONSE_TYPE_ID_TOKEN: string = "id_token";
     public static readonly RESPONSE_TYPE_CODE: string = "code";
+    public static readonly KEY_USER_NAME: string = "uc";
 
     private static readonly ERROR_VALUE_ACCESS_DENIED: string = "access_denied";
     private static readonly ERROR_VALUE_UNAUTHORIZED: string = "unauthorized";
@@ -57,7 +58,7 @@ export class OAuthManager {
     private readonly account: Auth0;
     private readonly callback: AuthCallback;
     private readonly parameters: { [key: string]: string };
-    
+
     private requestCode: number;
     private pkce: PKCE;
     private hostedPageParams: { [key: string]: string };
@@ -104,7 +105,7 @@ export class OAuthManager {
         Log.d(OAuthManager.TAG, 'Built authorize uri');
         this.requestCode = requestCode;
 
-        if(this.useBrowser) {
+        if (this.useBrowser) {
             authenticateUsingBrowser(activity, uri, this.ctOptions);
         } else {
             authenticateUsingWebView(activity, uri, requestCode, 'Login', true, this.hostedPageParams);
@@ -140,7 +141,8 @@ export class OAuthManager {
                 values[OAuthManager.KEY_REFRESH_TOKEN],
                 undefined,
                 expiresAt,
-                values[OAuthManager.KEY_SCOPE]
+                values[OAuthManager.KEY_SCOPE],
+                { username: values[OAuthManager.KEY_USER_NAME] }
             );
             if (!this.shouldUsePKCE()) {
                 this.callback.onSuccess(urlCredentials);
@@ -153,7 +155,8 @@ export class OAuthManager {
                             this.callback.onFailure(args[0]);
                         },
                         onSuccess: (codeCredentials: Credentials) => {
-                            this.callback.onSuccess(OAuthManager.mergeCredentials(urlCredentials, codeCredentials));
+                            const credMerged = OAuthManager.mergeCredentials(urlCredentials, codeCredentials);
+                            this.callback.onSuccess(credMerged);
                         }
                     }
                 );
@@ -309,7 +312,7 @@ export class OAuthManager {
         const expiresAt: Date = codeCredentials.expiresAt != null ? codeCredentials.expiresAt : urlCredentials.expiresAt;
         const scope: string = TextUtils.isEmpty(codeCredentials.scope) ? urlCredentials.scope : codeCredentials.scope;
 
-        return new Credentials(accessToken, tokenType, idToken, refreshToken, undefined, expiresAt, scope);
+        return new Credentials(accessToken, tokenType, idToken, refreshToken, undefined, expiresAt, scope, urlCredentials.extras);
     }
 
     public static getRandomString(defaultValue: string | undefined): string {
