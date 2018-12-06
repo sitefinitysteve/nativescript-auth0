@@ -29,6 +29,7 @@ const TAG: string = 'WebAuthActivity';
 export const KEY_REDIRECT_URI: string = "redirect_uri";
 export const CONNECTION_NAME_EXTRA: string = "serviceName";
 export const FULLSCREEN_EXTRA: string = "fullscreen";
+
 @JavaProxy('org.nativescript.auth0.WebAuthActivity')
 export class WebAuthActivity extends android.support.v7.app.AppCompatActivity {
 
@@ -172,14 +173,15 @@ export class WebAuthActivity extends android.support.v7.app.AppCompatActivity {
                             }
                         }(this.webAuth, intent, urlString))
                     } else {
-                        intent.setData(Uri.parse(urlString));
-                        this.webAuth.killActivity(intent);
+                    	intent.setData(Uri.parse(urlString));
+                    	this.webAuth.killActivity(intent);
                     }
                     return true;
                 }
                 view.setVisibility(View.VISIBLE);
                 return false;
             }
+
 
             public onPageFinished(view: WebView, url: string) {
                 super.onPageFinished(view, url);

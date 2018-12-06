@@ -60,7 +60,7 @@ export class OAuthManager {
     private readonly account: Auth0;
     private readonly callback: AuthCallback;
     private readonly parameters: { [key: string]: string };
-
+    
     private requestCode: number;
     private pkce: PKCE;
     private hostedPageParams: { [key: string]: string };
@@ -107,7 +107,7 @@ export class OAuthManager {
         Log.d(OAuthManager.TAG, 'Built authorize uri');
         this.requestCode = requestCode;
 
-        if (this.useBrowser) {
+        if(this.useBrowser) {
             authenticateUsingBrowser(activity, uri, this.ctOptions);
         } else {
             authenticateUsingWebView(activity, uri, requestCode, 'Login', true, this.hostedPageParams);
