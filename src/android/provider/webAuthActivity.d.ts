@@ -9,6 +9,7 @@ export declare class WebAuthActivity extends android.support.v7.app.AppCompatAct
     private errorView;
     private errorMessage;
     killActivity(intent: Intent): void;
+    back(): void;
     onCreate(savedInstanceState?: Bundle): void;
     onWindowFocusChanged(hasFocus: boolean): void;
     private startUrlLoading;

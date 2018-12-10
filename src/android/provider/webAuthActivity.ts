@@ -49,6 +49,11 @@ export class WebAuthActivity extends android.support.v7.app.AppCompatActivity {
         this.finish();
     }
 
+    public back(): void {
+        this.webView.destroy();
+        this.finish();        
+    }
+
     public onCreate(savedInstanceState?: Bundle) {
         Log.d(TAG, "Creating a WebAuthActivity for navigating to " + this.getIntent().getData().toString());
         super.onCreate(savedInstanceState);
@@ -124,6 +129,7 @@ export class WebAuthActivity extends android.support.v7.app.AppCompatActivity {
         const intent: Intent = this.getIntent();
         const uri: Uri = intent.getData();
         const redirectUrl: string = uri.getQueryParameter(KEY_REDIRECT_URI);
+        const backRedirectUrl: string = 'naranja://webview.back';
 
         this.webView.setWebViewClient(new class extends WebViewClient {
 
@@ -178,6 +184,12 @@ export class WebAuthActivity extends android.support.v7.app.AppCompatActivity {
                     }
                     return true;
                 }
+
+                if(urlString.startsWith(backRedirectUrl)) {
+                    this.webAuth.back();
+                    return true;
+                }
+
                 view.setVisibility(View.VISIBLE);
                 return false;
             }
@@ -207,11 +219,13 @@ export class WebAuthActivity extends android.support.v7.app.AppCompatActivity {
             }
 
         }(this));
+
         const settings: WebSettings = this.webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setSupportZoom(true);
         settings.setBuiltInZoomControls(true);
         this.webView.loadUrl(uri.toString());
+
     }
 
     private renderLoadError(description: string): void {
