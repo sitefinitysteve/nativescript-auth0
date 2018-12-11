@@ -2,7 +2,6 @@ import { Credentials } from '../common/credentials';
 import { ResponseType } from './responseType';
 import { Result } from './result';
 import { Authentication } from './authentication';
-import { SHA256ChallengeGenerator } from './sha256ChallengeGenerator';
 export interface OAuth2Grant {
     defaults: {
         [key: string]: string;
@@ -35,7 +34,7 @@ export declare class PKCE implements OAuth2Grant {
     };
     readonly verifier: string;
     readonly responseType: ResponseType[];
-    static init(authentication: Authentication, redirectURL: NSURL, reponseType?: ResponseType[], nonce?: string | undefined, generator?: SHA256ChallengeGenerator): PKCE;
+    static init(authentication: Authentication, redirectURL: NSURL, reponseType?: ResponseType[], nonce?: string | undefined, generator?: A0SHA256ChallengeGenerator): PKCE;
     constructor(authentication: Authentication, redirectURL: NSURL, verifier: string, challenge: string, method: string, responseType: ResponseType[], nonce?: string | undefined);
     credentials(values: {
         [key: string]: string;
