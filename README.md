@@ -1,4 +1,4 @@
-# Nativescript Auth0Lock
+# NativeScript Auth0
 
 [Auth0](https://auth0.com) is a social login provider for NativeScript allowing you to choose between [50 different providers](https://auth0.com/docs/identityproviders).  Use the Auth0 portal to select and configure the providers you would like to make available in your NativeScript application. The Auth0 NativeScript plugin will dynamically load your chosen providers into your application.
 
@@ -8,7 +8,7 @@ Auth0 is a freemium service. The free tier supports up to 7,000 active users. [A
 
 In addition to managing many login providers, Auth0 also has solutions for application analytics, logging, web tasks and more. [Take a look at all of the Auth0 features](https://auth0.com/why-auth0) and services.
 
-Requires NativeScript version `^4.2.0`.
+Requires NativeScript version `>=4.2.0`.
 
 
 ## Installation

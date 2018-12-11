@@ -1,5 +1,10 @@
 
 ## Version Notes
+### 2.1.0
+
+Remove use of a large pod and replace with a small Objective-C file
+Update readme
+
 ### 2.0.4
 
 Fix bugged iOS version comparsion causing SafariAuthenticationSession to not be used.
