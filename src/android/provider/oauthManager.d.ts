@@ -16,6 +16,7 @@ export declare class OAuthManager {
     static readonly KEY_USER_NAME: string;
     static readonly KEY_USER_CODE: string;
     static readonly KEY_LOGIN_REMEMBER: string;
+    static readonly KEY_CHANGE_ACCOUNT: string;
     private static readonly ERROR_VALUE_ACCESS_DENIED;
     private static readonly ERROR_VALUE_UNAUTHORIZED;
     private static readonly ERROR_VALUE_LOGIN_REQUIRED;
@@ -52,7 +53,7 @@ export declare class OAuthManager {
         [key: string]: string;
     }): void;
     withBrowser(withBrowser: boolean): void;
-    startAuthorization(activity: Activity, redirectUri: string, requestCode: number): void;
+    startAuthorization(activity: Activity, redirectUri: string, requestCode: number, backUri: string): void;
     resumeAuthorization(data: AuthorizeResult): boolean;
     private getCurrentTimeInMillis;
     setCurrentTimeInMillis(currentTimeInMillis: number): void;

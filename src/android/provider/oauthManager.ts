@@ -37,6 +37,7 @@ export class OAuthManager {
     public static readonly KEY_USER_NAME: string = "un";
     public static readonly KEY_USER_CODE: string = "uc";
     public static readonly KEY_LOGIN_REMEMBER: string = "rem";
+    public static readonly KEY_CHANGE_ACCOUNT: string = "chg";
 
     private static readonly ERROR_VALUE_ACCESS_DENIED: string = "access_denied";
     private static readonly ERROR_VALUE_UNAUTHORIZED: string = "unauthorized";
@@ -97,7 +98,7 @@ export class OAuthManager {
         this.useBrowser = withBrowser;
     }
 
-    public startAuthorization(activity: Activity, redirectUri: string, requestCode: number) {
+    public startAuthorization(activity: Activity, redirectUri: string, requestCode: number, backUri: string) {
         this.addPKCEParameters(this.parameters, redirectUri);
         this.addClientParameters(this.parameters, redirectUri);
         Log.d(OAuthManager.TAG, 'Added client parameters');
@@ -110,7 +111,7 @@ export class OAuthManager {
         if(this.useBrowser) {
             authenticateUsingBrowser(activity, uri, this.ctOptions);
         } else {
-            authenticateUsingWebView(activity, uri, requestCode, 'Login', true, this.hostedPageParams);
+            authenticateUsingWebView(activity, uri, requestCode, 'Login', true, this.hostedPageParams, backUri);
         }
     }
 
@@ -147,7 +148,8 @@ export class OAuthManager {
                 { 
                     username: values[OAuthManager.KEY_USER_NAME],
                     usercode: values[OAuthManager.KEY_USER_CODE],
-                    remember: values[OAuthManager.KEY_LOGIN_REMEMBER]
+                    remember: values[OAuthManager.KEY_LOGIN_REMEMBER],
+                    changeAccount: values[OAuthManager.KEY_CHANGE_ACCOUNT],
                 }
             );
             if (!this.shouldUsePKCE()) {

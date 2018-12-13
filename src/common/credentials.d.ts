@@ -7,10 +7,10 @@ export declare class Credentials {
     readonly idToken: string | undefined;
     readonly scope: string | undefined;
     readonly extras: {
-        [key: string]: string;
+        [key: string]: string | boolean | number;
     } | undefined;
     constructor(accessToken?: string | undefined, tokenType?: string | undefined, idToken?: string | undefined, refreshToken?: string | undefined, expiresIn?: number | undefined, expiresAt?: Date | undefined, scope?: string | undefined, extras?: {
-        [key: string]: string;
+        [key: string]: string | boolean | number;
     } | undefined);
     static initWithJson(json: {
         [key: string]: any;

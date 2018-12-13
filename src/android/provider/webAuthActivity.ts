@@ -27,6 +27,7 @@ import { EXTRA_PAGE_PARAMS, AuthenticationActivity } from "./authenticationActiv
 const TAG: string = 'WebAuthActivity';
 
 export const KEY_REDIRECT_URI: string = "redirect_uri";
+export const BACK_REDIRECT_URI: string = "back_uri";
 export const CONNECTION_NAME_EXTRA: string = "serviceName";
 export const FULLSCREEN_EXTRA: string = "fullscreen";
 
@@ -42,11 +43,15 @@ export class WebAuthActivity extends android.support.v7.app.AppCompatActivity {
     private errorView: View;
     private errorMessage: TextView;
 
-
     public killActivity(intent: Intent): void {
         this.setResult(android.app.Activity.RESULT_OK, intent);
         this.webView.destroy();
         this.finish();
+    }
+
+    public back(): void {
+        this.webView.destroy();
+        this.finish();        
     }
 
     public onCreate(savedInstanceState?: Bundle) {
@@ -124,6 +129,7 @@ export class WebAuthActivity extends android.support.v7.app.AppCompatActivity {
         const intent: Intent = this.getIntent();
         const uri: Uri = intent.getData();
         const redirectUrl: string = uri.getQueryParameter(KEY_REDIRECT_URI);
+        const backRedirectUrl: string = this.getIntent().getStringExtra(BACK_REDIRECT_URI);
 
         this.webView.setWebViewClient(new class extends WebViewClient {
 
@@ -137,51 +143,56 @@ export class WebAuthActivity extends android.support.v7.app.AppCompatActivity {
             public shouldOverrideUrlLoading(view: WebView, url: any): boolean {
 
                 let urlString = url.getUrl ? url.getUrl().toString() : url.toString();
+                
                 if (urlString.startsWith(redirectUrl)) {
                     Log.v(TAG, "Redirect URL was called");
                     const intent: Intent = new Intent();
 
                     // if android api < 19 then remembered login is not supported
                     if (android.os.Build.VERSION.SDK_INT >= 19) {
-                        let expresion = "$('#remember-data').is(':checked') ? { username: $('#login-username').val(), usercode: $('#login-usercode').val(), remember: true } : { remember: false }";
-                        view['evaluateJavascript'](expresion, new class extends ValueCallback<java.lang.String> {
-
-                            private webAuth: WebAuthActivity = null;
-                            private intent: Intent = null;
-                            private urlString: string = null;
-
-                            constructor(webAuth: WebAuthActivity, intent: Intent, url: string) {
-                                super();
-                                this.webAuth = webAuth;
-                                this.intent = intent;
-                                this.urlString = url;
-                            }
-
-                            onReceiveValue(data: java.lang.String): void {
-                                if (data && 
-                                    data.toString() != 'null') {
-
-                                    let formData = JSON.parse(data.toString());
-                                    if(formData.remember) {
-                                        this.urlString = this.urlString + "&uc=" + formData.usercode;
-                                        this.urlString = this.urlString + "&un=" + formData.username;
-                                        this.urlString = this.urlString + "&rem=" + formData.remember;
-                                    }
-                                }
-                                this.intent.setData(Uri.parse(this.urlString));
-                                this.webAuth.killActivity(this.intent);
-                            }
-                        }(this.webAuth, intent, urlString))
+                        this.callbackLoginSuccess(view, intent, urlString);
                     } else {
                     	intent.setData(Uri.parse(urlString));
                     	this.webAuth.killActivity(intent);
                     }
                     return true;
                 }
+
+                if(urlString.startsWith(backRedirectUrl)) {
+                    this.webAuth.back();
+                    return true;
+                }
+
                 view.setVisibility(View.VISIBLE);
                 return false;
             }
 
+
+            private callbackLoginSuccess(view: WebView, intent: Intent, urlString: any) {
+                //Technical Debt: parameterize the expression
+                let expresion = "$('#remember-data').is(':checked') ? { username: $('#login-username').val(), usercode: $('#login-usercode').val(), remember: true } : { remember: false, changeAccount: $('#login-change-account').val() === 'true' }";
+                view['evaluateJavascript'](expresion, new class extends ValueCallback<java.lang.String> {
+                    constructor(private webAuth: WebAuthActivity, private intent: Intent, private urlString: string) {
+                        super();
+                    }
+                    onReceiveValue(data: java.lang.String): void {
+                        if (data &&
+                            data.toString() != 'null') {
+                            let formData = JSON.parse(data.toString());
+                            this.urlString = this.urlString 
+                                + "&chg=" + !!formData.changeAccount
+                                + "&rem=" + !!formData.remember;
+                            if (formData.remember) {
+                                this.urlString = this.urlString 
+                                    + "&uc=" + formData.usercode
+                                    + "&un=" + formData.username;
+                            }
+                        }
+                        this.intent.setData(Uri.parse(this.urlString));
+                        this.webAuth.killActivity(this.intent);
+                    }
+                }(this.webAuth, intent, urlString));
+            }
 
             public onPageFinished(view: WebView, url: string) {
                 super.onPageFinished(view, url);
@@ -207,11 +218,13 @@ export class WebAuthActivity extends android.support.v7.app.AppCompatActivity {
             }
 
         }(this));
+
         const settings: WebSettings = this.webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setSupportZoom(true);
         settings.setBuiltInZoomControls(true);
         this.webView.loadUrl(uri.toString());
+
     }
 
     private renderLoadError(description: string): void {

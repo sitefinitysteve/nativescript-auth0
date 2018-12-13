@@ -253,7 +253,7 @@ export class WebAuthProvider {
         WebAuthProvider.managerInstance = manager;
 
         const redirectUri = CallbackHelper.getCallbackUri(this.scheme, activity.getApplicationContext().getPackageName(), this.account.getDomainUrl());
-        manager.startAuthorization(activity, redirectUri, requestCode);
+        manager.startAuthorization(activity, redirectUri, requestCode, this.values.backUri);
     }
 
     // Public methods

@@ -9,7 +9,7 @@ import Log = android.util.Log;
 import { CustomTabsOptions } from './customTabsOptions';
 import { WebAuthProvider } from './webAuthProvider';
 import { CustomTabsController } from './customTabsController';
-import { WebAuthActivity, FULLSCREEN_EXTRA, CONNECTION_NAME_EXTRA } from './webAuthActivity';
+import { WebAuthActivity, FULLSCREEN_EXTRA, CONNECTION_NAME_EXTRA, BACK_REDIRECT_URI } from './webAuthActivity';
 
 const TAG: string = 'AuthenticationActivity';
 
@@ -20,6 +20,7 @@ export const EXTRA_CT_OPTIONS: string = "org.nativescript.auth0.EXTRA_CT_OPTIONS
 export const EXTRA_USE_BROWSER: string = "org.nativescript.auth0.EXTRA_USE_BROWSER";
 export const EXTRA_USE_FULL_SCREEN: string = "org.nativescript.auth0.EXTRA_USE_FULL_SCREEN";
 export const EXTRA_PAGE_PARAMS: string = "org.nativescript.auth0.page_params";
+export const EXTRA_BACK_URI: string = "org.nativescript.auth0.back_redirect";
 
 export function authenticateUsingBrowser(context: Context, authorizeUri: Uri, options: CustomTabsOptions = undefined): void {
     Log.d(TAG, 'Building intent');
@@ -36,7 +37,14 @@ export function authenticateUsingBrowser(context: Context, authorizeUri: Uri, op
     context.startActivity(intent);
 }
 
-export function authenticateUsingWebView(activity: Activity, authorizeUri: Uri, requestCode: number, connection: string, useFullScreen: boolean = true, hostedPageParams: { [key: string]: string }): void {
+export function authenticateUsingWebView(
+        activity: Activity, authorizeUri: Uri, 
+        requestCode: number, 
+        connection: string, 
+        useFullScreen: boolean = true, 
+        hostedPageParams: { [key: string]: string },
+        backUri: string): void {
+
     Log.d(TAG, 'Building activity');
     const clazz = AuthenticationActivity.class;
     Log.d(TAG, 'Got class');
@@ -51,6 +59,9 @@ export function authenticateUsingWebView(activity: Activity, authorizeUri: Uri, 
     intent.putExtra(EXTRA_CONNECTION_NAME, connection);
 
     intent.putExtra(EXTRA_PAGE_PARAMS, JSON.stringify(hostedPageParams));
+    
+    // back uri
+    intent.putExtra(EXTRA_BACK_URI, backUri);
 
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     Log.d(TAG, 'Starting authentication...');
@@ -128,6 +139,7 @@ export class AuthenticationActivity extends android.app.Activity {
         let intent: Intent = new Intent(this, WebAuthActivity.class);
         intent.setData(authorizeUri);
         intent.putExtra(CONNECTION_NAME_EXTRA, 'Login');
+        intent.putExtra(BACK_REDIRECT_URI, extras.getString(EXTRA_BACK_URI));
         intent.putExtra(FULLSCREEN_EXTRA, false);
         intent.putExtra(EXTRA_PAGE_PARAMS, extras.getString(EXTRA_PAGE_PARAMS));
 

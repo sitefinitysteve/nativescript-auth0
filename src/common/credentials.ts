@@ -22,7 +22,7 @@ export class Credentials {
     public readonly scope: string | undefined;
 
     // customs
-    public readonly extras: { [key:string]: string } | undefined;
+    public readonly extras: { [key:string]: string | boolean | number} | undefined;
 
     constructor(
         accessToken: string | undefined = undefined,
@@ -32,7 +32,7 @@ export class Credentials {
         expiresIn: number | undefined = undefined,
         expiresAt: Date | undefined = undefined,
         scope: string | undefined = undefined,
-        extras: { [key:string]: string } | undefined = undefined
+        extras: { [key:string]: string | boolean | number } | undefined = undefined
     ) {
         this.accessToken = accessToken;
         this.tokenType = tokenType;

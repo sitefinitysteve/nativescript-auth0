@@ -12,10 +12,11 @@ export declare const EXTRA_CT_OPTIONS: string;
 export declare const EXTRA_USE_BROWSER: string;
 export declare const EXTRA_USE_FULL_SCREEN: string;
 export declare const EXTRA_PAGE_PARAMS: string;
+export declare const EXTRA_BACK_URI: string;
 export declare function authenticateUsingBrowser(context: Context, authorizeUri: Uri, options?: CustomTabsOptions): void;
 export declare function authenticateUsingWebView(activity: Activity, authorizeUri: Uri, requestCode: number, connection: string, useFullScreen: boolean, hostedPageParams: {
     [key: string]: string;
-}): void;
+}, backUri: string): void;
 export declare class AuthenticationActivity extends android.app.Activity {
     private intentLaunched;
     private customTabsController;
