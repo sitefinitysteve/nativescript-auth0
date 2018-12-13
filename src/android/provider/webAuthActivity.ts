@@ -43,6 +43,7 @@ export class WebAuthActivity extends android.support.v7.app.AppCompatActivity {
     private errorView: View;
     private errorMessage: TextView;
 
+
     public killActivity(intent: Intent): void {
         this.setResult(android.app.Activity.RESULT_OK, intent);
         this.webView.destroy();
