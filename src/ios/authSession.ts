@@ -55,6 +55,7 @@ export class AuthSession implements AuthTransaction {
         let items = this.handler.values(components);
         const has = this.has(this.state, items);
         if (has === false) {
+
             return false;
         }
         if (items["error"] != null) {
@@ -74,6 +75,7 @@ export class AuthSession implements AuthTransaction {
     }
 
     private has(state: string | undefined, items: { [key: string]: string }): boolean {
-        return state === null || items["state"] === state;
+        let stateAux=state.replace(" ", '+');
+        return state === null || items["state"] === state || items["state"] === stateAux;
     }
 }

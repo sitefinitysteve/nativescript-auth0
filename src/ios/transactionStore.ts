@@ -33,6 +33,9 @@ export class TransactionStore {
     }
 
     public clear() {
+        if (this._current != null) {
+            this._current.cancel();
+        }
         this._current = undefined;
     }
 }

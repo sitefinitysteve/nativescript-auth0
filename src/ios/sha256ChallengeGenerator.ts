@@ -11,10 +11,15 @@ export class SHA256ChallengeGenerator {
     }
 
     constructor(verifier: NSData) {
+        
         this.verifier = verifier.base64EncodedStringWithOptions(0)
-            .replace("+", "-")
+/*             .replace("+", "-")
             .replace("/", "_")
-            .replace("=", '');
+            .replace("=", ''); */
+            .replace(/\+/g, '-')
+            .replace(/\//g, '_')
+            .replace(/=/g, '');
+            
         this.method = "S256";
     }
 
@@ -23,8 +28,11 @@ export class SHA256ChallengeGenerator {
         const hash = SwCC.digestAlg(valueData, SwCC_DigestAlgorithm.Sha256);
 
         return hash.base64EncodedStringWithOptions(0)
-            .replace("+", "-")
+/*             .replace("+", "-")
             .replace("/", "_")
-            .replace("=", '');
+            .replace("=", ''); */
+            .replace(/\+/g, '-')
+            .replace(/\//g, '_')
+            .replace(/=/g, '');
     }
 }

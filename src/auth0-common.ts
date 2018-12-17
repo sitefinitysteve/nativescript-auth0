@@ -7,6 +7,13 @@ export enum ResponseType {
     ID_TOKEN = 4
 }
 
+export enum CredentialsExtrasKey {
+    REMEMBER = "remember",
+    DNI = "dni",
+    USERNAME = "name",
+    USERCODE = "usercode"
+}
+
 export interface WebAuthOptions {
     audience?: string;
     connection?: string;
