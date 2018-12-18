@@ -143,6 +143,10 @@ export class InAppBrowserViewController extends UIViewController {
     }
 
 
+    public getCallbackCancelUri(): string{
+        return this.options.parameters.callbackCancelUri;
+    }
+
 }
 
 class WKNavigationDelegateImpl extends NSObject implements WKNavigationDelegate {
@@ -192,8 +196,9 @@ class WKNavigationDelegateImpl extends NSObject implements WKNavigationDelegate 
                     decisionHandler(WKNavigationActionPolicy.Allow); 
                     this._owner.get().authOk(navigationAction.request.URL);  
             }
-                                     
-        } else if (navigationAction.request.URL.absoluteString.indexOf("naranja://webview.back")!=-1){ 
+
+        } else if (navigationAction.request.URL.absoluteString.startsWith(this._owner.get().getCallbackCancelUri())){ 
+
             decisionHandler(WKNavigationActionPolicy.Allow);               
             this._owner.get().authCancel();
         } else {

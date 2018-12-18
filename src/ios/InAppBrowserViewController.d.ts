@@ -26,4 +26,6 @@ export declare class InAppBrowserViewController extends UIViewController {
     getRememberScriptDelimiter(): string;
     setRedirectUri(uri: string): void;
     getRedirectUri(): string;
+    getCallbackCancelUri(): string;
+
 }
