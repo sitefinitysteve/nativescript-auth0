@@ -6,7 +6,7 @@ export declare class Credentials {
     readonly refreshToken: string | undefined;
     readonly idToken: string | undefined;
     readonly scope: string | undefined;
-    readonly extras: {
+    extras: {
         [key: string]: string | boolean | number;
     } | undefined;
     constructor(accessToken?: string | undefined, tokenType?: string | undefined, idToken?: string | undefined, refreshToken?: string | undefined, expiresIn?: number | undefined, expiresAt?: Date | undefined, scope?: string | undefined, extras?: {
