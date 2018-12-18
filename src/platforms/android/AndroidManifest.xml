@@ -30,7 +30,8 @@
             </intent-filter>
         </activity>
         <activity 
-            android:name="org.nativescript.auth0.WebAuthActivity"/>
+            android:name="org.nativescript.auth0.WebAuthActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

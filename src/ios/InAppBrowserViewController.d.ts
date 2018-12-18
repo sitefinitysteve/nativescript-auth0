@@ -27,5 +27,4 @@ export declare class InAppBrowserViewController extends UIViewController {
     setRedirectUri(uri: string): void;
     getRedirectUri(): string;
     getCallbackCancelUri(): string;
-
 }
