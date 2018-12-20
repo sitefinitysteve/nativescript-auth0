@@ -148,8 +148,8 @@ export class OAuthManager {
                 { 
                     username: values[OAuthManager.KEY_USER_NAME],
                     usercode: values[OAuthManager.KEY_USER_CODE],
-                    remember: values[OAuthManager.KEY_LOGIN_REMEMBER],
-                    changeAccount: values[OAuthManager.KEY_CHANGE_ACCOUNT],
+                    remember: values[OAuthManager.KEY_LOGIN_REMEMBER] == "true",
+                    changeAccount: values[OAuthManager.KEY_CHANGE_ACCOUNT] == "true",
                 }
             );
             if (!this.shouldUsePKCE()) {
