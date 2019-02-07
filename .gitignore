@@ -13,6 +13,7 @@ src/*.d.ts
 seed-tests/seed-copy/**/*.*
 seed-tests/seed-copy-new-git-repo/**/*.*
 !demo/karma.conf.js
+!demo/webpack.config.js
 !demo/app/tests/*.js
 demo/*.d.ts
 !demo/references.d.ts
@@ -25,3 +26,5 @@ publish/package
 publish/package-lock.json
 demo/report/report.html
 demo/report/stats.json
+!demo-vue/babel.config.js
+!demo-vue/webpack.config.js
