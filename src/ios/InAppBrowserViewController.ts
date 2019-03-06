@@ -16,8 +16,6 @@ export class InAppBrowserViewController extends UIViewController {
 
     private _hud: any;
 
-
-
     public viewDidLoad() {
         super.viewDidLoad();
 
@@ -102,13 +100,25 @@ export class InAppBrowserViewController extends UIViewController {
 
     public cancel(sender: UIButton): void {
         TransactionStore.shared.clear();
-        this.dismissViewControllerAnimatedCompletion(true, null);
+        this.dismissViewControllerAnimatedCompletion(true, () => {
+            this.dispose();
+        });
     }
 
     public authCancel(): void {
         TransactionStore.shared.clear();
-        this.dismissViewControllerAnimatedCompletion(true, ()=>{
+        this.dismissViewControllerAnimatedCompletion(true, () => {
+            this.dispose();
         });
+    }
+
+    /**
+     * dispose
+     */
+    public dispose(): void {
+        if (this.webView) {
+            this.webView.dealloc();
+        }
     }
 
     public authOk(url:NSURL): void {

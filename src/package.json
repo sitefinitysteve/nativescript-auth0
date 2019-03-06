@@ -1,6 +1,6 @@
 {
     "name": "nativescript-auth0-plus",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "description": "Auth0 NativeScript SDK",
     "main": "auth0",
     "typings": "index.d.ts",

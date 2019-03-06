@@ -181,6 +181,7 @@ export class InAppBrowserWebAuth extends WebAuth {
                     }
                     presenting.dismissViewControllerAnimatedCompletion(false, () => {                        
                         callback(result);
+                        controller.dispose();
                     });
                 });
             }
