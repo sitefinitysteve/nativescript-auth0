@@ -13,6 +13,7 @@ export class InAppBrowserViewController extends UIViewController {
     private url: NSURL;
     private options: WebAuthOptions;
     private redirectUri: string;
+    private navigationDelegate: WKNavigationDelegate;
 
     private _hud: any;
 
@@ -48,7 +49,8 @@ export class InAppBrowserViewController extends UIViewController {
         this.webView = WKWebView.alloc().initWithFrameConfiguration(frame, config);
         this.webView.loadRequest(NSURLRequest.alloc().initWithURL(this.url));
         
-        this.webView.navigationDelegate = WKNavigationDelegateImpl.initWithOwner(new WeakRef(this));
+        this.navigationDelegate = WKNavigationDelegateImpl.initWithOwner(this);
+        this.webView.navigationDelegate = this.navigationDelegate;
         this.webView.allowsBackForwardNavigationGestures = true;
         this.view.addSubview(this.webView); 
         
@@ -161,9 +163,9 @@ export class InAppBrowserViewController extends UIViewController {
 
 class WKNavigationDelegateImpl extends NSObject implements WKNavigationDelegate {
     static ObjCProtocols = [WKNavigationDelegate];
-    private _owner: WeakRef<InAppBrowserViewController>;
+    private _owner: InAppBrowserViewController;
 
-    static initWithOwner(owner: WeakRef<InAppBrowserViewController>): WKNavigationDelegateImpl {
+    static initWithOwner(owner: InAppBrowserViewController): WKNavigationDelegateImpl {
         const handler = <WKNavigationDelegateImpl>WKNavigationDelegateImpl.alloc().init();
         handler._owner = owner;
         return handler;
@@ -175,42 +177,40 @@ class WKNavigationDelegateImpl extends NSObject implements WKNavigationDelegate 
 
     webViewDidFinishNavigation(webView: WKWebView, navigation: WKNavigation): void {
         if (webView.URL.absoluteString.indexOf("/login")!=-1){
-            this._owner.get()._onLoadFinished(webView.URL.absoluteString);
+            this._owner._onLoadFinished(webView.URL.absoluteString);
         }
       }
 
     webViewDecidePolicyForNavigationActionDecisionHandler?(webView: WKWebView, navigationAction: WKNavigationAction, decisionHandler: (p1: WKNavigationActionPolicy) => void): void{
-        console.log("------------------------- webViewDecidePolicyForNavigationActionDecisionHandler --------------------");
-        console.log(navigationAction.request.URL.absoluteString);
-        let callbackUri = this._owner.get().getRedirectUri();
+        let callbackUri = this._owner.getRedirectUri();
         if (navigationAction.request.URL.absoluteString.startsWith(callbackUri)){
-            if (this._owner.get().getRememberScript()!=null){
-                let scriptSource:string=this._owner.get().getRememberScript();
-                let rememberScriptDelimiter=this._owner.get().getRememberScriptDelimiter();
+            if (this._owner.getRememberScript()!=null){
+                let scriptSource:string=this._owner.getRememberScript();
+                let rememberScriptDelimiter=this._owner.getRememberScriptDelimiter();
                 webView.evaluateJavaScriptCompletionHandler(scriptSource, (result: string, error)=>{             
                     if (result!=null && result!="null"){
                         let arreglo: string[]=result.split(rememberScriptDelimiter);
                         if (arreglo[0].indexOf("true")!=-1){
-                            this._owner.get().setDefaults(true, arreglo[1], arreglo[2], arreglo[1]);
+                            this._owner.setDefaults(true, arreglo[1], arreglo[2], arreglo[1]);
                         } else {
-                            this._owner.get().setDefaults(false);
+                            this._owner.setDefaults(false);
                         }
                     } else {
-                        this._owner.get().setDefaults(false);
+                        this._owner.setDefaults(false);
                     }     
                     decisionHandler(WKNavigationActionPolicy.Allow); 
-                    this._owner.get().authOk(navigationAction.request.URL);                 
+                    this._owner.authOk(navigationAction.request.URL);                 
                 }); 
             } else {
-                    this._owner.get().setDefaults(false);    
+                    this._owner.setDefaults(false);    
                     decisionHandler(WKNavigationActionPolicy.Allow); 
-                    this._owner.get().authOk(navigationAction.request.URL);  
+                    this._owner.authOk(navigationAction.request.URL);  
             }
 
-        } else if (navigationAction.request.URL.absoluteString.startsWith(this._owner.get().getCallbackCancelUri())){ 
+        } else if (navigationAction.request.URL.absoluteString.startsWith(this._owner.getCallbackCancelUri())){ 
 
             decisionHandler(WKNavigationActionPolicy.Allow);               
-            this._owner.get().authCancel();
+            this._owner.authCancel();
         } else {
             decisionHandler(WKNavigationActionPolicy.Allow);
         }

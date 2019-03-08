@@ -6,6 +6,7 @@ export declare class InAppBrowserViewController extends UIViewController {
     private url;
     private options;
     private redirectUri;
+    private navigationDelegate;
     private _hud;
     viewDidLoad(): void;
     loadUrl(url: NSURL): void;
@@ -14,6 +15,7 @@ export declare class InAppBrowserViewController extends UIViewController {
     setDefaults(remember: boolean, dni?: string, usercode?: string, name?: string): void;
     cancel(sender: UIButton): void;
     authCancel(): void;
+    dispose(): void;
     authOk(url: NSURL): void;
     static ObjCExposedMethods: {
         "cancel": {
