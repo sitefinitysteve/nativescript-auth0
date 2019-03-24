@@ -64,7 +64,7 @@ export class Auth0 extends Auth0Common {
 
         return new Promise((resolve, reject) => {
             try {
-                const activity = application.android.foregroundActivity === null ? application.android.startActivity : application.android.foregroundActivity;
+                const activity = application.android.foregroundActivity == null ? application.android.startActivity : application.android.foregroundActivity;
                 webAuth.start(activity, {
                     onFailure: (dialogOrException: android.app.Dialog | AuthenticationException) => {
                         if (dialogOrException instanceof android.app.Dialog) {
