@@ -1,5 +1,12 @@
 
 ## Version Notes
+
+### 2.1.1
+
+Fix crash related to null foregroundActivity
+Fix errors on android not building properly
+Fix user cancel on android not raising error
+
 ### 2.1.0
 
 Remove use of a large pod and replace with a small Objective-C file
