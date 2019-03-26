@@ -47,7 +47,7 @@ export class AuthenticationException extends Auth0Exception {
         super(AuthenticationException.DEFAULT_MESSAGE);
         Object.setPrototypeOf(this, new.target.prototype);
         if (typeof infoOrString === 'object') {
-            this.values = {};
+            this.values = {...infoOrString};
 
             const codeValue = (
                 this.values[AuthenticationException.ERROR_KEY] != null

@@ -93,12 +93,20 @@ export class OAuthManager {
     public resumeAuthorization(data: AuthorizeResult): boolean {
         if (!data.isValid(this.requestCode)) {
             Log.w(OAuthManager.TAG, "The Authorize Result is invalid.");
+            this.callback.onFailure(new AuthenticationException({
+                code: "a0.invalid_response",
+                description: "The received response is invalid. Try again."
+            }, 0));
             return false;
         }
 
         const values: { [key: string]: string } = CallbackHelper.getValuesFromUri(data.getIntent().getData());
         if (Object.keys(values).length === 0) {
             Log.w(OAuthManager.TAG, "The response didn't contain any of these values: code, state, id_token, access_token, token_type, refresh_token");
+            this.callback.onFailure(new AuthenticationException({
+                code: "a0.invalid_response",
+                description: "The received response is invalid. Try again."
+            }, 0));
             return false;
         }
         this.logDebug("The parsed CallbackURI contains the following values: " + values);

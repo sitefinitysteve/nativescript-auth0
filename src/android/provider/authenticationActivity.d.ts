@@ -21,5 +21,5 @@ export declare class AuthenticationActivity extends android.app.Activity {
     onDestroy(): void;
     private launchAuthenticationIntent;
     createCustomTabsController(context: Context): CustomTabsController;
-    deliverSuccessfulAuthenticationResult(result: Intent): void;
+    deliverAuthenticationResult(result: Intent): void;
 }

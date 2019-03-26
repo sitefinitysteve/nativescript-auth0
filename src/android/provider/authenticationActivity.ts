@@ -49,7 +49,7 @@ export class AuthenticationActivity extends android.app.Activity {
 
     public onActivityResult(requestCode: number, resultCode: number, data: Intent): void {
         if (resultCode === android.app.Activity.RESULT_OK) {
-            this.deliverSuccessfulAuthenticationResult(data);
+            this.deliverAuthenticationResult(data);
         }
         this.finish();
     }
@@ -78,9 +78,7 @@ export class AuthenticationActivity extends android.app.Activity {
             return;
         }
 
-        if (this.getIntent().getData() != null) {
-            this.deliverSuccessfulAuthenticationResult(this.getIntent());
-        }
+        this.deliverAuthenticationResult(this.getIntent());
         this.setResult(android.app.Activity.RESULT_CANCELED);
         this.finish();
     }
@@ -107,7 +105,7 @@ export class AuthenticationActivity extends android.app.Activity {
         return new CustomTabsController(context);
     }
 
-    public deliverSuccessfulAuthenticationResult(result: Intent): void {
+    public deliverAuthenticationResult(result: Intent): void {
         WebAuthProvider.resume(result);
     }
 }
