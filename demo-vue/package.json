@@ -14,12 +14,12 @@
     }
   },
   "dependencies": {
-    "@vue/devtools": "5.0.0-beta.3",
+    "@vue/devtools": "^5.0.1",
     "nativescript-auth0": "file:../src",
     "nativescript-socket.io": "^0.9.0",
-    "nativescript-vue-devtools": "^1.0.0",
     "nativescript-toast": "^1.4.6",
     "nativescript-vue": "^2.0.0",
+    "nativescript-vue-devtools": "^1.0.0",
     "tns-core-modules": "^5.0.2"
   },
   "devDependencies": {
