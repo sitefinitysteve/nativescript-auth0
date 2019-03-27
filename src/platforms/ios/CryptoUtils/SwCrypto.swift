@@ -479,7 +479,7 @@ import Foundation
 
         fileprivate static let aes128CBCInfo = "Proc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC,"
         fileprivate static let aes256CBCInfo = "Proc-Type: 4,ENCRYPTED\nDEK-Info: AES-256-CBC,"
-        fileprivate static let aesInfoLength = aes128CBCInfo.characters.count
+        fileprivate static let aesInfoLength = aes128CBCInfo.count
         fileprivate static let aesIVInHexLength = 32
         fileprivate static let aesHeaderLength = aesInfoLength + aesIVInHexLength
 
@@ -836,10 +836,11 @@ import Foundation
         precondition(data1.count == data2.count)
 
         var ret = Data(count: data1.count)
+        var countCopy = ret.count
         ret.withUnsafeMutableBytes { (r: UnsafeMutablePointer<UInt8>) -> Void in
             let bytes1 = (data1 as NSData).bytes.bindMemory(to: UInt8.self, capacity: data1.count)
             let bytes2 = (data2 as NSData).bytes.bindMemory(to: UInt8.self, capacity: data2.count)
-            for i in 0 ..< ret.count {
+            for i in 0 ..< countCopy {
                 r[i] = bytes1[i] ^ bytes2[i]
             }
         }
@@ -1097,6 +1098,7 @@ public typealias CCCryptorStatus = Int32
     }
 }
 
+@objcMembers
 @objc(SwCC) open class CC: NSObject {
 
     public static func generateRandom(_ size: Int) -> Data {
@@ -1221,12 +1223,13 @@ public typealias CCCryptorStatus = Int32
 
         let needed = CCCryptorGetOutputLength!(cryptor!, data.count, true)
         var result = Data(count: needed)
+        var countCopy = result.count
         var updateLen: size_t = 0
         status = result.withUnsafeMutableBytes({ (resultBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
             return CCCryptorUpdate!(
                 cryptor!,
                 (data as NSData).bytes, data.count,
-                resultBytes, result.count,
+                resultBytes, countCopy,
                 &updateLen)
         })
         guard status == noErr else { throw CCError(status) }
@@ -1237,7 +1240,7 @@ public typealias CCCryptorStatus = Int32
             return CCCryptorFinal!(
                 cryptor!,
                 resultBytes + updateLen,
-                result.count - updateLen,
+                countCopy - updateLen,
                 &finalLen)
         })
         guard status == noErr else { throw CCError(status) }
@@ -1469,12 +1472,12 @@ public typealias CCCryptorStatus = Int32
             guard status == noErr else { throw CCError(status) }
 
             var result = Data(count: data.count)
-
+            var countCopy = result.count
             var updateLen: size_t = 0
             status = result.withUnsafeMutableBytes({ (resultBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
                 return CCCryptorUpdate!(
                     cryptor!, (data as NSData).bytes, data.count,
-                    resultBytes, result.count,
+                    resultBytes, countCopy,
                     &updateLen)
             })
             guard status == noErr else { throw CCError(status) }
@@ -1482,7 +1485,7 @@ public typealias CCCryptorStatus = Int32
             var finalLen: size_t = 0
             status = result.withUnsafeMutableBytes({ (resultBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
                 return CCCryptorFinal!(cryptor!, resultBytes + updateLen,
-                                       result.count - updateLen,
+                                       countCopy - updateLen,
                                        &finalLen)
             })
             guard status == noErr else { throw CCError(status) }
@@ -1907,6 +1910,7 @@ public typealias CCCryptorStatus = Int32
                                   prf: PRFAlg, rounds: UInt32) throws -> Data {
 
             var result = Data(count:prf.cc.digestLength)
+            var countCopy = result.count
             let passwData = password.data(using: String.Encoding.utf8)!
             let status = result.withUnsafeMutableBytes {
                 (passwDataBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
@@ -1914,7 +1918,7 @@ public typealias CCCryptorStatus = Int32
                                              (passwData as NSData).bytes, passwData.count,
                                              (salt as NSData).bytes, salt.count,
                                              prf.rawValue, rounds,
-                                             passwDataBytes, result.count)
+                                             passwDataBytes, countCopy)
             }
             guard status == noErr else { throw CCError(status) }
 
@@ -2136,16 +2140,16 @@ extension String {
 
         let found = regex.firstMatch(in: trimmedString, options: [],
                                      range: NSRange(location: 0,
-                                                    length: trimmedString.characters.count))
+                                                    length: trimmedString.count))
         guard found != nil &&
             found?.range.location != NSNotFound &&
-            trimmedString.characters.count % 2 == 0 else {
+            trimmedString.count % 2 == 0 else {
                 return nil
         }
 
         // everything ok, so now let's build Data
 
-        var data = Data(capacity: trimmedString.characters.count / 2)
+        var data = Data(capacity: trimmedString.count / 2)
         var index: String.Index? = trimmedString.startIndex
 
         while let i = index {
