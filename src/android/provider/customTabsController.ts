@@ -153,16 +153,17 @@ export class CustomTabsController extends CustomTabsServiceConnection {
     public static getBestBrowserPackage(context: Context): string {
         const pm = context.getPackageManager();
         const browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.example.com"));
+        const activityResolveFlag = Build.VERSION.SDK_INT >= 23 /*Build.VERSION_CODES.M*/ ? 0x00020000 /*PackageManager.MATCH_ALL*/ : PackageManager.MATCH_DEFAULT_ONLY;
         const webHandler: ResolveInfo = pm.resolveActivity(
             browserIntent,
-            Build.VERSION.SDK_INT >= 23 /*Build.VERSION_CODES.M*/ ? 0x00020000 /*PackageManager.MATCH_ALL*/ : PackageManager.MATCH_DEFAULT_ONLY
+            activityResolveFlag
         );
         let defaultBrowser: string | undefined;
         if (webHandler != null) {
             defaultBrowser = webHandler.activityInfo.packageName;
         }
 
-        const resolvedActivityList = pm.queryIntentActivities(browserIntent, 0);
+        const resolvedActivityList = pm.queryIntentActivities(browserIntent, activityResolveFlag);
         const customTabsBrowsers: string[] = [];
         for (let i = 0; i < resolvedActivityList.size(); i++) {
             const info = resolvedActivityList.get(i);
