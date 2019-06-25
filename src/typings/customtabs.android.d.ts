@@ -5,7 +5,7 @@ declare namespace android {
                 public warmup(param0: number);
                 public newSession(param0: string): CustomTabsSession;
 
-                public static bindCustomTabsService(context: android.content.Context, package: string, serviceConnection: CustomTabsServiceConnection)
+                public static bindCustomTabsService(context: android.content.Context, package: string, serviceConnection: CustomTabsServiceConnection);
             }
             export abstract class CustomTabsServiceConnection extends android.content.ServiceConnection { }
             export class CustomTabsSession extends java.lang.Object { }
