@@ -1,7 +1,7 @@
-declare module com {
-    export module auth0 {
-        export module android {
-            export module jwt {
+declare namespace com {
+    export namespace auth0 {
+        export namespace android {
+            export namespace jwt {
                 export class Claim extends java.lang.Object {
                     public asString(): string;
                 }
