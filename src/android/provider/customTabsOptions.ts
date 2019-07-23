@@ -3,9 +3,9 @@ import Context = android.content.Context;
 import Intent = android.content.Intent;
 import Parcel = android.os.Parcel;
 import Parcelable = android.os.Parcelable;
-import CustomTabsIntent = android.support.customtabs.CustomTabsIntent;
-import CustomTabsSession = android.support.customtabs.CustomTabsSession;
-import ContextCompat = android.support.v4.content.ContextCompat;
+import CustomTabsIntent = androidx.browser.customtabs.CustomTabsIntent;
+import CustomTabsSession = androidx.browser.customtabs.CustomTabsSession;
+import ContextCompat = androidx.core.content.ContextCompat;
 
 /**
  * Holder for Custom Tabs customization options. Use {@link CustomTabsOptions#newBuilder()} to begin.
@@ -33,7 +33,7 @@ export class CustomTabsOptions extends java.lang.Object {
                 .setShowTitle(this.showTitle);
         if (this.toolbarColor > 0) {
             // Resource exists
-            builder.setToolbarColor((ContextCompat as any).getColor(context, this.toolbarColor));
+            builder.setToolbarColor(ContextCompat.getColor(context, this.toolbarColor));
         }
         return builder.build().intent;
     }

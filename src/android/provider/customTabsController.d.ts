@@ -1,8 +1,8 @@
 import ComponentName = android.content.ComponentName;
 import Context = android.content.Context;
 import Uri = android.net.Uri;
-import CustomTabsClient = android.support.customtabs.CustomTabsClient;
-import CustomTabsServiceConnection = android.support.customtabs.CustomTabsServiceConnection;
+import CustomTabsClient = androidx.browser.customtabs.CustomTabsClient;
+import CustomTabsServiceConnection = androidx.browser.customtabs.CustomTabsServiceConnection;
 import { CustomTabsOptions } from './customTabsOptions';
 export declare class CustomTabsController extends CustomTabsServiceConnection {
     private static readonly TAG;

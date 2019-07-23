@@ -7,9 +7,9 @@ export declare class WebAuthError extends Error {
     static missingResponseParam: WebAuthError;
     static invalidIdTokenNonce: WebAuthError;
     static missingAccessToken: WebAuthError;
-    static readonly genericFoundationCode: number;
-    static readonly cancelledFoundationCode: number;
-    static readonly infoKey: string;
+    static readonly genericFoundationCode = 1;
+    static readonly cancelledFoundationCode = 0;
+    static readonly infoKey = "com.auth0.webauth.error.info";
     static readonly errorDomain: String;
     constructor(message: string);
     readonly errorCode: number;

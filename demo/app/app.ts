@@ -12,4 +12,4 @@ if (application.ios) {
     });
 }
 
-application.start({ moduleName: "main-page" });
+application.run({ moduleName: 'main-page' });

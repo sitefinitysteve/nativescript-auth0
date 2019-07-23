@@ -8,7 +8,7 @@ Auth0 is a freemium service. The free tier supports up to 7,000 active users. [A
 
 In addition to managing many login providers, Auth0 also has solutions for application analytics, logging, web tasks and more. [Take a look at all of the Auth0 features](https://auth0.com/why-auth0) and services.
 
-Requires NativeScript version `>=4.2.0`.
+Requires NativeScript version `>=6.0.0`.
 
 
 ## Installation

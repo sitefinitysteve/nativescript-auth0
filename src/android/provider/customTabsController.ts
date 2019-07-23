@@ -7,9 +7,9 @@ import PackageManager = android.content.pm.PackageManager;
 import ResolveInfo = android.content.pm.ResolveInfo;
 import Uri = android.net.Uri;
 import Build = android.os.Build;
-import CustomTabsClient = android.support.customtabs.CustomTabsClient;
-import CustomTabsServiceConnection = android.support.customtabs.CustomTabsServiceConnection;
-import CustomTabsSession = android.support.customtabs.CustomTabsSession;
+import CustomTabsClient = androidx.browser.customtabs.CustomTabsClient;
+import CustomTabsServiceConnection = androidx.browser.customtabs.CustomTabsServiceConnection;
+import CustomTabsSession = androidx.browser.customtabs.CustomTabsSession;
 import Log = android.util.Log;
 
 import AtomicReference = java.util.concurrent.atomic.AtomicReference;
