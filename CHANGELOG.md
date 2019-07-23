@@ -1,6 +1,17 @@
 
 ## Version Notes
 
+### 3.0.0
+
+feat: Update to NativeScript 6.0 with AndroidX
+
+BREAKING CHANGE: NativeScript 6.0 required due to AndroidX support
+
+### 2.1.2
+
+fix(android): Browser not opening on Xiaomi device
+fix(style): Fixed tslint errors
+
 ### 2.1.1
 
 Fix crash related to null foregroundActivity
