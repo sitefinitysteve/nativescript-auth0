@@ -1,6 +1,10 @@
 
 ## Version Notes
 
+### 3.0.1
+
+fix(common): UserInfo incorrect JSON serialization
+
 ### 3.0.0
 
 feat: Update to NativeScript 6.0 with AndroidX

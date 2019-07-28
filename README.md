@@ -86,6 +86,18 @@ Add this to your AndroidManifest.xml
 ```
 [Sample from demo](./demo/app/App_Resources/Android/src/main/AndroidManifest.xml#L44-L60)
 
+You must also update webpack.config.js to include the redirect activity
+
+```js
+    // Add your custom Activities, Services and other android app components here.
+    const appComponents = [
+        "tns-core-modules/ui/frame",
+        "tns-core-modules/ui/frame/activity",
+        "nativescript-auth0/android/provider/redirectActivity" // <-- add this line
+    ];
+```
+[Sample from demo](./demo/webpack.config.js#L15-L20)
+
 
 ## Usage
 
