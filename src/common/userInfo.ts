@@ -217,5 +217,6 @@ export class UserInfo {
         for (const key in this.customClaims) {
             data[key] = this.customClaims[key];
         }
+        return data;
     }
 }
