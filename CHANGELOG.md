@@ -1,6 +1,10 @@
 
 ## Version Notes
 
+### 3.0.2
+
+fix(android): android devices without customtabs support not falling back to default browser
+
 ### 3.0.1
 
 fix(common): UserInfo incorrect JSON serialization
