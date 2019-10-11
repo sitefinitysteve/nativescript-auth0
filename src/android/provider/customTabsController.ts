@@ -122,9 +122,7 @@ export class CustomTabsController extends CustomTabsServiceConnection {
             this.customTabsOptions = CustomTabsOptions.create();
         }
 
-        if (this.preferredPackage != null) {
-            setTimeout(() => this.sessionLatchReady(false), CustomTabsController.MAX_WAIT_TIME_SECONDS * 1000);
-        }
+        setTimeout(() => this.sessionLatchReady(false), CustomTabsController.MAX_WAIT_TIME_SECONDS * 1000);
 
         this.sessionLatch.then((available) => {
             Log.d(CustomTabsController.TAG, `Launching URI. Custom Tabs available: ${available}`);
