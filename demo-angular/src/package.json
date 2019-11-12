@@ -2,6 +2,6 @@
   "main": "main.js",
   "android": {
     "v8Flags": "--expose_gc",
-    "markingMode": "full"
+    "markingMode": "none"
   }
 }

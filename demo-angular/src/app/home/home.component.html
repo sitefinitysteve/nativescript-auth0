@@ -1,7 +1,9 @@
 <ActionBar class="action-bar">
-    <Label class="action-bar-title" text="Home"></Label>
+    <Label class="action-bar-title" text="ng nativescript-auth0"></Label>
 </ActionBar>
 
-<GridLayout class="page">
+<StackLayout class="p-20">
     <!-- Add your page content here -->
-</GridLayout>
+    <Button text="Log with Auth0" (tap)="login()"></Button>
+    <Label textWrap="true" class="t-20 text-center c-black" [text]="message"></Label>
+</StackLayout>
