@@ -1,0 +1,35 @@
+{
+  "nativescript": {
+    "id": "org.nativescript.auth0demo",
+    "tns-android": {
+      "version": "6.2.0"
+    },
+    "tns-ios": {
+      "version": "6.2.0"
+    }
+  },
+  "dependencies": {
+    "@angular/animations": "~8.2.13",
+    "@angular/common": "~8.2.13",
+    "@angular/compiler": "~8.2.13",
+    "@angular/core": "~8.2.13",
+    "@angular/forms": "~8.2.13",
+    "@angular/http": "~8.0.0-beta.10",
+    "@angular/platform-browser": "~8.2.13",
+    "@angular/platform-browser-dynamic": "~8.2.13",
+    "@angular/router": "~8.2.13",
+    "nativescript-angular": "~8.20.1",
+    "nativescript-auth0": "file:../src",
+    "nativescript-theme-core": "~1.0.4",
+    "reflect-metadata": "~0.1.13",
+    "rxjs": "~6.5.3",
+    "tns-core-modules": "~6.2.0",
+    "zone.js": "~0.10.2"
+  },
+  "devDependencies": {
+    "@angular/compiler-cli": "~8.2.13",
+    "@ngtools/webpack": "~8.3.18",
+    "nativescript-dev-webpack": "1.3.0",
+    "typescript": "3.4.5"
+  }
+}
