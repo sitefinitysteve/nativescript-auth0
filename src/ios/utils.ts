@@ -23,9 +23,9 @@ export function a0_encodeBase64URLSafe(dataOrString: NSData | string): string {
         data = text.dataUsingEncoding(NSUTF8StringEncoding);
     }
     return data.base64EncodedStringWithOptions(0)
-        .replace('+', '-')
-        .replace('/', '_')
-        .replace('=', '');
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=/g, '');
 }
 
 export function a0_url(domain: string): NSURL {
