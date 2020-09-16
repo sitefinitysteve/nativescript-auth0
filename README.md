@@ -112,7 +112,7 @@ Create your Auth0 object
     this.auth0 = new Auth0('<your clientid>', '<your domain>');
 ```
 
-Start the web authentication flow, returns a promise
+Start the web authentication flow, with a space-separated string declaring [standard claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) for the desired user info.
 ```ts
     /// Promise returns credentials object
     this.auth0.webAuthentication({
