@@ -118,7 +118,9 @@ Start the web authentication flow, returns a promise
     this.auth0.webAuthentication({
         scope: 'openid offline_access'
     }).then((res) => {
-        // goToHomeOrWhatevs(); 
+        this.auth0.getUserInfo(res.accessToken).then( userInfo => {
+            // goToHomeOrWhatevs(); 
+        })
     }, (error) => {
         // console.log(error);
     });
