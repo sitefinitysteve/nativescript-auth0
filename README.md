@@ -23,7 +23,7 @@ Go to your Auth0.com backend and configure your CallbackUrls, *DO NOT USE THE KE
 Syntax should be:
 ```
 <!-- iOS -->
-{YOUR_BUNDLE_IDENTIFIER}://${YOUR_AUTH0_DOMAIN}/ios/{YOUR_BUNDLE_IDENTIFIER}/callback
+{YOUR_BUNDLE_IDENTIFIER}://{YOUR_AUTH0_DOMAIN}/ios/{YOUR_BUNDLE_IDENTIFIER}/callback
 
 <!-- Android -->
 https://{YOUR_AUTH0_DOMAIN}/android/{YOUR_APP_PACKAGE_NAME}/callback
