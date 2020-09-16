@@ -23,7 +23,7 @@ Go to your Auth0.com backend and configure your CallbackUrls, *DO NOT USE THE KE
 Syntax should be:
 ```
 <!-- iOS -->
-{YOUR_BUNDLE_IDENTIFIER}://${YOUR_AUTH0_DOMAIN}/ios/{YOUR_BUNDLE_IDENTIFIER}/callback
+{YOUR_BUNDLE_IDENTIFIER}://{YOUR_AUTH0_DOMAIN}/ios/{YOUR_BUNDLE_IDENTIFIER}/callback
 
 <!-- Android -->
 https://{YOUR_AUTH0_DOMAIN}/android/{YOUR_APP_PACKAGE_NAME}/callback
@@ -112,13 +112,15 @@ Create your Auth0 object
     this.auth0 = new Auth0('<your clientid>', '<your domain>');
 ```
 
-Start the web authentication flow, returns a promise
+Start the web authentication flow, with a space-separated string declaring [standard claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) for the desired user info.
 ```ts
     /// Promise returns credentials object
     this.auth0.webAuthentication({
-        scope: 'openid offline_access'
+        scope: 'openid profile email'
     }).then((res) => {
-        // goToHomeOrWhatevs(); 
+        this.auth0.getUserInfo(res.accessToken).then( userInfo => {
+            // goToHomeOrWhatevs(); 
+        })
     }, (error) => {
         // console.log(error);
     });
