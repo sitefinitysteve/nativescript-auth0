@@ -116,7 +116,7 @@ Start the web authentication flow, returns a promise
 ```ts
     /// Promise returns credentials object
     this.auth0.webAuthentication({
-        scope: 'openid offline_access'
+        scope: 'openid profile email'
     }).then((res) => {
         this.auth0.getUserInfo(res.accessToken).then( userInfo => {
             // goToHomeOrWhatevs(); 
