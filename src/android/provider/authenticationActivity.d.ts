@@ -9,7 +9,7 @@ export declare const EXTRA_AUTHORIZE_URI: string;
 export declare const EXTRA_INTENT_LAUNCHED: string;
 export declare const EXTRA_CT_OPTIONS: string;
 export declare function authenticateUsingBrowser(context: Context, authorizeUri: Uri, options?: CustomTabsOptions): void;
-export declare class AuthenticationActivity extends android.app.Activity {
+declare class AuthenticationActivity extends android.app.Activity {
     private intentLaunched;
     private customTabsController;
     constructor();
@@ -23,3 +23,4 @@ export declare class AuthenticationActivity extends android.app.Activity {
     createCustomTabsController(context: Context): CustomTabsController;
     deliverAuthenticationResult(result: Intent): void;
 }
+export { AuthenticationActivity };

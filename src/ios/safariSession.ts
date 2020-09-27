@@ -5,6 +5,7 @@ import { Credentials } from '../common/credentials';
 import { Logger } from './logger';
 import { TransactionStore } from './transactionStore';
 
+@NativeClass()
 export class SafariSessionDelegate extends NSObject {
 
     public static ObjCProtocols = [SFSafariViewControllerDelegate];

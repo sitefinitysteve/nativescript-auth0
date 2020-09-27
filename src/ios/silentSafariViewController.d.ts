@@ -1,4 +1,4 @@
-export declare class SilentSafariViewController extends SFSafariViewController implements SFSafariViewControllerDelegate {
+declare class SilentSafariViewController extends SFSafariViewController implements SFSafariViewControllerDelegate {
     onResult: (result: boolean) => void;
     static alloc(): SilentSafariViewController;
     initWithURLCallback(URL: NSURL, callback: (result: boolean) => void): this;
@@ -7,3 +7,4 @@ export declare class SilentSafariViewController extends SFSafariViewController i
         prototype: SFSafariViewControllerDelegate;
     }[];
 }
+export { SilentSafariViewController };

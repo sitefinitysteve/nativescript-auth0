@@ -2,7 +2,7 @@ import {
     HttpRequestOptions,
     HttpResponse,
     HttpResponseEncoding
-} from 'tns-core-modules/http/http';
+} from '@nativescript/core/http';
 
 import Uri = android.net.Uri;
 import IOException = java.io.IOException;

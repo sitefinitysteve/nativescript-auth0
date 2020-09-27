@@ -4,7 +4,7 @@ import Uri = android.net.Uri;
 import CustomTabsClient = androidx.browser.customtabs.CustomTabsClient;
 import CustomTabsServiceConnection = androidx.browser.customtabs.CustomTabsServiceConnection;
 import { CustomTabsOptions } from './customTabsOptions';
-export declare class CustomTabsController extends CustomTabsServiceConnection {
+declare class CustomTabsController extends CustomTabsServiceConnection {
     private static readonly TAG;
     private static readonly MAX_WAIT_TIME_SECONDS;
     private static readonly ACTION_CUSTOM_TABS_CONNECTION;
@@ -30,3 +30,4 @@ export declare class CustomTabsController extends CustomTabsServiceConnection {
     launchUri(uri: Uri): void;
     static getBestBrowserPackage(context: Context): string;
 }
+export { CustomTabsController };

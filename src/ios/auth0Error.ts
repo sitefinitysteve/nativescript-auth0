@@ -7,7 +7,6 @@ export const emptyBodyError = 'a0.sdk.internal_error.empty';
    - note: It's recommended to use either `AuthenticationError` or `ManagementError` for better error handling
  */
 export class Auth0Error extends Error {
-
     public readonly info: { [key: string]: any };
 
     constructor(infoOrString: { [key: string]: any } | string | undefined = undefined, statusCode: number = 0) {

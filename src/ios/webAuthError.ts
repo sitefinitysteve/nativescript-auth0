@@ -9,7 +9,8 @@
  - invalidIdTokenNonce:            Failed to match token nonce with request nonce
  - missingAccessToken:             access_token missing in response
  */
-export class WebAuthError extends Error {
+@NativeClass()
+class WebAuthError extends Error {
     public static noBundleIdentifierFound = new WebAuthError("Failed to perform webAuth");
     public static cannotDismissWebAuthController = new WebAuthError("Failed to perform webAuth");
     public static userCancelled = new WebAuthError("User Cancelled Web Authentication");
@@ -40,3 +41,7 @@ export class WebAuthError extends Error {
         }
     }
 }
+
+export {
+    WebAuthError
+};

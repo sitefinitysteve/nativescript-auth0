@@ -1,11 +1,11 @@
 <template>
-    <Page>
-        <ActionBar title="Welcome to NativeScript-Vue!"/>
-        <StackLayout class="p-20">
-            <Button text="Login" @tap="onTap"></Button>
-            <Label :text="message" class="t-20 text-center c-black" textWrap="true"/>
-        </StackLayout>
-    </Page>
+  <Page>
+      <ActionBar title="Welcome to NativeScript-Vue!"/>
+      <StackLayout class="p-20">
+          <Button text="Login" @tap="onTap"></Button>
+          <Label :text="message" class="t-20 text-center c-black" textWrap="true"/>
+      </StackLayout>
+  </Page>
 </template>
 
 <script lang="ts">
@@ -30,15 +30,15 @@
 </script>
 
 <style scoped>
-    ActionBar {
-        background-color: #53ba82;
-        color: #ffffff;
-    }
+  ActionBar {
+      background-color: #53ba82;
+      color: #ffffff;
+  }
 
-    .message {
-        vertical-align: center;
-        text-align: center;
-        font-size: 20;
-        color: #333333;
-    }
+  .message {
+      vertical-align: center;
+      text-align: center;
+      font-size: 20;
+      color: #333333;
+  }
 </style>

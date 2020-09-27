@@ -16,7 +16,8 @@ import AtomicReference = java.util.concurrent.atomic.AtomicReference;
 
 import { CustomTabsOptions } from './customTabsOptions';
 
-export class CustomTabsController extends CustomTabsServiceConnection {
+@NativeClass()
+class CustomTabsController extends CustomTabsServiceConnection {
 
     private static readonly TAG: string = 'CustomTabsController';
     private static readonly MAX_WAIT_TIME_SECONDS: number = 1;
@@ -189,3 +190,4 @@ export class CustomTabsController extends CustomTabsServiceConnection {
         }
     }
 }
+export { CustomTabsController };

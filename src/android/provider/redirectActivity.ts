@@ -4,6 +4,7 @@ import Bundle = android.os.Bundle;
 
 import { AuthenticationActivity } from './authenticationActivity';
 
+@NativeClass()
 @JavaProxy('org.nativescript.auth0.RedirectActivity')
 export class RedirectActivity extends android.app.Activity {
 

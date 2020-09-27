@@ -1,4 +1,4 @@
-import { HttpRequestOptions, HttpResponse } from 'tns-core-modules/http/http';
+import { HttpRequestOptions, HttpResponse } from '@nativescript/core/http';
 import Uri = android.net.Uri;
 import { Auth0Exception } from '../../auth0Exception';
 import { ParameterBuilder } from '../../authentication/parameterBuilder';
