@@ -32,6 +32,7 @@ export function authenticateUsingBrowser(context: Context, authorizeUri: Uri, op
     context.startActivity(intent);
 }
 
+@NativeClass()
 @JavaProxy('org.nativescript.auth0.AuthenticationActivity')
 export class AuthenticationActivity extends android.app.Activity {
     private intentLaunched: boolean;
@@ -68,6 +69,7 @@ export class AuthenticationActivity extends android.app.Activity {
 
     public onResume(): void {
         super.onResume();
+
         if (!this.intentLaunched && this.getIntent().getExtras() == null) {
             // Activity was launched in an unexpected way
             this.finish();

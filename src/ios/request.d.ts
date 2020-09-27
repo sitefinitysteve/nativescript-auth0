@@ -1,4 +1,4 @@
-import { HttpRequestOptions } from 'tns-core-modules/http/http';
+import { HttpRequestOptions } from '@nativescript/core/http';
 import { Auth0Error } from './auth0Error';
 import { Requestable } from './requestable';
 import { Response } from './response';
@@ -23,7 +23,7 @@ export declare class Request<T, E extends Auth0Error> implements Requestable<T> 
     }, headers: {
         [key: string]: string;
     }, logger: Logger | undefined, telemetry: Telemetry, EClass: typeof Auth0Error);
-    readonly request: HttpRequestOptions;
+    get request(): HttpRequestOptions;
     start(callback: (result: Result<T>) => void): void;
 }
 export declare class ConcatRequest<F, S, E extends Auth0Error> implements Requestable<S> {

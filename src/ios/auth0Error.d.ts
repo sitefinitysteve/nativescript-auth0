@@ -8,5 +8,5 @@ export declare class Auth0Error extends Error {
     constructor(infoOrString?: {
         [key: string]: any;
     } | string | undefined, statusCode?: number);
-    readonly code: string;
+    get code(): string;
 }

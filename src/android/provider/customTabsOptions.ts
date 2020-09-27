@@ -10,6 +10,7 @@ import ContextCompat = androidx.core.content.ContextCompat;
 /**
  * Holder for Custom Tabs customization options. Use {@link CustomTabsOptions#newBuilder()} to begin.
  */
+@NativeClass()
 @Interfaces([Parcelable])
 export class CustomTabsOptions extends java.lang.Object {
 

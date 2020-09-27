@@ -1,4 +1,4 @@
-import { HttpRequestOptions, HttpResponse, HttpResponseEncoding } from 'tns-core-modules/http/http';
+import { HttpRequestOptions, HttpResponse, HttpResponseEncoding } from '@nativescript/core/http';
 
 export interface Logger {
     trace(request: HttpRequestOptions);

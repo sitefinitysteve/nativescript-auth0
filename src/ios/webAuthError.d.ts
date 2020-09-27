@@ -12,5 +12,5 @@ export declare class WebAuthError extends Error {
     static readonly infoKey = "com.auth0.webauth.error.info";
     static readonly errorDomain: String;
     constructor(message: string);
-    readonly errorCode: number;
+    get errorCode(): number;
 }

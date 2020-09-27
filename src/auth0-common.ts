@@ -18,6 +18,7 @@ export interface WebAuthOptions {
     parameters?: { [param: string]: string; };
 }
 
+@NativeClass()
 export class WebAuthException extends Error {
     constructor(message) {
         super(message);

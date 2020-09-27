@@ -1,4 +1,4 @@
-import { device } from 'tns-core-modules/platform/platform';
+import { Device } from '@nativescript/core';
 
 import { ControllerModalPresenter } from './controllerModalPresenter';
 import { Credentials } from '../common/credentials';
@@ -121,7 +121,7 @@ export class SafariWebAuth extends WebAuth {
         let state = this.parameters["state"] || generateDefaultState();
         let authorizeURL = this.buildAuthorizeURL(redirectURL, handler.defaults, state);
 
-        if (Number(device.osVersion.split('.')[0]) >= 11.0 && this.authenticationSession) {
+        if (Number(Device.osVersion.split('.')[0]) >= 11.0 && this.authenticationSession) {
             let session = new SafariAuthenticationSession(authorizeURL, redirectURL, state, handler, callback, this.logger);
             if (this.logger != null) {
                 this.logger.trace(authorizeURL, "SafariAuthenticationSession");
@@ -216,7 +216,7 @@ export class SafariWebAuth extends WebAuth {
         const logoutURL = federated
             ? new NSURL({ string: "/v2/logout?federated", relativeToURL: this.url })
             : new NSURL({ string: "/v2/logout", relativeToURL: this.url });
-        if (Number(device.osVersion.split('.')[0]) >= 11.0 && this.authenticationSession) {
+        if (Number(Device.osVersion.split('.')[0]) >= 11.0 && this.authenticationSession) {
             const returnTo = new NSURLQueryItem({ name: "returnTo", value: (this.redirectURL != null) ? this.redirectURL.absoluteString : undefined });
             const clientId = new NSURLQueryItem({ name: "client_id", value: this.clientId });
             const components = new NSURLComponents({ URL: logoutURL, resolvingAgainstBaseURL: true });
