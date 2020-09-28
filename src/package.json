@@ -8,8 +8,7 @@
         "platforms": {
             "android": "7.0.0",
             "ios": "7.0.0"
-        },
-        "recursive-static-bindings": true
+        }
     },
     "scripts": {
         "tsc": "tsc -skipLibCheck",

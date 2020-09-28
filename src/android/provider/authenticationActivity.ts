@@ -34,7 +34,7 @@ export function authenticateUsingBrowser(context: Context, authorizeUri: Uri, op
 
 @NativeClass()
 @JavaProxy('org.nativescript.auth0.AuthenticationActivity')
-export class AuthenticationActivity extends android.app.Activity {
+class AuthenticationActivity extends android.app.Activity {
     private intentLaunched: boolean;
     private customTabsController: CustomTabsController;
 
@@ -111,3 +111,5 @@ export class AuthenticationActivity extends android.app.Activity {
         WebAuthProvider.resume(result);
     }
 }
+
+export { AuthenticationActivity };
