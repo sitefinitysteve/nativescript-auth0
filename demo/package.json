@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "@nativescript/android": "7.0.0",
+    "@nativescript/ios": "7.0.1",
     "karma": "^4.1.0",
     "karma-jasmine": "^2.0.1",
     "karma-webpack": "~3.0.5",
