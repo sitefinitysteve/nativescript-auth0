@@ -7,7 +7,7 @@ export const emptyBodyError = 'a0.sdk.internal_error.empty';
    - note: It's recommended to use either `AuthenticationError` or `ManagementError` for better error handling
  */
 @NativeClass()
-export class Auth0Error extends Error {
+class Auth0Error extends Error {
 
     public readonly info: { [key: string]: any };
 
@@ -35,3 +35,7 @@ export class Auth0Error extends Error {
         return this.info["code"] || unknownError;
     }
 }
+
+export {
+    Auth0Error
+};

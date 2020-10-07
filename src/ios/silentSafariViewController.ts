@@ -1,7 +1,7 @@
 import { Device } from '@nativescript/core';
 
 @NativeClass()
-export class SilentSafariViewController extends SFSafariViewController implements SFSafariViewControllerDelegate {
+class SilentSafariViewController extends SFSafariViewController implements SFSafariViewControllerDelegate {
     public onResult: (result: boolean) => void = () => {};
 
     public static alloc(): SilentSafariViewController {
@@ -31,3 +31,7 @@ export class SilentSafariViewController extends SFSafariViewController implement
 
     public static ObjCProtocols = [ SFSafariViewControllerDelegate ];
 }
+
+export {
+    SilentSafariViewController
+};

@@ -1,4 +1,4 @@
-export declare class WebAuthError extends Error {
+declare class WebAuthError extends Error {
     static noBundleIdentifierFound: WebAuthError;
     static cannotDismissWebAuthController: WebAuthError;
     static userCancelled: WebAuthError;
@@ -14,3 +14,4 @@ export declare class WebAuthError extends Error {
     constructor(message: string);
     get errorCode(): number;
 }
+export { WebAuthError };
