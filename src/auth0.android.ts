@@ -16,9 +16,9 @@ export {
     Credentials,
     UserInfo,
     ResponseType,
-    WebAuthException,
-    WebAuthOptions
+    WebAuthException
 };
+export type { WebAuthOptions };
 
 export class Auth0 extends Auth0Common {
 

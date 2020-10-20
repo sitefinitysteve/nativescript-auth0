@@ -15,9 +15,9 @@ export {
     Credentials,
     UserInfo,
     ResponseType,
-    WebAuthException,
-    WebAuthOptions
+    WebAuthException
 };
+export type { WebAuthOptions };
 
 export { resumeAuth } from './ios/webAuth';
 
