@@ -12,7 +12,7 @@ import ContextCompat = androidx.core.content.ContextCompat;
  */
 @NativeClass()
 @Interfaces([Parcelable])
-export class CustomTabsOptions extends java.lang.Object {
+class CustomTabsOptions extends java.lang.Object {
 
     private showTitle: boolean;
     private toolbarColor: number;
@@ -59,3 +59,5 @@ export class CustomTabsOptions extends java.lang.Object {
         }
     });
 }
+
+export { CustomTabsOptions };

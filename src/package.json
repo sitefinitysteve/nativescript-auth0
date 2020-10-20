@@ -13,8 +13,7 @@
     "scripts": {
         "tsc": "tsc -skipLibCheck",
         "setup": "npm i && ts-patch install",
-        "build": "npm run setup && tsc && npm run build.native",
-        "build.native": "node scripts/build-native.js",
+        "build": "npm run setup && tsc",
         "postclone": "npm r && node scripts/postclone.js && cd ../demo && npm r && cd ../src && npm run plugin.link",
         "test.android": "npm r && npm run tsc && npm run tslint && cd ../demo && ns build android && ns test android --justlaunch",
         "test.ios": "npm r && npm run tsc && npm run tslint && cd ../demo && ns build ios && ns test ios --justlaunch",
@@ -32,8 +31,7 @@
         "demo-vue.reset": "cd ../demo-vue && rimraf platforms",
         "plugin.prepare": "npm run build && cd ../demo && ns plugin remove nativescript-auth0 && ns plugin add ../src",
         "clean": "cd ../demo && rimraf hooks node_modules platforms && cd ../src && rimraf node_modules && npm run plugin.link",
-        "ci.tslint": "npm r && tslint '**/*.ts' --config '../tslint.json' --exclude '**/node_modules/**'",
-        "prepack": "npm run build.native"
+        "ci.tslint": "npm r && tslint '**/*.ts' --config '../tslint.json' --exclude '**/node_modules/**'"
     },
     "keywords": [
         "NativeScript",
@@ -64,7 +62,7 @@
         "semver": "^5.5.0",
         "ts-patch": "^1.3.0",
         "tslint": "^5.14.0",
-        "typescript": "~3.9.0"
+        "typescript": "~4.0.0"
     },
     "dependencies": {
         "ts-node": "^9.0.0"

@@ -5,6 +5,14 @@ export {
     UserInfo
 };
 
+/**
+ * iOS Only
+ * Used with AppDelegate applicationOpenURLOptions
+ * @param url NSURL
+ * @param options NSDictionary
+ */
+export declare function resumeAuth(url: any, options: any): boolean;
+
 export interface WebAuthOptions {
     audience?: string;
     connection?: string;

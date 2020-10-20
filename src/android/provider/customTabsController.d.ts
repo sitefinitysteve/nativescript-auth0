@@ -30,4 +30,4 @@ declare class CustomTabsController extends CustomTabsServiceConnection {
     launchUri(uri: Uri): void;
     static getBestBrowserPackage(context: Context): string;
 }
-export { CustomTabsController };
+export { CustomTabsController, CustomTabsOptions };

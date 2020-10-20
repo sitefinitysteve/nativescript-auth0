@@ -190,4 +190,4 @@ class CustomTabsController extends CustomTabsServiceConnection {
         }
     }
 }
-export { CustomTabsController };
+export { CustomTabsController, CustomTabsOptions };
