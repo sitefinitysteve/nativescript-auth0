@@ -6,9 +6,7 @@ export const emptyBodyError = 'a0.sdk.internal_error.empty';
    Generic representation of Auth0 API errors
    - note: It's recommended to use either `AuthenticationError` or `ManagementError` for better error handling
  */
-@NativeClass()
-class Auth0Error extends Error {
-
+export class Auth0Error extends Error {
     public readonly info: { [key: string]: any };
 
     constructor(infoOrString: { [key: string]: any } | string | undefined = undefined, statusCode: number = 0) {
@@ -35,7 +33,3 @@ class Auth0Error extends Error {
         return this.info["code"] || unknownError;
     }
 }
-
-export {
-    Auth0Error
-};

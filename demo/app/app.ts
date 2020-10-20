@@ -3,7 +3,6 @@
 if (Application.ios) {
     const delegate = require('./custom-app-delegate');
     const Auth0 = require('nativescript-auth0');
-
     const CustomAppDelegate = delegate.CustomAppDelegate;
     Application.ios.delegate = CustomAppDelegate;
 

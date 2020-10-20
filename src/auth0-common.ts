@@ -7,7 +7,7 @@ export enum ResponseType {
     ID_TOKEN = 4
 }
 
-interface WebAuthOptions {
+export interface WebAuthOptions {
     audience?: string;
     connection?: string;
     nonce?: string;
@@ -18,16 +18,12 @@ interface WebAuthOptions {
     parameters?: { [param: string]: string; };
 }
 
-@NativeClass() class WebAuthException extends Error {
+export class WebAuthException extends Error {
     constructor(message) {
         super(message);
         Object.setPrototypeOf(this, new.target.prototype);
     }
 }
-export {
-    WebAuthException,
-    WebAuthOptions
-};
 
 export abstract class Auth0Common {
 

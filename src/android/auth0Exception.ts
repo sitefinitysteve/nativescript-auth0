@@ -1,7 +1,6 @@
 /**
  * Base Exception for any error found during a request to Auth0's API
  */
-@NativeClass()
 export class Auth0Exception extends Error {
 
     constructor(message?: string) {
