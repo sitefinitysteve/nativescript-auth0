@@ -18,12 +18,15 @@ module.exports = env => {
     const appComponents = env.appComponents || [];
     appComponents.push(...[
         "@nativescript/core/ui/frame",
-        "@nativescript/core/ui/frame/activity",
+        "@nativescript/core/ui/frame/activity"
     ]);
 
     const platform = env && (env.android && "android" || env.ios && "ios" || env.platform);
     if (!platform) {
         throw new Error("You need to provide a target platform!");
+    }
+    if (platform === "android") {
+      appComponents.push("nativescript-auth0/android/provider/redirectActivity");
     }
 
     const platforms = ["ios", "android"];
@@ -268,7 +271,7 @@ module.exports = env => {
                 "process": "global.process",
             }),
             // Remove all files from the out dir.
-            new CleanWebpackPlugin({
+            new CleanWebpackPlugin({ 
               cleanOnceBeforeBuildPatterns: itemsToClean,
               verbose: !!verbose
             }),

@@ -3,7 +3,7 @@ import Intent = android.content.Intent;
 import Parcel = android.os.Parcel;
 import Parcelable = android.os.Parcelable;
 import CustomTabsSession = androidx.browser.customtabs.CustomTabsSession;
-export declare class CustomTabsOptions extends java.lang.Object {
+declare class CustomTabsOptions extends java.lang.Object {
     private showTitle;
     private toolbarColor;
     constructor();
@@ -13,3 +13,4 @@ export declare class CustomTabsOptions extends java.lang.Object {
     writeToParcel(dest: Parcel, flags: number): void;
     static readonly CREATOR: Parcelable.Creator<CustomTabsOptions>;
 }
+export { CustomTabsOptions };
