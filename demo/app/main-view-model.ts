@@ -1,24 +1,26 @@
 import { Observable } from '@nativescript/core';
-import { Auth0 } from 'nativescript-auth0';
+import { Auth0, Credentials, WebAuthException } from 'nativescript-auth0';
 
 export class HelloWorldModel extends Observable {
-    public message: string;
     private auth0: Auth0;
+    public message: string;
 
     constructor() {
         super();
 
         this.auth0 = new Auth0('q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp', 'nativescript.auth0.com');
-        this.message = 'hello';
+        this.message = '';
     }
 
-    onTap(args) {
-        const button = args.object;
+    onTap() {
         this.auth0.webAuthentication({
             scope: 'openid offline_access'
-        }).then((result) => {
-            this.message = JSON.stringify(result);
+        }).then((result: Credentials) => {
+            this.set('message', JSON.stringify(result, null, '  '));
             console.log(result);
-        }).catch((e: Error) => console.log(e, e.stack));
+        }).catch((error: Error | WebAuthException) => {
+            this.set('message', JSON.stringify(error, null, '  '));
+            console.log(error.stack);
+        });
     }
 }

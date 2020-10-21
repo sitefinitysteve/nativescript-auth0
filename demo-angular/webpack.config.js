@@ -1,6 +1,5 @@
 const { join, relative, resolve, sep, dirname } = require('path');
 const fs = require('fs');
-
 const webpack = require('webpack');
 const nsWebpack = require('@nativescript/webpack');
 const nativescriptTarget = require('@nativescript/webpack/nativescript-target');
@@ -29,17 +28,15 @@ const hashSalt = Date.now().toString();
 
 module.exports = env => {
   // Add your custom Activities, Services and other Android app components here.
-  const appComponents = [
-    "@nativescript/core/ui/frame", "@nativescript/core/ui/frame/activity"
-  ];
+  const appComponents = env.appComponents || [];
+  appComponents.push(...[
+    "@nativescript/core/ui/frame",
+    "@nativescript/core/ui/frame/activity"
+  ]);
 
   const platform = env && ((env.android && 'android') || (env.ios && 'ios'));
   if (!platform) {
     throw new Error('You need to provide a target platform!');
-  }
-
-  if (platform === "android") {
-    appComponents.push("nativescript-auth0/android/provider/redirectActivity");
   }
 
   const AngularCompilerPlugin = getAngularCompilerPlugin(platform);
@@ -89,7 +86,7 @@ module.exports = env => {
   const tsConfigTnsName = 'tsconfig.tns.json';
   const tsConfigTnsPath = resolve(projectRoot, tsConfigTnsName);
   if (fs.existsSync(tsConfigTnsPath)) {
-    // support shared angular app configurations 
+    // support shared angular app configurations
     tsConfigName = tsConfigTnsName;
     tsConfigPath = tsConfigTnsPath;
   }
@@ -394,7 +391,7 @@ module.exports = env => {
         process: 'global.process'
       }),
       // Remove all files from the out dir.
-      new CleanWebpackPlugin({ 
+      new CleanWebpackPlugin({
         cleanOnceBeforeBuildPatterns: itemsToClean,
         verbose: !!verbose
       }),

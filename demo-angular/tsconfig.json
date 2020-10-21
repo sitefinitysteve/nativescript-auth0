@@ -24,8 +24,13 @@
     "./references.d.ts",
     "./src/main.ts"
   ],
+	"include": [
+		"../src",
+		"**/*"
+	],
 	"exclude": [
-		"node_modules",
-		"platforms"
+			"../src/node_modules",
+			"node_modules",
+			"platforms"
 	]
 }

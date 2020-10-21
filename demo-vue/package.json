@@ -1,11 +1,9 @@
 {
-  "name": "demo-vue",
-  "version": "1.0.0",
-  "description": "A native application built with NativeScript-Vue",
-  "author": "Stefan Andres Charsley <charsleysa@gmail.com>",
-  "license": "MIT",
+  "name": "auth0-demo-vue",
+  "main": "main",
   "dependencies": {
     "@nativescript/core": "7.0.0",
+    "@nativescript/theme": "^3.0.0",
     "@nativescript/webpack": "3.0.0",
     "@vue/devtools": "^5.0.1",
     "nativescript-auth0": "file:../src",
@@ -18,12 +16,12 @@
     "@babel/core": "~7.1.0",
     "@babel/preset-env": "~7.1.0",
     "@nativescript/android": "7.0.0",
+    "@nativescript/ios": "7.0.3",
     "babel-loader": "~8.0.0",
     "nativescript-vue-template-compiler": "~2.8.1",
     "sass": "^1.26.11",
     "typescript": "3.9.7",
-    "vue-loader": "~15.4.0",
-    "vue": "^2.6.10"
-  },
-  "main": "main"
+    "vue": "^2.6.10",
+    "vue-loader": "~15.4.0"
+  }
 }

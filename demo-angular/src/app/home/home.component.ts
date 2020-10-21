@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Auth0 } from 'nativescript-auth0';
+import { Auth0, Credentials, WebAuthException } from 'nativescript-auth0';
 
 @Component({
     selector: "Home",
@@ -26,9 +26,12 @@ export class HomeComponent implements OnInit {
     login() {
         this.auth0.webAuthentication({
             scope: 'openid offline_access'
-        }).then((result) => {
-            this._message = JSON.stringify(result);
+        }).then((result: Credentials) => {
+            this._message = JSON.stringify(result, null, '  ');
             console.log(result);
-        }).catch((e: Error) => console.log(e, e.stack));
+        }).catch((error: Error | WebAuthException) => {
+            this._message = JSON.stringify(error, null, '  ');
+            console.log(error.stack);
+        });
     }
 }
