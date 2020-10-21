@@ -5,6 +5,7 @@ import { Credentials } from '../common/credentials';
 import { Logger } from './logger';
 import { TransactionStore } from './transactionStore';
 
+@NativeClass()
 export class SafariSessionDelegate extends NSObject {
 
     public static ObjCProtocols = [SFSafariViewControllerDelegate];
@@ -25,6 +26,7 @@ export class SafariSessionDelegate extends NSObject {
 export class SafariSession extends AuthSession {
 
     controller: WeakRef<UIViewController>;
+    private _delegate: SafariSessionDelegate;
 
     constructor(
         controller: SFSafariViewController,
@@ -36,6 +38,7 @@ export class SafariSession extends AuthSession {
     ) {
         super(redirectURL, state, handler, finish, logger);
         this.controller = new WeakRef(controller);
-        controller.delegate = SafariSessionDelegate.initWithOwner(new WeakRef(this));
+        this._delegate = SafariSessionDelegate.initWithOwner(new WeakRef(this));
+        controller.delegate = this._delegate;
     }
 }

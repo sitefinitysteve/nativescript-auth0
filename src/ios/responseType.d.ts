@@ -4,5 +4,5 @@ export declare class ResponseType {
     static readonly token: ResponseType;
     static readonly idToken: ResponseType;
     static readonly code: ResponseType;
-    readonly label: string | null;
+    get label(): string | null;
 }

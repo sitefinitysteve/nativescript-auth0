@@ -1,7 +1,18 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded" class="page"
-  xmlns:ui="nativescript-auth0">
-  <StackLayout class="p-20">
-    <Button text="Login" tap="{{ onTap }}"></Button>
-    <Label text="{{ message }}" class="t-20 text-center c-black" textWrap="true"/>
-  </StackLayout>
+<Page
+  xmlns="http://schemas.nativescript.org/tns.xsd"
+  loaded="pageLoaded"
+  class="page"
+  xmlns:ui="nativescript-auth0"
+>
+  <ScrollView>
+    <StackLayout class="p-20">
+      <StackLayout orientation="horizontal" horizontalAlignment="center" class="m-b-20">
+          <Image src="~/assets/nativescript-logo.png" height="100"></Image>
+          <Image src="~/assets/auth0-logo.png" height="100"></Image>
+      </StackLayout>
+
+      <Button text="Login" class="-primary" tap="{{ onTap }}"></Button>
+      <Label text="{{ message }}" class="body mono p-20" textWrap="true"/>
+    </StackLayout>
+  </ScrollView>
 </Page>

@@ -4,15 +4,15 @@ export declare class AuthenticationError extends Auth0Error {
     constructor(info: {
         [key: string]: any;
     }, statusCode: number);
-    readonly isMultifactorRequired: boolean;
-    readonly isMultifactorEnrollRequired: boolean;
-    readonly isMultifactorCodeInvalid: boolean;
-    readonly isMultifactorTokenInvalid: boolean;
-    readonly isPasswordNotStrongEnough: boolean;
-    readonly isPasswordAlreadyUsed: boolean;
-    readonly isRuleError: boolean;
-    readonly isInvalidCredentials: boolean;
-    readonly isAccessDenied: boolean;
-    readonly isTooManyAttempts: boolean;
+    get isMultifactorRequired(): boolean;
+    get isMultifactorEnrollRequired(): boolean;
+    get isMultifactorCodeInvalid(): boolean;
+    get isMultifactorTokenInvalid(): boolean;
+    get isPasswordNotStrongEnough(): boolean;
+    get isPasswordAlreadyUsed(): boolean;
+    get isRuleError(): boolean;
+    get isInvalidCredentials(): boolean;
+    get isAccessDenied(): boolean;
+    get isTooManyAttempts(): boolean;
     value<T>(key: string): T | undefined;
 }

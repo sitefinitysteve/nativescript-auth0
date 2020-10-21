@@ -1,36 +1,27 @@
 {
-  "name": "demo-vue",
-  "version": "1.0.0",
-  "description": "A native application built with NativeScript-Vue",
-  "author": "Stefan Andres Charsley <charsleysa@gmail.com>",
-  "license": "MIT",
-  "nativescript": {
-    "id": "org.nativescript.auth0demo",
-    "tns-ios": {
-      "version": "6.0.1"
-    },
-    "tns-android": {
-      "version": "6.0.0"
-    }
-  },
+  "name": "auth0-demo-vue",
+  "main": "main",
   "dependencies": {
+    "@nativescript/core": "7.0.0",
+    "@nativescript/theme": "^3.0.0",
+    "@nativescript/webpack": "3.0.0",
     "@vue/devtools": "^5.0.1",
     "nativescript-auth0": "file:../src",
     "nativescript-socketio": "^3.3.1",
     "nativescript-toasty": "^2.0.0",
-    "nativescript-vue": "^2.3.0",
     "nativescript-vue-devtools": "^1.2.0",
-    "tns-core-modules": "6.0.1"
+    "nativescript-vue": "^2.8.1"
   },
   "devDependencies": {
     "@babel/core": "~7.1.0",
     "@babel/preset-env": "~7.1.0",
+    "@nativescript/android": "7.0.0",
+    "@nativescript/ios": "7.0.3",
     "babel-loader": "~8.0.0",
-    "nativescript-dev-webpack": "~1.0.1",
-    "nativescript-vue-template-compiler": "~2.3.0",
-    "node-sass": "^4.7.1",
+    "nativescript-vue-template-compiler": "~2.8.1",
+    "sass": "^1.26.11",
+    "typescript": "3.9.7",
     "vue": "^2.6.10",
-    "vue-loader": "~15.4.0",
-    "typescript": "~3.4.5"
+    "vue-loader": "~15.4.0"
   }
 }

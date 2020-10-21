@@ -1,6 +1,6 @@
 export declare class ControllerModalPresenter {
-    readonly rootViewController: UIViewController | undefined;
+    get rootViewController(): UIViewController | undefined;
     present(controller: UIViewController): void;
-    readonly topViewController: UIViewController | undefined;
+    get topViewController(): UIViewController | undefined;
     private findTopViewController;
 }

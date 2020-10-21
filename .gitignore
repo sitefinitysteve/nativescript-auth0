@@ -1,4 +1,5 @@
 .vscode
+.history
 .idea
 .DS_Store
 *.esm.json
@@ -14,6 +15,7 @@ seed-tests/seed-copy/**/*.*
 seed-tests/seed-copy-new-git-repo/**/*.*
 !demo/karma.conf.js
 !demo/webpack.config.js
+!demo/webpack.custom.config.js
 !demo/app/tests/*.js
 demo/*.d.ts
 !demo/references.d.ts
@@ -28,3 +30,5 @@ demo/report/report.html
 demo/report/stats.json
 !demo-vue/babel.config.js
 !demo-vue/webpack.config.js
+!demo-vue/webpack.custom.config.js
+package-lock.json

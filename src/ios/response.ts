@@ -1,4 +1,4 @@
-import { HttpRequestOptions, HttpResponse, HttpResponseEncoding, HttpContent } from 'tns-core-modules/http/http';
+import { HttpResponseEncoding, HttpRequestOptions, HttpResponse, HttpContent } from '@nativescript/core/http';
 
 import { Auth0Error } from './auth0Error';
 

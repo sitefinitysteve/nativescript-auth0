@@ -1,4 +1,4 @@
-import { request as httpRequest, HttpRequestOptions, HttpResponse } from 'tns-core-modules/http/http';
+import { request as httpRequest, HttpRequestOptions } from '@nativescript/core/http';
 
 import { Auth0Error } from './auth0Error';
 import { Requestable } from './requestable';

@@ -10,8 +10,9 @@ import ContextCompat = androidx.core.content.ContextCompat;
 /**
  * Holder for Custom Tabs customization options. Use {@link CustomTabsOptions#newBuilder()} to begin.
  */
+@NativeClass()
 @Interfaces([Parcelable])
-export class CustomTabsOptions extends java.lang.Object {
+class CustomTabsOptions extends java.lang.Object {
 
     private showTitle: boolean;
     private toolbarColor: number;
@@ -58,3 +59,5 @@ export class CustomTabsOptions extends java.lang.Object {
         }
     });
 }
+
+export { CustomTabsOptions };

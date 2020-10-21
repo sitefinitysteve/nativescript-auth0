@@ -1,44 +1,47 @@
 <template>
-    <Page>
-        <ActionBar title="Welcome to NativeScript-Vue!"/>
+<Page>
+    <ScrollView>
         <StackLayout class="p-20">
-            <Button text="Login" @tap="onTap"></Button>
-            <Label :text="message" class="t-20 text-center c-black" textWrap="true"/>
+            <StackLayout orientation="horizontal" horizontalAlignment="center" class="m-b-20">
+                <Image src="~/assets/nativescript-vue-logo.png" height="100" />
+                <Image src="~/assets/auth0-logo.png" height="100" />
+            </StackLayout>
+
+            <Button text="Login" class="-primary" @tap="onTap" />
+            <Label :text="message" class="body mono p-20" textWrap />
         </StackLayout>
-    </Page>
+    </ScrollView>
+</Page>
 </template>
 
 <script lang="ts">
-  import { Auth0 } from 'nativescript-auth0';
-  const auth0 = new Auth0('q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp', 'nativescript.auth0.com');
-  export default {
-    data() {
-      const data = {
-        message: 'Hello World!',
-        onTap: function () {
-          auth0.webAuthentication({
-            scope: 'openid offline_access'
-          }).then((result) => {
-            data.message = JSON.stringify(result);
-            console.log(result);
-          }).catch((e: Error) => console.log(e, e.stack));
-        }
-      }
-      return data;
+import { Auth0, Credentials, WebAuthException } from 'nativescript-auth0';
+
+export default {
+  data() {
+    return {
+      auth0: new Auth0('q5atQzi6DgmWBpHWRJbd7MBNa5eLBPRp', 'nativescript.auth0.com'),
+      message: ''
+    };
+  },
+  methods: {
+    onTap() {
+      this.auth0.webAuthentication({
+        scope: 'openid offline_access'
+      }).then((result: Credentials) => {
+        this.message = JSON.stringify(result, null, '  ');
+        console.log(result);
+      }).catch((error: Error | WebAuthException) => {
+        this.message = JSON.stringify(error, null, '  ');
+        console.log(error.stack);
+      });
     }
   }
+}
 </script>
 
-<style scoped>
-    ActionBar {
-        background-color: #53ba82;
-        color: #ffffff;
-    }
-
-    .message {
-        vertical-align: center;
-        text-align: center;
-        font-size: 20;
-        color: #333333;
-    }
+<style lang="scss">
+.mono {
+  font-family: monospace;
+}
 </style>

@@ -1,4 +1,4 @@
-import { HttpRequestOptions } from 'tns-core-modules/http/http';
+import { HttpRequestOptions } from '@nativescript/core/http';
 export declare class Telemetry {
     static readonly NameKey: string;
     static readonly VersionKey: string;
@@ -7,7 +7,7 @@ export declare class Telemetry {
     static readonly LibraryName: string;
     enabled: boolean;
     info?: string;
-    readonly value: string | undefined;
+    get value(): string | undefined;
     constructor();
     wrapped(name: string, version: string): void;
     addTelemetryHeader(request: HttpRequestOptions): void;

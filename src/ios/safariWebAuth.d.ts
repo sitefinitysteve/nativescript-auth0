@@ -46,6 +46,6 @@ export declare class SafariWebAuth extends WebAuth {
         [key: string]: string;
     }, state: string | undefined): NSURL;
     handler(redirectURL: NSURL): OAuth2Grant;
-    readonly redirectURL: NSURL | undefined;
+    get redirectURL(): NSURL | undefined;
     clearSession(federated: boolean, callback: (success: boolean) => void): void;
 }

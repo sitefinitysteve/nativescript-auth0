@@ -13,5 +13,6 @@ export declare class SafariSessionDelegate extends NSObject {
 }
 export declare class SafariSession extends AuthSession {
     controller: WeakRef<UIViewController>;
+    private _delegate;
     constructor(controller: SFSafariViewController, redirectURL: NSURL, state: string | undefined, handler: OAuth2Grant, finish: (result: Result<Credentials>) => void, logger: Logger | undefined);
 }

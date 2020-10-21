@@ -2,7 +2,7 @@ import { Response } from './response';
 import { AuthenticationError } from './authenticationError';
 import { Result } from './result';
 import { JSONObjectPayload } from '../common/jsonObjectPayload';
-import { HttpResponseEncoding } from 'tns-core-modules/http/http';
+import { HttpResponseEncoding } from '@nativescript/core/http';
 import { emptyBodyError, Auth0Error } from './auth0Error';
 
 export function plainJson(response: Response<AuthenticationError>, callback: (result: Result<{ [key: string]: any }>) => void) {
