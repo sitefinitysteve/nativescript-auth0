@@ -39,20 +39,20 @@
 
 		<!-- Auth0 -->
 		<activity
-            android:name="org.nativescript.auth0.RedirectActivity"
-            tools:node="replace">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+				android:name="org.nativescript.auth0.RedirectActivity"
+				tools:node="replace">
+				<intent-filter>
+						<action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+						<category android:name="android.intent.category.DEFAULT" />
+						<category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:host="nativescript.auth0.com"
-                    android:pathPrefix="/android/${applicationId}/callback"
-                    android:scheme="https" />
-            </intent-filter>
-        </activity>
+						<data
+								android:host="nativescript.auth0.com"
+								android:pathPrefix="/android/${applicationId}/callback"
+								android:scheme="https" />
+				</intent-filter>
+		</activity>
 		<!-- Auth0 -->
 	</application>
 </manifest>

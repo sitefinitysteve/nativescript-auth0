@@ -25,9 +25,6 @@ module.exports = env => {
     if (!platform) {
         throw new Error("You need to provide a target platform!");
     }
-    if (platform === "android") {
-      appComponents.push("nativescript-auth0/android/provider/redirectActivity");
-    }
 
     const platforms = ["ios", "android"];
     const projectRoot = __dirname;
@@ -271,7 +268,7 @@ module.exports = env => {
                 "process": "global.process",
             }),
             // Remove all files from the out dir.
-            new CleanWebpackPlugin({ 
+            new CleanWebpackPlugin({
               cleanOnceBeforeBuildPatterns: itemsToClean,
               verbose: !!verbose
             }),

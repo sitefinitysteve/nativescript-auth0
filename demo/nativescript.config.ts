@@ -7,5 +7,6 @@ export default {
     v8Flags: '--expose_gc',
     markingMode: 'none'
   },
-  appPath: 'app'
+  appPath: 'app',
+  webpackConfigPath: './webpack.custom.config.js',
 } as NativeScriptConfig

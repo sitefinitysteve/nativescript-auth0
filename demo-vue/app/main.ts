@@ -1,8 +1,8 @@
 import Vue from 'nativescript-vue';
 import App from './components/App.vue';
+import { setupAuth0 } from './auth0-setup';
 
-// Prints Vue logs when --env.production is *NOT* set while building
-Vue.config.silent = (TNS_ENV === 'production');
+setupAuth0();
 
 new Vue({
   render: h => h('frame', [h(App)])

@@ -6,9 +6,6 @@ export default {
   android: {
     v8Flags: '--expose_gc',
     markingMode: 'none',
-    requireModules: {
-      0: 'nativescript-auth0',
-    },
   },
   appPath: 'app',
   webpackConfigPath: './webpack.custom.config.js',
