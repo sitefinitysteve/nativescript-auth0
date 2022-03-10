@@ -38,4 +38,5 @@ export declare class WebAuthProvider {
     start(activity: Activity, callback: AuthCallback): void;
     static resume(intent: Intent): boolean;
     static getInstance(): OAuthManager;
+    clearSession(federated: boolean, callback: (success: boolean) => void): void;
 }

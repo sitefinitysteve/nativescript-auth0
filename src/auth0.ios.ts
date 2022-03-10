@@ -141,4 +141,21 @@ export class Auth0 extends Auth0Common {
             }
         });
     }
+
+    public logoutUser(federated: boolean): Promise<boolean> {
+        const auth = SafariWebAuth.init(this.clientId, a0_url(this.domain));
+        return new Promise((resolve, reject) => {
+            try {
+               auth.clearSession(federated, (success) => {
+                   if (!success) {
+                       reject(new WebAuthException('Fail to Logout'));
+                   } else {
+                       resolve(success);
+                   }
+               });
+            } catch (e) {
+                reject(e);
+            }
+        });
+    }
 }

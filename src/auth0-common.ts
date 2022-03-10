@@ -36,4 +36,5 @@ export abstract class Auth0Common {
     public abstract renewCredentials(refreshToken: string): Promise<Credentials>;
     public abstract revokeRefreshToken(refreshToken: string): Promise<void>;
     public abstract getUserInfo(accessToken: string): Promise<UserInfo>;
+    public abstract logoutUser(federated: boolean): Promise<boolean | string>;
 }

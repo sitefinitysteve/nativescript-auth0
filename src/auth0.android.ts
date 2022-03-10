@@ -138,4 +138,20 @@ export class Auth0 extends Auth0Common {
             }
         });
     }
+    public logoutUser(federated: boolean): Promise<string> {
+        const auth = new WebAuthProvider(this.account);
+        return new Promise((resolve, reject) => {
+            try {
+                auth.clearSession(federated, (success) => {
+                    if (!success) {
+                        reject(new WebAuthException('Fail to Logout'));
+                    } else {
+                        resolve('Not Implemented Yet');
+                    }
+                });
+            } catch (e) {
+                reject(e);
+            }
+        });
+    }
 }
