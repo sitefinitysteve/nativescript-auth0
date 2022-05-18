@@ -9,15 +9,15 @@
     "android": "ns debug android --emulator --no-hmr"
   },
   "dependencies": {
-    "@nativescript/core": "~7.0.11",
+    "@nativescript/core": "~8.2.0",
     "@nativescript/theme": "^3.0.0",
-    "@nativescript/webpack": "~3.0.7",
     "nativescript-auth0": "file:../src"
   },
   "devDependencies": {
-    "@nativescript/android": "7.0.0",
-    "@nativescript/ios": "7.0.3",
-    "@nativescript/types": "~7.0.0",
-    "typescript": "~4.0.0"
+    "@nativescript/android": "~8.2.0",
+    "@nativescript/ios": "~8.2.0",
+    "@nativescript/types": "~8.2.0",
+    "typescript": "~4.5.5",
+    "@nativescript/webpack": "~5.0.0"
   }
 }
