@@ -4,6 +4,8 @@ export {
     Credentials,
     UserInfo
 };
+export { ResponseType } from './auth0-common';
+
 
 /**
  * iOS Only
