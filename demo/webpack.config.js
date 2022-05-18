@@ -1,12 +1,15 @@
 const webpack = require("@nativescript/webpack");
 
 module.exports = (env) => {
-	webpack.init(env);
+  // handle auth0 activity for android (appComponents are only handled for android)
+  env.appComponents = (env.appComponents || []).concat([
+    "nativescript-auth0/android/provider/redirectActivity",
+  ]);
 
-	// Learn how to customize:
-	// https://docs.nativescript.org/webpack
+  webpack.init(env);
 
-	return webpack.resolveConfig();
+  // Learn how to customize:
+  // https://docs.nativescript.org/webpack
+
+  return webpack.resolveConfig();
 };
-
-

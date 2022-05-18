@@ -1,3 +1,8 @@
+/**
+ User's credentials obtained from Auth0.
+ What values are available depends on what type of Auth request you perfomed,
+ so if you used WebAuth (`/authorize` call) the `response_type` and `scope` will determine what tokens you get
+ */
 export declare class Credentials {
     readonly accessToken: string | undefined;
     readonly tokenType: string | undefined;

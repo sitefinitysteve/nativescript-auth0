@@ -28,7 +28,7 @@
         "demo-vue.android": "npm run build && cd ../demo-vue && ns run android",
         "demo-vue.reset": "cd ../demo-vue && rimraf platforms",
         "plugin.prepare": "npm run build && cd ../demo && ns plugin remove nativescript-auth0 && ns plugin add ../src",
-        "clean": "cd ../demo && ns clean && cd ../src && npx rimraf node_modules package-lock.json yarn.lock",
+        "clean": "cd ../demo && ns clean && cd ../demo-angular && ns clean && cd ../src && npx rimraf node_modules package-lock.json yarn.lock",
         "ci.tslint": "npm r && tslint '**/*.ts' --config '../tslint.json' --exclude '**/node_modules/**'"
     },
     "keywords": [

@@ -165,7 +165,7 @@ function decode(jwt: string): { [key: string]: any } | undefined {
         .replace('_', '/');
 
     const length = NSString.stringWithString(base64).lengthOfBytesUsingEncoding(NSUTF8StringEncoding);
-    const requiredLength = 4 * ceil(length / 4.0);
+    const requiredLength = 4 * Math.ceil(length / 4.0);
     const paddingLength = requiredLength - length;
     if (paddingLength > 0) {
         const padding = NSString.string().stringByPaddingToLengthWithStringStartingAtIndex(paddingLength, '=', 0);

@@ -5,8 +5,8 @@
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"noEmitHelpers": true,
-    "noEmitOnError": true,
-    "skipLibCheck": true,
+		"noEmitOnError": true,
+		"skipLibCheck": true,
 		"lib": [
 			"dom",
 			"es2017"
@@ -19,18 +19,18 @@
 		},
 		"moduleResolution": "node",
 		"removeComments": false
-  },
-  "files": [
-    "./references.d.ts",
-    "./src/main.ts"
-  ],
+	},
+	"files": [
+		"./references.d.ts",
+		"./src/main.ts",
+		"./src/polyfills.ts"
+	],
 	"include": [
-		"../src",
-		"**/*"
+		"../src"
 	],
 	"exclude": [
-			"../src/node_modules",
-			"node_modules",
-			"platforms"
+		"../src/node_modules",
+		"node_modules",
+		"platforms"
 	]
 }
