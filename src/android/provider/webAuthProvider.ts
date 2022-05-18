@@ -266,4 +266,8 @@ export class WebAuthProvider {
     public static getInstance(): OAuthManager {
         return WebAuthProvider.managerInstance;
     }
+
+    public clearSession(federated: boolean, callback: (success: boolean) => void) {
+        callback(true);
+    }
 }

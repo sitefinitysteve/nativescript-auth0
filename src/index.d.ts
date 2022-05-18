@@ -44,4 +44,5 @@ export class Auth0 {
     public renewCredentials(refreshToken: string): Promise<Credentials>;
     public revokeRefreshToken(refreshToken: string): Promise<void>;
     public getUserInfo(accessToken: string): Promise<UserInfo>;
+    public logoutUser(federated: boolean): Promise<boolean | string>;
 }
