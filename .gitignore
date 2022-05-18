@@ -32,3 +32,4 @@ demo/report/stats.json
 !demo-vue/webpack.config.js
 !demo-vue/webpack.custom.config.js
 package-lock.json
+*.tgz
