@@ -13,12 +13,12 @@ export class AlgorithmHelper {
     private static readonly US_ASCII: string = "US-ASCII";
     private static readonly SHA_256: string = "SHA-256";
 
-    private getBase64String(source: native.Array<number>): string {
+    private getBase64String(source: androidNative.Array<number>): string {
         return Base64.encodeToString(source, Base64.URL_SAFE | Base64.NO_WRAP | Base64.NO_PADDING);
     }
 
-    public getASCIIBytes(value: string): native.Array<number> {
-        let input: native.Array<number>;
+    public getASCIIBytes(value: string): androidNative.Array<number> {
+        let input: androidNative.Array<number>;
         try {
             const javaString = new java.lang.String(value);
             input = javaString.getBytes(AlgorithmHelper.US_ASCII);
@@ -33,8 +33,8 @@ export class AlgorithmHelper {
         return input;
     }
 
-    public getSHA256(input: native.Array<number>): native.Array<number> {
-        let signature: native.Array<number>;
+    public getSHA256(input: androidNative.Array<number>): androidNative.Array<number> {
+        let signature: androidNative.Array<number>;
         try {
             const md = MessageDigest.getInstance(AlgorithmHelper.SHA_256);
             md.update(input, 0, input.length);

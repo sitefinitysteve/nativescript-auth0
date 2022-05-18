@@ -25,9 +25,32 @@ declare class CustomTabsController extends CustomTabsServiceConnection {
     getCustomizationOptions(): CustomTabsOptions;
     onCustomTabsServiceConnected(componentName: ComponentName, customTabsClient: CustomTabsClient): void;
     onServiceDisconnected(componentName: ComponentName): void;
+    /**
+     * Attempts to bind the Custom Tabs Service to the Context.
+     */
     bindService(): void;
+    /**
+     * Attempts to unbind the Custom Tabs Service from the Context.
+     */
     unbindService(): void;
+    /**
+     * Opens a Uri in a Custom Tab or Browser.
+     * The Custom Tab service will be given up to {@link CustomTabsController#MAX_WAIT_TIME_SECONDS} to be connected.
+     * If it fails to connect the Uri will be opened on a Browser.
+     * <p>
+     * In the exceptional case that no Browser app is installed on the device, this method will fail silently and do nothing.
+     * Please, ensure the {@link Intent#ACTION_VIEW} action can be handled before calling this method.
+     *
+     * @param uri the uri to open in a Custom Tab or Browser.
+     */
     launchUri(uri: Uri): void;
+    /**
+     * Query the OS for a Custom Tab compatible Browser application.
+     * It will pick the default browser first if is Custom Tab compatible, then any Chrome browser or the first Custom Tab compatible browser.
+     *
+     * @param context a valid Context
+     * @return the recommended Browser application package name, compatible with Custom Tabs. Null if no compatible browser is found.
+     */
     static getBestBrowserPackage(context: Context): string;
 }
 export { CustomTabsController, CustomTabsOptions };

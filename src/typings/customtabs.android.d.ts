@@ -306,7 +306,7 @@ declare module androidx {
 					public setOnItemSelectedAction(param0: globalAndroid.app.PendingIntent): androidx.browser.browseractions.BrowserActionsIntent.Builder;
 					public constructor(param0: globalAndroid.content.Context, param1: globalAndroid.net.Uri);
 					public setUrlType(param0: number): androidx.browser.browseractions.BrowserActionsIntent.Builder;
-					public setCustomItems(param0: native.Array<androidx.browser.browseractions.BrowserActionItem>): androidx.browser.browseractions.BrowserActionsIntent.Builder;
+					public setCustomItems(param0: androidNative.Array<androidx.browser.browseractions.BrowserActionItem>): androidx.browser.browseractions.BrowserActionsIntent.Builder;
 					public build(): androidx.browser.browseractions.BrowserActionsIntent;
 					public setCustomItems(param0: java.util.ArrayList<androidx.browser.browseractions.BrowserActionItem>): androidx.browser.browseractions.BrowserActionsIntent.Builder;
 				}
@@ -401,7 +401,7 @@ declare module androidx {
 					public setActionButton(param0: globalAndroid.graphics.Bitmap, param1: string, param2: globalAndroid.app.PendingIntent): androidx.browser.customtabs.CustomTabsIntent.Builder;
 					/** @deprecated */
 					public addToolbarItem(param0: number, param1: globalAndroid.graphics.Bitmap, param2: string, param3: globalAndroid.app.PendingIntent): androidx.browser.customtabs.CustomTabsIntent.Builder;
-					public setSecondaryToolbarViews(param0: globalAndroid.widget.RemoteViews, param1: native.Array<number>, param2: globalAndroid.app.PendingIntent): androidx.browser.customtabs.CustomTabsIntent.Builder;
+					public setSecondaryToolbarViews(param0: globalAndroid.widget.RemoteViews, param1: androidNative.Array<number>, param2: globalAndroid.app.PendingIntent): androidx.browser.customtabs.CustomTabsIntent.Builder;
 					public build(): androidx.browser.customtabs.CustomTabsIntent;
 					public enableUrlBarHiding(): androidx.browser.customtabs.CustomTabsIntent.Builder;
 					public addDefaultShareMenuItem(): androidx.browser.customtabs.CustomTabsIntent.Builder;
@@ -491,7 +491,7 @@ declare module androidx {
 				/** @deprecated */
 				public setToolbarItem(param0: number, param1: globalAndroid.graphics.Bitmap, param2: string): boolean;
 				public static createMockSessionForTesting(param0: globalAndroid.content.ComponentName): androidx.browser.customtabs.CustomTabsSession;
-				public setSecondaryToolbarViews(param0: globalAndroid.widget.RemoteViews, param1: native.Array<number>, param2: globalAndroid.app.PendingIntent): boolean;
+				public setSecondaryToolbarViews(param0: globalAndroid.widget.RemoteViews, param1: androidNative.Array<number>, param2: globalAndroid.app.PendingIntent): boolean;
 				public requestPostMessageChannel(param0: globalAndroid.net.Uri): boolean;
 				public postMessage(param0: string, param1: globalAndroid.os.Bundle): number;
 			}
